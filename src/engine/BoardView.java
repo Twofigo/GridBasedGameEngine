@@ -35,13 +35,12 @@ class BoardCanvas extends JPanel{
     Board b;
 
     public BoardCanvas(Board b) {
-        this.setBackground(Color.green);
         this.b = b;
     }
 
     @Override
     public void paint(Graphics g){
-        g.drawRect(5,5,100,100);
+        g.fillRect(5,5,100,100);
         g.setColor(Color.green);
     }
 }

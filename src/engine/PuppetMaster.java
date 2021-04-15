@@ -22,10 +22,12 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0,0));
         //Container contentPane = this.getContentPane();
         //contentPane.setLayout(new GridLayout(1,1));
-
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setTitle("Little Game");
         this.setSize(400,400);
-        this.setVisible(true);
         this.addComponentListener(this);
+        this.setVisible(true);
+
     }
 
     public boolean interract(Interaction i, Tile obj1, Tile obj2){
@@ -43,19 +45,22 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
         updateSize();
     }
     public void updateSize(){
-        Rectangle r = this.getBounds();
-        int w;
-        int h;
+        /*Rectangle r = this.getBounds();
+        int w = r.width;
+        int h = r.height;
+        */
+        Dimension d = this.getSize();
+        int w = d.width;
+        int h = d.height;
 
 
-        if((r.width/aspectX)*aspectY < r.height){
-            w = r.width;
-            h = (r.width/aspectX)*aspectY;
+
+        if((w/aspectX)*aspectY < h){
+            h = (w/aspectX)*aspectY;
             System.out.println("width");
         }
         else{
-            w = (r.height/aspectY)*aspectX;
-            h = r.height;
+            w = (h/aspectY)*aspectX;
             System.out.println("height");
         }
         //this.setSize(new Dimension(w,h));
@@ -71,6 +76,7 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
         contentPane.add(view);
         currentView = view;
         updateSize();
+        this.pack();
     }
 
     @Override

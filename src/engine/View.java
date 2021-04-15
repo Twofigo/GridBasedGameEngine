@@ -17,7 +17,7 @@ abstract public class View extends JPanel{
 
         JPanel buttonPanel = new JPanel();
         for(int k=0;k<options.length;k++){
-            JButton b = new JButton(options[k]);
+            Button b = new Button(options[k]);
             b.addActionListener(actions[k]);
             buttonPanel.add(b);
         }
