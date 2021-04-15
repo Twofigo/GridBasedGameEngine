@@ -1,7 +1,7 @@
 package games.TestGame;
 
 import java.awt.*;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class GridBagLayoutExample extends JFrame {
 
@@ -10,13 +10,16 @@ public class GridBagLayoutExample extends JFrame {
     }
 
     public GridBagLayoutExample() {
-        setSize(300, 300);
+        setSize(800, 800);
         //setPreferredSize(getSize());
+
         setBackground(Color.CYAN);
 
-
-        setLayout(new GridBagLayout());
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
         setTitle("GridBag Layout");
+
+
 
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -24,27 +27,39 @@ public class GridBagLayoutExample extends JFrame {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        this.add(new Button("Button 1"), gbc);
+
+        JPanel p;
+        p = new JPanel();
+        p.setBackground(Color.blue);
+        this.add(p, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        this.add(new Button("Button 2"), gbc);
+        p = new JPanel();
+        p.setBackground(Color.red);
+        this.add(p, gbc);
 
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.ipady = 20;
         gbc.gridx = 0;
         gbc.gridy = 2;
-        this.add(new Button("Button 3"), gbc);
+        p = new JPanel();
+        p.setBackground(Color.orange);
+        this.add(p, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        this.add(new Button("Button 4"), gbc);
+        p = new JPanel();
+        p.setBackground(Color.cyan);
+        this.add(p, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         //gbc.gridwidth = 2;
-        this.add(new Button("Button 5"), gbc);
+        p = new JPanel();
+        p.setBackground(Color.yellow);
+        this.add(p, gbc);
 
         setVisible(true);
 
