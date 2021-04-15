@@ -11,10 +11,9 @@ public class MenuView extends View{
     public MenuView(String[] options, ActionListener[] actions) {
         super();
         buttonPanel = makeButtonRow(options,actions);
-        buttonPanel.setLayout(new GridLayout(1,buttonCount));
+        buttonPanel.setLayout(new GridLayout(buttonCount,1,0,5));
         buttonCount = options.length;
 
-        buttonPanel.setLayout(new GridLayout(buttonCount,1,0,5));
         this.add(buttonPanel);
     }
 

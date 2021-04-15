@@ -9,7 +9,7 @@ abstract public class View extends JPanel{
 
     public View() {
         this.setBackground(Color.blue);
-        this.setLayout(new BorderLayout(0,0));
+        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 
     }
     protected JPanel makeButtonRow(String[] options, ActionListener[] actions){

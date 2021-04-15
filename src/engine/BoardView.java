@@ -25,14 +25,14 @@ public class BoardView extends View {
 
     @Override
     protected void updateSize(int width, int height) {
-        boardC.setSize(width,width);
+        this.setSize(new Dimension(width,height));
+        boardC.setPreferredSize(new Dimension(width, width));
+        buttonPanel.setPreferredSize(new Dimension(width, height-width-40));
     }
 }
 
-class BoardCanvas extends Canvas{
+class BoardCanvas extends JPanel{
     Board b;
-
-
 
     public BoardCanvas(Board b) {
         this.setBackground(Color.green);
@@ -41,6 +41,7 @@ class BoardCanvas extends Canvas{
 
     @Override
     public void paint(Graphics g){
-
+        g.drawRect(5,5,100,100);
+        g.setColor(Color.green);
     }
 }

@@ -20,8 +20,9 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
         aspectX = 1;
         aspectY = 1;
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0,0));
-
+        //Container contentPane = this.getContentPane();
         //contentPane.setLayout(new GridLayout(1,1));
+
         this.setSize(400,400);
         this.setVisible(true);
         this.addComponentListener(this);
@@ -69,8 +70,7 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
         }
         contentPane.add(view);
         currentView = view;
-
-        this.pack();
+        updateSize();
     }
 
     @Override
