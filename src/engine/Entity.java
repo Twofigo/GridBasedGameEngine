@@ -1,4 +1,5 @@
 package engine;
 
-public class Entity {
+public class Entity extends Tile {
+
 }
