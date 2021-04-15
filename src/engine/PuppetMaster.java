@@ -1,10 +1,9 @@
 package engine;
 
 public abstract class PuppetMaster {
-    Board b;
-
-    public boolean interract(Interraction i, Tile obj1, Tile obj2){
-        return i.action(b,obj1,obj2);
+    Board boa;
+    public boolean interract(Interaction i, Tile obj1, Tile obj2){
+        return i.action(this,obj1,obj2);
     }
-
+    
 }
