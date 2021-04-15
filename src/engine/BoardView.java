@@ -14,7 +14,7 @@ public class BoardView extends View {
     public BoardView(String[] options, ActionListener[] actions, Board b) {
         super();
         buttonPanel = makeButtonRow(options,actions);
-        buttonPanel.setLayout(new GridLayout(1,buttonCount));
+        buttonPanel.setLayout(new GridLayout(1,buttonCount,0,0));
         buttonCount = options.length;
 
         boardC = new BoardCanvas(b);
