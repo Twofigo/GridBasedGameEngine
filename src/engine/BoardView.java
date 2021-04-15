@@ -14,20 +14,31 @@ public class BoardView extends View {
     public BoardView(String[] options, ActionListener[] actions, Board b) {
         super();
         buttonPanel = makeButtonRow(options,actions);
-        buttonPanel.setLayout(new GridLayout(1,buttonCount,0,0));
+        buttonPanel.setLayout(new GridLayout(3,4,0,0));
         buttonCount = options.length;
-
         boardC = new BoardCanvas(b);
 
-        this.add(boardC);
-        this.add(buttonPanel);
+        this.setLayout(new GridBagLayout());
+
+        GridBagConstraints con = new GridBagConstraints();
+
+        con.fill = GridBagConstraints.BOTH;
+        con.gridy = 0;
+        con.weightx = 1.0;
+        con.weighty = 3/4.0;
+        this.add(boardC, con);
+
+        con.gridy = 1;
+        con.weighty = 1/4.0;
+        this.add(buttonPanel, con);
+
+        setVisible(true);
     }
 
     @Override
     protected void updateSize(int width, int height) {
-        this.setSize(new Dimension(width,height));
-        boardC.setPreferredSize(new Dimension(width, width));
-        buttonPanel.setPreferredSize(new Dimension(width, height-width-40));
+        //boardC.setPreferredSize(new Dimension(width, width));
+        //buttonPanel.setPreferredSize(new Dimension(width, height-width-40));
     }
 }
 

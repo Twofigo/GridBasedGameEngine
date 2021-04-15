@@ -24,7 +24,7 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
         //contentPane.setLayout(new GridLayout(1,1));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Little Game");
-        this.setSize(400,400);
+        this.setSize(width,height);
         this.addComponentListener(this);
         this.setVisible(true);
 
@@ -37,24 +37,21 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
     public void setAspect(int x,int y){
         aspectX=x;
         aspectY=y;
+        width = aspectX*100;
+        height = aspectY*100;
         updateSize();
     }
 
     @Override
     public void componentResized(ComponentEvent e) {
         updateSize();
+        Rectangle d = this.getBounds();
+        width = d.width;
+        height = d.height-40;
     }
     public void updateSize(){
-        /*Rectangle r = this.getBounds();
-        int w = r.width;
-        int h = r.height;
-        */
-        Dimension d = this.getSize();
-        int w = d.width;
-        int h = d.height;
-
-
-
+        int w = width;
+        int h = height;
         if((w/aspectX)*aspectY < h){
             h = (w/aspectX)*aspectY;
             System.out.println("width");
@@ -64,8 +61,10 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
             System.out.println("height");
         }
         //this.setSize(new Dimension(w,h));
-        if(currentView!=null)
+        if(currentView!=null) {
+            currentView.setPreferredSize(new Dimension(w, h));
             currentView.updateSize(w, h);
+        }
     }
 
     public void setView(View view){
