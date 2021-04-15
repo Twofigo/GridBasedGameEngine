@@ -7,14 +7,9 @@ import java.awt.event.ActionListener;
 
 public class ShittyGame {
     public static void main(String[] args) {
-        JFrame f = new JFrame();
-        f.setLayout(new GridLayout(1,1));
-        MenuView mv = new MenuView(new String[]{"hej","hopp","snopp"}, new ActionListener[]{null,null,null});
-        mv.show(f);
+        PuppetMaster p = new PuppetMaster(){};
 
-        Container contentPane = f.getContentPane();
-        contentPane.setLayout(new BorderLayout());
-        f.setSize(300,300);
-        f.setVisible(true);
+        MenuView mv = new MenuView(new String[]{"hej","hopp","snopp"}, new ActionListener[]{null,null,null});
+        p.setView(mv);
     }
 }

@@ -6,25 +6,33 @@ import java.awt.event.ComponentEvent;
 import javax.swing.*;
 
 public class BoardView extends View {
+    private JPanel buttonPanel;
+    int buttonCount;
 
     private BoardCanvas boardC;
 
     public BoardView(String[] options, ActionListener[] actions, Board b) {
-        super(options, actions);
+        super();
+        buttonPanel = makeButtonRow(options,actions);
+        buttonPanel.setLayout(new GridLayout(1,buttonCount));
+        buttonCount = options.length;
+
         boardC = new BoardCanvas(b);
-        buttonPanel.setLayout(new GridLayout(1,buttons.length));
-        panel.add(boardC);
-        panel.add(buttonPanel);
+
+        this.add(boardC);
+        this.add(buttonPanel);
     }
 
     @Override
-    protected void setSize(int width, int height) {
+    protected void updateSize(int width, int height) {
         boardC.setSize(width,width);
     }
 }
 
 class BoardCanvas extends Canvas{
     Board b;
+
+
 
     public BoardCanvas(Board b) {
         this.setBackground(Color.green);

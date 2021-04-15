@@ -5,17 +5,22 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class MenuView extends View{
+    private JPanel buttonPanel;
+    int buttonCount;
 
     public MenuView(String[] options, ActionListener[] actions) {
-        super(options, actions);
+        super();
+        buttonPanel = makeButtonRow(options,actions);
+        buttonPanel.setLayout(new GridLayout(1,buttonCount));
+        buttonCount = options.length;
 
-        buttonPanel.setLayout(new GridLayout(buttons.length,1,0,5));
-        panel.add(buttonPanel);
+        buttonPanel.setLayout(new GridLayout(buttonCount,1,0,5));
+        this.add(buttonPanel);
     }
 
     @Override
-    protected void setSize(int width, int height) {
-        panel.setSize(new Dimension(width,height));
-        buttonPanel.setPreferredSize(new Dimension(width, buttons.length*50));
+    protected void updateSize(int width, int height) {
+        this.setSize(new Dimension(width,height));
+        buttonPanel.setPreferredSize(new Dimension(width, buttonCount*50));
     }
 }
