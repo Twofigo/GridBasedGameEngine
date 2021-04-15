@@ -7,16 +7,19 @@ import java.awt.event.ComponentListener;
 import javax.swing.*;
 
 abstract public class View implements ComponentListener {
+    JPanel buttonPanel;
 
     protected JButton[] buttons;
     protected JPanel panel;
     public View(String[] options, ActionListener[] actions) {
         if (options.length!=actions.length) throw new IndexOutOfBoundsException();
 
+        buttonPanel = new JPanel();
         buttons = new JButton[options.length];
         for(int k=0;k<options.length;k++){
             buttons[k] = new JButton(options[k]);
             buttons[k].addActionListener(actions[k]);
+            buttonPanel.add(buttons[k]);
         }
         panel = new JPanel();
     }
@@ -28,6 +31,8 @@ abstract public class View implements ComponentListener {
         for (int i = 0; i < buttons.length; i++) {
             System.out.println(buttons[i].getText());
         }
+
+
 
     }
     public void hide(JFrame frame){
