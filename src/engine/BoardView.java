@@ -10,8 +10,8 @@ public class BoardView extends View {
 
     private BoardCanvas boardC;
 
-    public BoardView(String[] options, ActionListener[] actions, Board b) {
-        super();
+    public BoardView(String name, String[] options, ActionListener[] actions, Board b) {
+        super(name);
         buttonPanel = makeButtonRow(options,actions);
         buttonPanel.setLayout(new GridLayout(12,1,0,0));
         buttonCount = options.length;
@@ -42,10 +42,8 @@ public class BoardView extends View {
 
     @Override
     protected void updateSize(int width, int height) {
-        //boardC.setPreferredSize(new Dimension(width, width));
-        //buttonPanel.setPreferredSize(new Dimension(width, height-width-40));
         boardC.setScalar(width*3.0/4);
-        boardC.draw();
+        //boardC.draw();
     }
 }
 
@@ -104,6 +102,7 @@ class BoardCanvas extends JPanel{
             g.fillRect(tranX(w*100),tranY(h*100), (int)(100*scalar*zoom)+1,(int)(100*scalar*zoom)+1);
             //System.out.println("i:"+index+" x:"+tranX(w*100)+" y:"+tranY(h*100)+" w:"+(int)(100*scalar*zoom+0.5)+" h:"+(int)(100*scalar*zoom+0.5));
         }
+        //super.paint(g);
     }
 
     private int tranX(int x){

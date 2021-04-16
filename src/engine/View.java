@@ -6,8 +6,9 @@ import java.awt.event.ComponentEvent;
 import javax.swing.*;
 
 abstract public class View extends JPanel{
-
-    public View() {
+    private final String name;
+    public View(String name) {
+        this.name = name;
         //this.setBackground(Color.blue);
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
     }
@@ -22,6 +23,9 @@ abstract public class View extends JPanel{
             buttonPanel.add(b);
         }
         return buttonPanel;
+    }
+    public String getName(){
+        return name;
     }
 
     protected abstract void updateSize(int width, int height);
