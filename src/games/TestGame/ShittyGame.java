@@ -12,7 +12,7 @@ public class ShittyGame {
     static MenuView mv;
     public static void main(String[] args) {
         p = new PuppetMaster(){};
-        p.setAspect(3,4);
+        p.setAspect(4,3);
 
 
         Board b = new Board(10,10);

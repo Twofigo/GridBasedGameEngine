@@ -24,7 +24,7 @@ public class MenuView extends View{
         con.weighty = buttonCount/12.0;
         this.add(buttonPanel, con);
 
-        con.weighty = (12-buttonCount)/12.0;
+        con.weighty = (12-buttonCount)/24.0;
         con.gridy = 0;
         this.add(new JPanel(), con);
         con.gridy = 2;

@@ -54,11 +54,9 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
         int h = height;
         if((w/aspectX)*aspectY < h){
             h = (w/aspectX)*aspectY;
-            System.out.println("width");
         }
         else{
             w = (h/aspectY)*aspectX;
-            System.out.println("height");
         }
         //this.setSize(new Dimension(w,h));
         if(currentView!=null) {

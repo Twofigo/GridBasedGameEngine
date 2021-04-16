@@ -14,7 +14,7 @@ public class BoardView extends View {
     public BoardView(String[] options, ActionListener[] actions, Board b) {
         super();
         buttonPanel = makeButtonRow(options,actions);
-        buttonPanel.setLayout(new GridLayout(3,4,0,0));
+        buttonPanel.setLayout(new GridLayout(12,1,0,0));
         buttonCount = options.length;
         boardC = new BoardCanvas(b);
 
@@ -24,12 +24,14 @@ public class BoardView extends View {
 
         con.fill = GridBagConstraints.BOTH;
         con.gridy = 0;
-        con.weightx = 1.0;
-        con.weighty = 3/4.0;
+        con.gridx = 0;
+        con.weighty = 1.0;
+        con.weightx = 3/4.0;
         this.add(boardC, con);
 
-        con.gridy = 1;
-        con.weighty = 1/4.0;
+        con.gridy = 0;
+        con.gridx = 1;
+        con.weightx = 1/4.0;
         this.add(buttonPanel, con);
 
         setVisible(true);

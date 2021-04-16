@@ -18,6 +18,7 @@ abstract public class View extends JPanel{
         JPanel buttonPanel = new JPanel();
         for(int k=0;k<options.length;k++){
             Button b = new Button(options[k]);
+            b.setPreferredSize(new Dimension(0,0));
             b.addActionListener(actions[k]);
             buttonPanel.add(b);
         }
