@@ -13,8 +13,8 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
     private int aspectX;
     private int aspectY;
 
-    private int width;
-    private int height;
+    private int width = 400;
+    private int height = 300;
 
     public PuppetMaster() {
         aspectX = 1;
@@ -27,7 +27,7 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
         this.setSize(width,height);
         this.addComponentListener(this);
         this.setVisible(true);
-
+        this.setResizable(false);
     }
 
     public boolean interract(Interaction i, Tile obj1, Tile obj2){
