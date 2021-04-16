@@ -8,8 +8,6 @@ import java.awt.event.ActionListener;
 
 public class ShittyGame extends PuppetMaster{
     static PuppetMaster p;
-    static BoardView bv;
-    static MenuView mv;
     public static void main(String[] args) {
         new ShittyGame();
     }
@@ -17,13 +15,13 @@ public class ShittyGame extends PuppetMaster{
     public ShittyGame() {
         super();
         Board b = new Board(10,10);
-        bv = new BoardView("mainBoard",new String[]{"hej","hopp","snopp"}, new ActionListener[]{new ActionListener() {
+        BoardView bv = new BoardView("mainBoard",new String[]{"hej","hopp","snopp"}, new ActionListener[]{new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeToMenuView();
             }
         },null,null},b);
-        mv = new MenuView("mainMenu",new String[]{"hej","hopp","snopp"}, new ActionListener[]{new ActionListener() {
+        MenuView mv = new MenuView("mainMenu",new String[]{"hej","hopp","snopp"}, new ActionListener[]{new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeToBoardView();
