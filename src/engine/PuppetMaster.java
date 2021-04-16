@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 
-public abstract class PuppetMaster extends JFrame implements ComponentListener {
+public abstract class PuppetMaster extends JFrame{
 
     private Board boa;
     private View currentView;
@@ -23,8 +23,6 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Little Game");
         this.setAspect(1,1);
-        this.setSize(width,height);
-        this.addComponentListener(this);
         this.setVisible(true);
 
     }
@@ -38,40 +36,26 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
         aspectY=y;
         width = aspectX*100;
         height = aspectY*100;
-        updateSize();
+        this.setSize(width,height);
     }
 
     @Override
     public void paint(Graphics g) {
+        Dimension d = this.getSize();
+        width = d.width;
+        height = d.height;
+        updateSize();
         super.paint(g);
-
-        Dimension d = this.getSize();
-        width = d.width;
-        height = d.height-40;
-        updateSize();
-    }
-
-    @Override
-    public void componentResized(ComponentEvent e) {
-        //this.repaint();
-        //Rectangle d = this.getBounds();
-/*
-        Dimension d = this.getSize();
-        width = d.width;
-        height = d.height-40;
-        updateSize();
-*/
     }
     public void updateSize(){
         int w = width;
-        int h = height;
-        if((w/aspectX)*aspectY < h){
+        int h = height-40;
+        if((w/aspectX)*aspectY<h){
             h = (w/aspectX)*aspectY;
         }
         else{
             w = (h/aspectY)*aspectX;
         }
-        //this.setSize(new Dimension(w,h));
         if(currentView!=null) {
             currentView.setPreferredSize(new Dimension(w, h));
             currentView.updateSize(w, h);
@@ -88,11 +72,4 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
         updateSize();
         this.pack();
     }
-
-    @Override
-    public void componentMoved(ComponentEvent e){}
-    @Override
-    public void componentShown(ComponentEvent e){}
-    @Override
-    public void componentHidden(ComponentEvent e){}
 }
