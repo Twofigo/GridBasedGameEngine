@@ -32,6 +32,7 @@ public class Window extends JFrame{
     public void setAspect(int x,int y){
         aspectX=x;
         aspectY=y;
+        repaint();
     }
 
     @Override
@@ -58,6 +59,8 @@ public class Window extends JFrame{
     }
     public void lockResize(boolean lock){
         this.setResizable(!lock);
+        this.setSize(innerWidth, innerHeight);
+        repaint();
     }
 
     public void setView(View view){
@@ -71,5 +74,6 @@ public class Window extends JFrame{
         currentView = view;
         updateSize();
         this.pack();
+        //repaint();
     }
 }
