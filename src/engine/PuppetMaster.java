@@ -17,13 +17,12 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
     private int height;
 
     public PuppetMaster() {
-        aspectX = 1;
-        aspectY = 1;
         this.setLayout(new FlowLayout(FlowLayout.CENTER, 0,0));
         //Container contentPane = this.getContentPane();
         //contentPane.setLayout(new GridLayout(1,1));
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Little Game");
+        this.setAspect(1,1);
         this.setSize(width,height);
         this.addComponentListener(this);
         this.setVisible(true);
@@ -43,11 +42,25 @@ public abstract class PuppetMaster extends JFrame implements ComponentListener {
     }
 
     @Override
-    public void componentResized(ComponentEvent e) {
-        updateSize();
-        Rectangle d = this.getBounds();
+    public void paint(Graphics g) {
+        super.paint(g);
+
+        Dimension d = this.getSize();
         width = d.width;
         height = d.height-40;
+        updateSize();
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        //this.repaint();
+        //Rectangle d = this.getBounds();
+/*
+        Dimension d = this.getSize();
+        width = d.width;
+        height = d.height-40;
+        updateSize();
+*/
     }
     public void updateSize(){
         int w = width;
