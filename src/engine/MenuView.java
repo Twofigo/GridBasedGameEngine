@@ -8,8 +8,8 @@ public class MenuView extends View{
     private JPanel buttonPanel;
     int buttonCount;
 
-    public MenuView(String[] options, ActionListener[] actions) {
-        super();
+    public MenuView(String name, String[] options, ActionListener[] actions) {
+        super(name);
         buttonPanel = makeButtonRow(options,actions);
         buttonPanel.setLayout(new GridLayout(buttonCount,1,0,0));
         buttonCount = options.length;

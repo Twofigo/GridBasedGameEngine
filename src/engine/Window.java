@@ -4,10 +4,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.util.ArrayList;
 
 public class Window extends JFrame{
 
     private View currentView;
+    private ArrayList<View> views;
+    private final JPanel cardPanel;
+    private final CardLayout cardLayout;
 
     private int aspectX;
     private int aspectY;
@@ -26,6 +30,11 @@ public class Window extends JFrame{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Little Game");
         this.setVisible(true);
+        cardLayout = new CardLayout(0,0);
+        cardPanel = new JPanel(cardLayout);
+        cardPanel.setBackground(Color.PINK);
+        this.add(cardPanel);
+        views = new ArrayList<View>();
         repaint();
     }
 
@@ -52,10 +61,12 @@ public class Window extends JFrame{
         else{
             innerWidth = (innerHeight/aspectY)*aspectX;
         }
-        if(currentView!=null) {
-            currentView.setPreferredSize(new Dimension(innerWidth, innerHeight));
+
+        cardPanel.setPreferredSize(new Dimension(innerWidth, innerHeight));
+        if(currentView!=null){
             currentView.updateSize(innerWidth, innerHeight);
         }
+
     }
     public void lockResize(boolean lock){
         this.setResizable(!lock);
@@ -63,17 +74,19 @@ public class Window extends JFrame{
         repaint();
     }
 
-    public void setView(View view){
-        Container contentPane = getContentPane();
-        if(currentView!=null) {
-            contentPane.remove(currentView);
-            this.setSize(600,600);
-
+    public void addView(View view){
+        views.add(view);
+        //cardLayout.addLayoutComponent(view, view.getName());
+        cardPanel.add(view.getName(), view);
+    }
+    public void setView(String name){
+        for (View v:views) {
+            if(v.getName().equals(name)){
+                currentView = v;
+                cardLayout.show(cardPanel, name);
+                repaint();
+            }
         }
-        contentPane.add(view);
-        currentView = view;
-        updateSize();
-        this.pack();
-        //repaint();
+
     }
 }
