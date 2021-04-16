@@ -6,15 +6,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ShittyGame {
+public class ShittyGame extends PuppetMaster{
     static PuppetMaster p;
     static BoardView bv;
     static MenuView mv;
     public static void main(String[] args) {
-        p = new PuppetMaster(){};
-        p.setAspect(4,3);
+        new ShittyGame();
+    }
 
-
+    public ShittyGame() {
+        super();
         Board b = new Board(10,10);
         bv = new BoardView(new String[]{"hej","hopp","snopp"}, new ActionListener[]{new ActionListener() {
             @Override
@@ -28,14 +29,16 @@ public class ShittyGame {
                 changeToBoardView();
             }
         },null,null});
-
-        p.setView(mv);
-    }
-    public static void changeToBoardView(){
-        p.setView(bv);
+        this.window.setView(mv);
+        this.window.setAspect(4,3);
+        this.window.updateSize();
     }
 
-    public static void changeToMenuView(){
-        p.setView(mv);
+    public void changeToBoardView(){
+        this.window.setView(bv);
+    }
+
+    public void changeToMenuView(){
+        this.window.setView(mv);
     }
 }
