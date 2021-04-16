@@ -32,7 +32,7 @@ public class Board implements Iterable{
 
 
     @Override
-    public Iterator iterator() {
+    public boardIterator iterator() {
         return new boardIterator(this);
     }
 }
@@ -48,7 +48,7 @@ class boardIterator implements Iterator<Tile>{
 
     @Override
     public boolean hasNext() {
-        if (current+1<b.width()*b.height())return true;
+        if (current<b.width()*b.height())return true;
         return false;
     }
 

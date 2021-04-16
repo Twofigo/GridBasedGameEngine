@@ -8,9 +8,8 @@ import javax.swing.*;
 abstract public class View extends JPanel{
 
     public View() {
-        this.setBackground(Color.blue);
+        //this.setBackground(Color.blue);
         this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-
     }
     protected JPanel makeButtonRow(String[] options, ActionListener[] actions){
         if (options.length!=actions.length) throw new IndexOutOfBoundsException();
