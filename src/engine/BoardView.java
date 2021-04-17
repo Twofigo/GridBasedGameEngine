@@ -55,7 +55,7 @@ public class BoardView extends View {
 }
 
 class BoardCanvas extends JPanel{
-    Board b;
+    TableTop b;
 
     private double zoom;
     private double scalar;
@@ -69,7 +69,7 @@ class BoardCanvas extends JPanel{
         this.setZoom(1);
         this.setBoard(b);
     }
-    public void setBoard(Board b){
+    public void setBoard(TableTop b){
         this.b = b;
         this.width = b.width()*100;
         this.height = b.height()*100;
@@ -92,6 +92,9 @@ class BoardCanvas extends JPanel{
     }
     @Override
     public void paint(Graphics g){
+
+    }
+    protected void drawBoard(Graphics g, Board b){
         int index=0;
         int w;
         int h;
@@ -107,7 +110,6 @@ class BoardCanvas extends JPanel{
         }
         //super.paint(g);
     }
-
     private int tranX(int x){
         return (int)(((x-offsetX)*zoom+(width/2))*scalar);
     }
