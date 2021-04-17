@@ -25,6 +25,9 @@ public class TableTop {
     public int height() {
         return height;
     }
+    public Board getBoard(int index){
+        return boards[index];
+    }
     public Board[] getBoards(){
         return boards;
     }
