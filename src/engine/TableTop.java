@@ -1,7 +1,7 @@
 package engine;
 
 public class TableTop {
-    protected final Board[] boards;
+    private final Board[] boards;
     private final int width;
     private final int height;
 
