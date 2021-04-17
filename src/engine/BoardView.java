@@ -72,7 +72,7 @@ class BoardCanvas extends JPanel{
     public void setTable(TableTop tb){
         this.tb = tb;
         this.width = tb.width()*100;
-        this.height = tb.height()*100;
+        this.height = tb.width()*100;
         this.setScalar(width);
         this.setOffset(tb.width()/2.0,tb.height()/2.0);
         this.draw();
