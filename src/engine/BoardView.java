@@ -2,6 +2,7 @@ package engine;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 import javax.swing.*;
 
 public class BoardView extends View {
@@ -38,6 +39,12 @@ public class BoardView extends View {
     }
     public void draw(){
         boardC.draw();
+    }
+    public void setZoom(double zoom){
+        boardC.setZoom(zoom);
+    }
+    public void setOffset(double offsetX, double offsetY){
+        boardC.setOffset(offsetX, offsetY);
     }
 
     @Override
@@ -88,18 +95,14 @@ class BoardCanvas extends JPanel{
         int index=0;
         int w;
         int h;
-        for(Object t : b) {
+        Iterator<Tile> itr = b.iterator();
+        for(Tile t; itr.hasNext();) {
+            t = itr.next();
             w = index%b.width();
             h = index/b.width();
             index++;
-            t = (Tile) (t);
-            if((w%2+h%2)%2==1) {
-                g.setColor(Color.GREEN);
-            }
-            else{
-                g.setColor(Color.RED);
-            }
-            g.fillRect(tranX(w*100),tranY(h*100), (int)(100*scalar*zoom)+1,(int)(100*scalar*zoom)+1);
+            System.out.println(w+":"+h);
+            g.drawImage(t.getTexture(), tranX(w*100),tranY(h*100), (int)(100*scalar*zoom)+1,(int)(100*scalar*zoom)+1,null);
             //System.out.println("i:"+index+" x:"+tranX(w*100)+" y:"+tranY(h*100)+" w:"+(int)(100*scalar*zoom+0.5)+" h:"+(int)(100*scalar*zoom+0.5));
         }
         //super.paint(g);

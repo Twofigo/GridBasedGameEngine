@@ -13,6 +13,13 @@ public class Board implements Iterable{
         this.height = height;
         this.tiles = new Tile[width][height];
     }
+    public Board(int width, int height, Tile defTile) {
+        this(width, height);
+        for(int y=0;y<height;y++)
+            for(int x=0;x<width;x++){
+                this.set(defTile, x,y);
+            }
+    }
 
     public int width(){
         return width;
@@ -23,13 +30,15 @@ public class Board implements Iterable{
     public Tile get(int x,int y){
         return tiles[x][y];
     }
+    public Tile set(Tile t, int x,int y){
+        return tiles[x][y] = t;
+    }
     public Tile pickup(int x,int y){
         return null;
     }
     public boolean place(Tile tile, int x, int y){
         return false;
     }
-
 
     @Override
     public boardIterator iterator() {
