@@ -73,6 +73,8 @@ public class ShittyGame extends PuppetMaster{
         this.window.updateSize();
         this.window.lockResize(true);
         this.window.setSize(800, 600);
+        //bv.setOffset(3.5,5);
+        //bv.setZoom(1.5);
     }
     public void changeToBoardView(){
         this.window.setView("mainBoard");
