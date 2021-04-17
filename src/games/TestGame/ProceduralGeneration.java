@@ -17,11 +17,13 @@ public class ProceduralGeneration {
     {
         System.out.println(Arrays.deepToString(array).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
     }
+
+
 }
 
 class map
 {
-    int size;
+    int[][] array;
     int maxTunnels;
     int maxLength;
 
