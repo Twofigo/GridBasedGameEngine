@@ -67,7 +67,7 @@ public class ShittyGame extends PuppetMaster{
         window.setAspect(4, 3);
         window.updateSize();
         window.lockResize(true);
-        window.setSize(800, 600);
+        window.setSize(800, 600+40);
         //bv.setOffset(3.5,5);
         //bv.setZoom(1.5);
     }
