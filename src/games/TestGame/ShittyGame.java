@@ -71,11 +71,45 @@ public class ShittyGame extends PuppetMaster{
         //bv.setOffset(3.5,5);
         //bv.setZoom(1.5);
     }
-    public void changeToBoardView(){
+    private void changeToBoardView(){
         getWindow().setView("mainBoard");
     }
-
-    public void changeToMenuView(){
+    private void changeToMenuView(){
         getWindow().setView("mainMenu");
+    }
+
+    @Override
+    public boolean interact(Interaction i, Tile obj1, Tile obj2) {
+        return false;
+    }
+
+    @Override
+    public boolean interact(Interaction i, int x, int y) {
+        return false;
+    }
+
+    @Override
+    protected void onClick(int x, int y, int button) {
+
+    }
+
+    @Override
+    protected void onMouseDown(int x, int y, int button) {
+
+    }
+
+    @Override
+    protected void onMouseMove(int x, int y) {
+
+    }
+
+    @Override
+    protected void onMouseUp(int x, int y, int button) {
+
+    }
+
+    @Override
+    protected void onKeyStroke(int keyCode) {
+
     }
 }

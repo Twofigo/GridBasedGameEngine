@@ -16,7 +16,12 @@ public abstract class PuppetMaster extends JFrame{
         return window;
     }
 
-    public boolean interract(Interaction i, Tile obj1, Tile obj2){
-        return i.action(this,obj1,obj2);
-    }
+    public abstract boolean interact(Interaction i, Tile obj1, Tile obj2);
+    public abstract boolean interact(Interaction i, int x, int y);
+
+    protected abstract void onClick(int x, int y, int button);
+    protected abstract void onMouseDown(int x, int y, int button);
+    protected abstract void onMouseMove(int x, int y);
+    protected abstract void onMouseUp(int x, int y, int button);
+    protected abstract void onKeyStroke(int keyCode);
 }
