@@ -20,6 +20,15 @@ public class Board implements Iterable{
                 this.set(defTile, x,y);
             }
     }
+    public void update(){
+        Iterator<Tile> itr = this.iterator();
+        for(Tile t;itr.hasNext();){
+            t = itr.next();
+            if(t instanceof Entity){
+                ((Entity) t).update();
+            }
+        }
+    }
 
     public int width(){
         return width;

@@ -5,6 +5,8 @@ import engine.Window;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 public class ShittyGame extends PuppetMaster{
     static PuppetMaster p;
@@ -71,6 +73,12 @@ public class ShittyGame extends PuppetMaster{
         //bv.setOffset(3.5,5);
         //bv.setZoom(1.5);
     }
+
+    @Override
+    public void update() {
+
+    }
+
     private void changeToBoardView(){
         getWindow().setView("mainBoard");
     }
@@ -89,27 +97,31 @@ public class ShittyGame extends PuppetMaster{
     }
 
     @Override
-    protected void onClick(int x, int y, int button) {
+    public void mouseClicked(MouseEvent e) {
+        System.out.println("x:"+e.getX()+" y:"+e.getY());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
 
     }
 
     @Override
-    protected void onMouseDown(int x, int y, int button) {
+    public void mouseReleased(MouseEvent e) {
 
     }
 
     @Override
-    protected void onMouseMove(int x, int y) {
+    public void mouseDragged(MouseEvent e) {
 
     }
 
     @Override
-    protected void onMouseUp(int x, int y, int button) {
+    public void mouseMoved(MouseEvent e) {
 
     }
-
     @Override
-    protected void onKeyStroke(int keyCode) {
+    public void keyPressed(KeyEvent e) {
 
     }
 }

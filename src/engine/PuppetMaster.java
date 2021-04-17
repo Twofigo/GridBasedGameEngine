@@ -1,27 +1,35 @@
 package engine;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 import java.awt.*;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+import java.awt.event.*;
 
-public abstract class PuppetMaster extends JFrame{
+public abstract class PuppetMaster extends JFrame implements KeyListener, MouseInputListener {
     private final Window window;
 
     public PuppetMaster() {
         window = new Window(1, 1);
+        window.addMouseListener(this);
+        window.addMouseMotionListener(this);
+        window.addKeyListener(this);
     }
 
     public Window getWindow() {
         return window;
     }
 
+    public abstract void update();
     public abstract boolean interact(Interaction i, Tile obj1, Tile obj2);
     public abstract boolean interact(Interaction i, int x, int y);
 
-    protected abstract void onClick(int x, int y, int button);
-    protected abstract void onMouseDown(int x, int y, int button);
-    protected abstract void onMouseMove(int x, int y);
-    protected abstract void onMouseUp(int x, int y, int button);
-    protected abstract void onKeyStroke(int keyCode);
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+    @Override
+    public void mouseExited(MouseEvent e) {}
+    @Override
+    public void keyTyped(KeyEvent e){}
+    @Override
+    public void keyReleased(KeyEvent e){}
+
 }

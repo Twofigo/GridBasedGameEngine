@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 public class Window extends JFrame{
@@ -88,5 +90,16 @@ public class Window extends JFrame{
             }
         }
 
+    }
+
+
+    // overwriting these is probably a horrible idea, but horrible ideas are more fun when the bugs arrive, so this stays for now.
+    @Override
+    public void addMouseListener(MouseListener l){
+        cardPanel.addMouseListener(l);
+    }
+    @Override
+    public void addMouseMotionListener(MouseMotionListener l){
+        cardPanel.addMouseMotionListener(l);
     }
 }
