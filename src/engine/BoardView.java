@@ -11,12 +11,12 @@ public class BoardView extends View {
 
     private BoardCanvas boardC;
 
-    public BoardView(String name, String[] options, ActionListener[] actions, Board b) {
+    public BoardView(String name, String[] options, ActionListener[] actions, TableTop tb) {
         super(name);
         buttonPanel = makeButtonRow(options,actions);
         buttonPanel.setLayout(new GridLayout(12,1,0,0));
         buttonCount = options.length;
-        boardC = new BoardCanvas(b);
+        boardC = new BoardCanvas(tb);
 
         this.setLayout(new GridBagLayout());
 
@@ -55,7 +55,7 @@ public class BoardView extends View {
 }
 
 class BoardCanvas extends JPanel{
-    Board b;
+    TableTop tb;
 
     private double zoom;
     private double scalar;
@@ -65,16 +65,16 @@ class BoardCanvas extends JPanel{
     private int width;
     private int height;
 
-    public BoardCanvas(Board b){
+    public BoardCanvas(TableTop tb){
         this.setZoom(1);
-        this.setBoard(b);
+        this.setTable(tb);
     }
-    public void setBoard(Board b){
-        this.b = b;
-        this.width = b.width()*100;
-        this.height = b.height()*100;
+    public void setTable(TableTop tb){
+        this.tb = tb;
+        this.width = tb.width()*100;
+        this.height = tb.height()*100;
         this.setScalar(width);
-        this.setOffset(b.width()/2.0,b.height()/2.0);
+        this.setOffset(tb.width()/2.0,tb.height()/2.0);
         this.draw();
     }
     public void setZoom(double zoom){
@@ -92,6 +92,11 @@ class BoardCanvas extends JPanel{
     }
     @Override
     public void paint(Graphics g){
+        for (Board b:tb.getBoards()){
+            drawBoard(g,b);
+        }
+    }
+    protected void drawBoard(Graphics g, Board b){
         int index=0;
         int w;
         int h;
@@ -101,13 +106,12 @@ class BoardCanvas extends JPanel{
             w = index%b.width();
             h = index/b.width();
             index++;
-            System.out.println(w+":"+h);
+            if(t==null) continue;
             g.drawImage(t.getTexture(), tranX(w*100),tranY(h*100), (int)(100*scalar*zoom)+1,(int)(100*scalar*zoom)+1,null);
             //System.out.println("i:"+index+" x:"+tranX(w*100)+" y:"+tranY(h*100)+" w:"+(int)(100*scalar*zoom+0.5)+" h:"+(int)(100*scalar*zoom+0.5));
         }
         //super.paint(g);
     }
-
     private int tranX(int x){
         return (int)(((x-offsetX)*zoom+(width/2))*scalar);
     }
