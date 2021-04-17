@@ -72,7 +72,7 @@ class BoardCanvas extends JPanel{
     public void setTable(TableTop tb){
         this.tb = tb;
         this.width = tb.width()*100;
-        this.height = tb.height()*100;
+        this.height = tb.width()*100;
         this.setScalar(width);
         this.setOffset(tb.width()/2.0,tb.height()/2.0);
         this.draw();
@@ -92,11 +92,14 @@ class BoardCanvas extends JPanel{
     }
     @Override
     public void paint(Graphics g){
+        int trX = (int)((width*0.5-offsetX*zoom)*scalar);;
+        int trY = (int)((height*0.5-offsetY*zoom)*scalar);
+        g.translate(trX, trY);
         for (Board b:tb.getBoards()){
-            drawBoard(g,b);
+            drawBoard(g,b,scalar*zoom);
         }
     }
-    protected void drawBoard(Graphics g, Board b){
+    protected void drawBoard(Graphics g, Board b, double scalar){
         int index=0;
         int w;
         int h;
@@ -107,15 +110,9 @@ class BoardCanvas extends JPanel{
             h = index/b.width();
             index++;
             if(t==null) continue;
-            g.drawImage(t.getTexture(), tranX(w*100),tranY(h*100), (int)(100*scalar*zoom)+1,(int)(100*scalar*zoom)+1,null);
+            g.drawImage(t.getTexture(), (int)(scalar*(w*100)),(int)(scalar*(h*100)), (int)(scalar*100)+1,(int)(scalar*100)+1,null);
             //System.out.println("i:"+index+" x:"+tranX(w*100)+" y:"+tranY(h*100)+" w:"+(int)(100*scalar*zoom+0.5)+" h:"+(int)(100*scalar*zoom+0.5));
         }
         //super.paint(g);
-    }
-    private int tranX(int x){
-        return (int)(((x-offsetX)*zoom+(width/2))*scalar);
-    }
-    private int tranY(int y){
-        return (int)(((y-offsetY)*zoom+(height/2))*scalar);
     }
 }
