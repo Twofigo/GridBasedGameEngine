@@ -5,35 +5,34 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class MenuView extends View{
-    private JPanel buttonPanel;
-    int buttonCount;
-
-    public MenuView(String name, String[] options, ActionListener[] actions) {
+    public MenuView(String name) {
         super(name);
-        buttonPanel = makeButtonRow(options,actions);
-        buttonPanel.setLayout(new GridLayout(buttonCount,1,0,0));
-        buttonCount = options.length;
 
         this.setLayout(new GridBagLayout());
 
         GridBagConstraints con = new GridBagConstraints();
 
-        con.fill = GridBagConstraints.BOTH;
+        con.fill = GridBagConstraints.HORIZONTAL;
         con.gridy = 1;
-        con.weightx = 1.0;
-        con.weighty = buttonCount/12.0;
+        //con.ipady = 20;
+        //con.ipadx = 20;
+        //buttonPanel.setBackground(Color.GREEN);
+        //buttonPanel.setForeground(Color.GREEN);
         this.add(buttonPanel, con);
+        draw();
 
-        con.weighty = (12-buttonCount)/24.0;
-        con.gridy = 0;
-        this.add(new JPanel(), con);
-        con.gridy = 2;
-        this.add(new JPanel(), con);
     }
-
+    @Override
+    public void draw() {
+        buttonPanel.setLayout(new GridLayout(getButtonCount(),1,0,0));
+        repaint();
+    }
     @Override
     public void updateSize(int width, int height) {
         //this.setSize(new Dimension(width,height));
-        //buttonPanel.setPreferredSize(new Dimension(width, buttonCount*50));
+        buttonPanel.setPreferredSize(new Dimension(500, (height/12)*getButtonCount()));
+        buttonPanel.setMinimumSize(new Dimension(1, (height/12)*getButtonCount()));
+        //buttonPanel.setMinimumSize();
+        System.out.println("fuck you");
     }
 }

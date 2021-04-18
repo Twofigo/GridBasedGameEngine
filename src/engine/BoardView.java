@@ -6,8 +6,8 @@ import java.util.Iterator;
 
 public class BoardView extends CanvasView{
     private BoardRenderer br;
-    public BoardView(String name, String[] options, ActionListener[] actions, TableTop tb) {
-        super(name, options, actions);
+    public BoardView(String name, TableTop tb) {
+        super(name);
         br = new BoardRenderer(tb);
         addRenderer(br);
         int w = tb.width();

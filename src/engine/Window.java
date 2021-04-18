@@ -47,7 +47,9 @@ public class Window extends JFrame{
     }
 
     public void draw(){
-        repaint();
+        for (View v:views) {
+            v.draw();
+        }
     }
     @Override
     public void paint(Graphics g) {
@@ -88,7 +90,8 @@ public class Window extends JFrame{
             if(v.getName().equals(name)){
                 currentView = v;
                 cardLayout.show(cardPanel, name);
-                repaint();
+                draw();
+                updateSize();
             }
         }
 

@@ -7,16 +7,12 @@ import java.util.Iterator;
 import javax.swing.*;
 
 public class CanvasView extends View {
-    private JPanel buttonPanel;
-    private int buttonCount;
 
     protected CanvasComponent canvasC;
 
-    public CanvasView(String name, String[] options, ActionListener[] actions) {
+    public CanvasView(String name) {
         super(name);
-        buttonPanel = makeButtonRow(options,actions);
         buttonPanel.setLayout(new GridLayout(12,1,0,0));
-        buttonCount = options.length;
         canvasC = new CanvasComponent();
 
         this.setLayout(new GridBagLayout());
@@ -38,6 +34,16 @@ public class CanvasView extends View {
         canvasC.draw();
         setVisible(true);
     }
+
+    @Override
+    public void updateSize(int width, int height) {
+        canvasC.setScalar(width*3.0/4);
+    }
+    @Override
+    public void draw() {
+        this.repaint();
+    }
+
     public int transX(int x){
         return canvasC.transX(x);
     }
@@ -59,14 +65,9 @@ public class CanvasView extends View {
     public void setScalar(double canvasWidth){
         canvasC.setScalar(canvasWidth);
     }
-    @Override
-    public void updateSize(int width, int height) {
-        canvasC.setScalar(width*3.0/4);
-    }
 }
 
 class CanvasComponent extends JPanel{
-
     private ArrayList<Renderer> renderers;
 
     private double zoom;

@@ -54,18 +54,19 @@ public class ShittyGame extends PuppetMaster{
             return;
         }
 
-        bv = new BoardView("mainBoard", new String[]{"hej", "hopp", "snopp"}, new ActionListener[]{new ActionListener() {
+        bv = new BoardView("mainBoard", tb);
+        mv = new MenuView("mainMenu");
+
+        bv.addButton("Menu", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeToMenuView();
-            }
-        }, null, null}, tb);
-        mv = new MenuView("mainMenu", new String[]{"hej", "hopp", "snopp"}, new ActionListener[]{new ActionListener() {
+            }});
+        mv.addButton("Game", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeToBoardView();
-            }
-        }, null, null});
+            }});
 
         window = getWindow();
         window.addView(bv);
