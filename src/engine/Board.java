@@ -37,10 +37,11 @@ public class Board implements Iterable{
         return height;
     }
     public Tile get(int x,int y){
+        if (x<0 || x>=width || y<0 || y>=height) return null;
         return tiles[x][y];
     }
     public boolean set(Tile t, int x,int y){
-        if (x<0 || x>width || y<0 || y>height) return false;
+        if (x<0 || x>=width || y<0 || y>=height) return false;
         tiles[x][y] = t;
         return true;
     }

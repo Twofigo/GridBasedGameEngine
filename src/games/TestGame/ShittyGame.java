@@ -3,10 +3,7 @@ import engine.*;
 import engine.Window;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class ShittyGame extends PuppetMaster{
     private static PuppetMaster p;
@@ -128,5 +125,14 @@ public class ShittyGame extends PuppetMaster{
     @Override
     public void keyPressed(KeyEvent e) {
 
+    }
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        int amount = e.getUnitsToScroll();
+        double zoom = bv.getZoom() - (bv.getZoom()/20)*amount;
+        if(zoom<0.1) return;
+        if(zoom>50) return;
+        bv.setZoom(zoom);
+        bv.draw();
     }
 }

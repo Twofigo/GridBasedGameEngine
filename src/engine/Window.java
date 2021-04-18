@@ -50,6 +50,7 @@ public class Window extends JFrame{
         for (View v:views) {
             v.draw();
         }
+        this.repaint();
     }
     @Override
     public void paint(Graphics g) {

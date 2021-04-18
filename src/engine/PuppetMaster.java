@@ -5,7 +5,7 @@ import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.*;
 
-public abstract class PuppetMaster extends JFrame implements KeyListener, MouseInputListener {
+public abstract class PuppetMaster extends JFrame implements KeyListener, MouseInputListener, MouseWheelListener {
     private final Window window;
 
     public PuppetMaster() {
@@ -13,6 +13,7 @@ public abstract class PuppetMaster extends JFrame implements KeyListener, MouseI
         window.addMouseListener(this);
         window.addMouseMotionListener(this);
         window.addKeyListener(this);
+        window.addMouseWheelListener(this);
     }
 
     public Window getWindow() {

@@ -8,7 +8,6 @@ import javax.swing.*;
 abstract public class View extends JPanel{
     protected JPanel buttonPanel;
     private int buttonCount;
-
     private final String name;
 
     public View(String name) {
@@ -21,6 +20,7 @@ abstract public class View extends JPanel{
     }
     public abstract void updateSize(int width, int height);
     public abstract void draw();
+
     public void addButton(String name, ActionListener action){
         Button b = new Button(name);
         b.setPreferredSize(new Dimension(0,0));

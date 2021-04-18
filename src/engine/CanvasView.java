@@ -53,6 +53,9 @@ public class CanvasView extends View {
     public void setZoom(double zoom){
         canvasC.setZoom(zoom);
     }
+    public double getZoom(){
+        return canvasC.getZoom();
+    }
     public void setOffset(double offsetX, double offsetY){
         canvasC.setOffset(offsetX, offsetY);
     }
@@ -95,6 +98,9 @@ class CanvasComponent extends JPanel{
     }
     public void setZoom(double zoom){
         this.zoom=zoom;
+    }
+    public double getZoom(){
+        return this.zoom;
     }
     public void setScalar(double canvasWidth){
         this.scalar=(canvasWidth/width);
