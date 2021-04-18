@@ -28,5 +28,5 @@ abstract public class View extends JPanel{
         return name;
     }
 
-    protected abstract void updateSize(int width, int height);
+    public abstract void updateSize(int width, int height);
 }

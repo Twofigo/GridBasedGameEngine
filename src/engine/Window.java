@@ -46,6 +46,9 @@ public class Window extends JFrame{
         repaint();
     }
 
+    public void draw(){
+        repaint();
+    }
     @Override
     public void paint(Graphics g) {
         Dimension d = this.getSize();
@@ -68,7 +71,6 @@ public class Window extends JFrame{
         if(currentView!=null){
             currentView.updateSize(innerWidth, innerHeight);
         }
-
     }
     public void lockResize(boolean lock){
         this.setResizable(!lock);
@@ -91,7 +93,6 @@ public class Window extends JFrame{
         }
 
     }
-
 
     // overwriting these is probably a horrible idea, but horrible ideas are more fun when the bugs arrive, so this stays for now.
     @Override

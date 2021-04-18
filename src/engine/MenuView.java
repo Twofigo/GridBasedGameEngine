@@ -32,7 +32,7 @@ public class MenuView extends View{
     }
 
     @Override
-    protected void updateSize(int width, int height) {
+    public void updateSize(int width, int height) {
         //this.setSize(new Dimension(width,height));
         //buttonPanel.setPreferredSize(new Dimension(width, buttonCount*50));
     }
