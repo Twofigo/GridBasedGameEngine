@@ -37,10 +37,10 @@ public class ShittyGame extends PuppetMaster{
         click = new Tile("Pow!");
 
 
-        Board b1 = new Board(10, 10, t1);
+        Board b1 = new Board(8, 8, t1);
         b1.set(t2, 0, 0);
 
-        Board b2 = new Board(10, 10);
+        Board b2 = new Board(8, 8);
         b2.set(t3, 1, 1);
         b2.set(t3, 2, 2);
         b2.set(t3, 3, 3);
@@ -98,8 +98,9 @@ public class ShittyGame extends PuppetMaster{
     }
     @Override
     public void mouseClicked(MouseEvent e) {
-        int x = bv.transX(e.getX());
-        int y = bv.transY(e.getY());
+        int x = bv.boardTransX(e.getX());
+        int y = bv.boardTransY(e.getY());
+        System.out.println(x+" : "+y);
         x/=100;
         y/=100;
         tb.getBoard(1).set(click, x,y);

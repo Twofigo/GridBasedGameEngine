@@ -50,14 +50,8 @@ public class CanvasView extends View {
     public int transY(int y){
         return canvasC.transY(y);
     }
-    public void setOffset(double offsetX, double offsetY){
-        canvasC.setOffset(offsetX, offsetY);
-    }
     public void addRenderer(Renderer renderer){
         canvasC.addRenderer(renderer);
-    }
-    public void setInnerSize(int width, int height){
-        canvasC.setInnerSize(width, height);
     }
     public void setScalar(double canvasWidth){
         canvasC.setScalar(canvasWidth);
@@ -68,52 +62,37 @@ class CanvasComponent extends JPanel{
     private ArrayList<Renderer> renderers;
 
     private double scalar;
-    private int offsetX;
-    private int offsetY;
+    private final int WIDTH = 1000;
+    private final int HEIGHT = 1000;
 
-    private int width;
-    private int height;
+    public double getScalar() {
+        return scalar;
+    }
 
     public CanvasComponent(){
         renderers = new ArrayList<Renderer>();
         this.scalar = 1;
-        this.setInnerSize(12*100, 12*100);
-        this.setOffset(6,6);
-    }
-    public void setInnerSize(int width, int height){
-        this.width = width;
-        this.height = height;
-        this.draw();
     }
     public void addRenderer(Renderer renderer){
         renderers.add(renderer);
     }
-    public void setScalar(double canvasWidth){
-        this.scalar=(canvasWidth/width);
+    public void setScalar(double width){
+        this.scalar=(width/WIDTH);
     }
-    public void setOffset(double offsetX, double offsetY){
-        this.offsetX=(int)(offsetX*100);
-        this.offsetY=(int)(offsetY*100);
-    }
+
     public void draw(){
         repaint();
     }
     @Override
     public void paint(Graphics g){
-        int trX = (int)((width*0.5-offsetX)*scalar);;
-        int trY = (int)((height*0.5-offsetY)*scalar);
-        g.translate(trX, trY);
-
         for (Renderer r: renderers) {
             r.draw(g,scalar);
         }
     }
     public int transX(int x){
-        int trX = (int)((width*0.5-offsetX)*scalar);
-        return (int)((x-trX)/(scalar));
+        return (int)((x)/(scalar));
     }
     public int transY(int y){
-        int trY = (int)((height*0.5-offsetY)*scalar);
-        return (int)((y-trY)/(scalar));
+        return (int)((y)/(scalar));
     }
 }
