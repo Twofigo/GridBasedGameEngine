@@ -14,6 +14,12 @@ public class BoardView extends CanvasView{
         this.setInnerSize(w*100, w*100);
         this.setOffset(w/2,w/2);
     }
+    public void setZoom(double zoom){
+        br.setZoom(zoom);
+    }
+    public double getZoom(){
+        return br.getZoom();
+    }
     public void setTableTop(TableTop tb) {
         br.setTableTop(tb);
     }
@@ -21,9 +27,11 @@ public class BoardView extends CanvasView{
 
 class BoardRenderer extends Renderer{
     TableTop tb;
+    private double zoom;
 
     public BoardRenderer(TableTop tb) {
         setTableTop(tb);
+        this.zoom = 1;
     }
     public void setTableTop(TableTop tb) {
         this.tb = tb;
@@ -33,8 +41,14 @@ class BoardRenderer extends Renderer{
     public void draw(Graphics g, double scalar) {
         if(tb==null) return;
         for (Board b:tb.getBoards()){
-            drawBoard(g,b,scalar);
+            drawBoard(g,b,scalar*zoom);
         }
+    }
+    public void setZoom(double zoom){
+        this.zoom=zoom;
+    }
+    public double getZoom(){
+        return this.zoom;
     }
     public void drawBoard(Graphics g, Board b, double scalar) {
         int index=0;

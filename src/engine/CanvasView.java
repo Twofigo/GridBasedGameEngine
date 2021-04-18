@@ -50,12 +50,6 @@ public class CanvasView extends View {
     public int transY(int y){
         return canvasC.transY(y);
     }
-    public void setZoom(double zoom){
-        canvasC.setZoom(zoom);
-    }
-    public double getZoom(){
-        return canvasC.getZoom();
-    }
     public void setOffset(double offsetX, double offsetY){
         canvasC.setOffset(offsetX, offsetY);
     }
@@ -73,7 +67,6 @@ public class CanvasView extends View {
 class CanvasComponent extends JPanel{
     private ArrayList<Renderer> renderers;
 
-    private double zoom;
     private double scalar;
     private int offsetX;
     private int offsetY;
@@ -83,7 +76,6 @@ class CanvasComponent extends JPanel{
 
     public CanvasComponent(){
         renderers = new ArrayList<Renderer>();
-        this.zoom = 1;
         this.scalar = 1;
         this.setInnerSize(12*100, 12*100);
         this.setOffset(6,6);
@@ -95,12 +87,6 @@ class CanvasComponent extends JPanel{
     }
     public void addRenderer(Renderer renderer){
         renderers.add(renderer);
-    }
-    public void setZoom(double zoom){
-        this.zoom=zoom;
-    }
-    public double getZoom(){
-        return this.zoom;
     }
     public void setScalar(double canvasWidth){
         this.scalar=(canvasWidth/width);
@@ -114,20 +100,20 @@ class CanvasComponent extends JPanel{
     }
     @Override
     public void paint(Graphics g){
-        int trX = (int)((width*0.5-offsetX*zoom)*scalar);;
-        int trY = (int)((height*0.5-offsetY*zoom)*scalar);
+        int trX = (int)((width*0.5-offsetX)*scalar);;
+        int trY = (int)((height*0.5-offsetY)*scalar);
         g.translate(trX, trY);
 
         for (Renderer r: renderers) {
-            r.draw(g,zoom*scalar);
+            r.draw(g,scalar);
         }
     }
     public int transX(int x){
-        int trX = (int)((width*0.5-offsetX*zoom)*scalar);
-        return (int)((x-trX)/(zoom*scalar));
+        int trX = (int)((width*0.5-offsetX)*scalar);
+        return (int)((x-trX)/(scalar));
     }
     public int transY(int y){
-        int trY = (int)((height*0.5-offsetY*zoom)*scalar);
-        return (int)((y-trY)/(zoom*scalar));
+        int trY = (int)((height*0.5-offsetY)*scalar);
+        return (int)((y-trY)/(scalar));
     }
 }

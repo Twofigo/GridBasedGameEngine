@@ -98,7 +98,6 @@ public class ShittyGame extends PuppetMaster{
     }
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("x:"+bv.transX(e.getX())+" y:"+bv.transY(e.getY()));
         int x = bv.transX(e.getX());
         int y = bv.transY(e.getY());
         x/=100;
