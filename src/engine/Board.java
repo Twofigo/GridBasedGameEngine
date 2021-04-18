@@ -39,14 +39,20 @@ public class Board implements Iterable{
     public Tile get(int x,int y){
         return tiles[x][y];
     }
-    public Tile set(Tile t, int x,int y){
-        return tiles[x][y] = t;
+    public boolean set(Tile t, int x,int y){
+        if (x<0 || x>width || y<0 || y>height) return false;
+        tiles[x][y] = t;
+        return true;
     }
     public Tile pickup(int x,int y){
         return null;
     }
     public boolean place(Tile tile, int x, int y){
-        return false;
+        if(!set(tile, x, y)) return false;
+        if(tile instanceof Entity){
+            ((Entity)(tile)).setPosition(x,y);
+        }
+        return true;
     }
 
     @Override
