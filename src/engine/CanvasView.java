@@ -38,10 +38,13 @@ public class CanvasView extends View {
     @Override
     public void updateSize(int width, int height) {
         canvasC.setScalar(width*3.0/4);
+        draw();
     }
     @Override
     public void draw() {
+        System.out.println("canvasView");
         this.repaint();
+        canvasC.draw();
     }
 
     public int transX(int x){
@@ -81,6 +84,7 @@ class CanvasComponent extends JPanel{
     }
 
     public void draw(){
+        System.out.println("canvas");
         repaint();
     }
     @Override

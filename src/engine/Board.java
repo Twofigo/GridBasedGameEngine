@@ -41,11 +41,15 @@ public class Board implements Iterable{
         return height;
     }
     public Tile get(int x,int y){
-        if (x<0 || x>=width || y<0 || y>=height) return null;
+        if (OutOfBounds(x,y)) return null;
         return tiles[x][y];
     }
+    public boolean OutOfBounds(int x, int y){
+        if (x<0 || x>=(width) || y<0 || y>=(height)) return true;
+        return false;
+    }
     public boolean set(Tile t, int x,int y){
-        if (x<0 || x>=width || y<0 || y>=height) return false;
+        if (OutOfBounds(x,y)) return false;
         tiles[x][y] = t;
         return true;
     }

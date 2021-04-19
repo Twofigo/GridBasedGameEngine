@@ -47,9 +47,8 @@ public class Sokoban extends PuppetMaster {
 
         win.setView("mainBoard");
         win.setAspect(4, 3);
-        win.updateSize();
         win.lockResize(true);
-        win.setSize(800, 600+40);
+        win.updateSize(800, 600+40);
         win.draw();
     }
     @Override
@@ -150,20 +149,20 @@ class moveTo extends Interaction{
         Sokoban game = ((Sokoban)p);
         BasicTableTop world = ((BasicTableTop)tb);
         Board b = world.getMiddleground();
+        if(b.OutOfBounds(x,y)) return false;
         Tile t = b.get(x,y);
         if(t==null){
             b.pickup(e);
             b.place(e,x,y);
+            return true;
         }
-        else if(t instanceof MoveInto){
+        if(t instanceof MoveInto){
             if(((MoveInto)t).moveInto(game,e)){
                 b.pickup(e);
                 b.place(e,x,y);
+                return true;
             }
         }
-        else{
-            return false;
-        }
-        return true;
+        return false;
     }
 }

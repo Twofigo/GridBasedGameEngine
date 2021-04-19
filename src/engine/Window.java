@@ -18,12 +18,6 @@ public class Window extends JFrame{
     private int aspectX;
     private int aspectY;
 
-    private int width;
-    private int height;
-
-    private int innerWidth;
-    private int innerHeight;
-
     public Window(int aspectX, int aspectY) {
         this.setAspect(aspectX,aspectY);
         this.setSize(600,600);
@@ -47,38 +41,31 @@ public class Window extends JFrame{
     }
 
     public void draw(){
+        System.out.println("Draw window");
         for (View v:views) {
             v.draw();
         }
         this.repaint();
+
     }
-    @Override
-    public void paint(Graphics g) {
-        Dimension d = this.getSize();
-        width = d.width;
-        height = d.height;
-        updateSize();
-        super.paint(g);
-    }
-    public void updateSize(){
-        innerWidth = width;
-        innerHeight = height-40;
+    public void updateSize(int width, int height){
+        int innerWidth = width;
+        int innerHeight = height-40;
         if((innerWidth/aspectX)*aspectY<innerHeight){
             innerHeight = (innerWidth/aspectX)*aspectY;
         }
         else{
             innerWidth = (innerHeight/aspectY)*aspectX;
         }
-
+        setSize(new Dimension(innerWidth, innerHeight+40));
         cardPanel.setPreferredSize(new Dimension(innerWidth, innerHeight));
-        if(currentView!=null){
-            currentView.updateSize(innerWidth, innerHeight);
+        for (View v:views) {
+            v.updateSize(innerWidth,innerHeight);
         }
+        draw();
     }
     public void lockResize(boolean lock){
         this.setResizable(!lock);
-        this.setSize(innerWidth, innerHeight);
-        repaint();
     }
 
     public void addView(View view){
@@ -92,7 +79,6 @@ public class Window extends JFrame{
                 currentView = v;
                 cardLayout.show(cardPanel, name);
                 draw();
-                updateSize();
             }
         }
 

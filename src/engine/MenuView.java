@@ -24,6 +24,7 @@ public class MenuView extends View{
     }
     @Override
     public void draw() {
+        System.out.println("MenuView");
         buttonPanel.setLayout(new GridLayout(getButtonCount(),1,0,0));
         repaint();
     }
@@ -33,6 +34,6 @@ public class MenuView extends View{
         buttonPanel.setPreferredSize(new Dimension(500, (height/12)*getButtonCount()));
         buttonPanel.setMinimumSize(new Dimension(1, (height/12)*getButtonCount()));
         //buttonPanel.setMinimumSize();
-        System.out.println("fuck you");
+        draw();
     }
 }

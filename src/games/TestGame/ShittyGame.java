@@ -67,9 +67,8 @@ public class ShittyGame extends PuppetMaster{
 
         win.setView("mainBoard");
         win.setAspect(4, 3);
-        win.updateSize();
         win.lockResize(true);
-        win.setSize(800, 600+40);
+        win.updateSize(800, 600+40);
         win.repaint();
         //bv.setOffset(3.5,5);
         //bv.setZoom(0.8);
@@ -82,7 +81,7 @@ public class ShittyGame extends PuppetMaster{
     }
     @Override
     public void update() {
-
+        //tb.update();
     }
     @Override
     public void mouseClicked(MouseEvent e) {
