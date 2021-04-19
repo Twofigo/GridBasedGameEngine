@@ -1,11 +1,23 @@
 package engine;
 
 public class TableTop {
-    private final Board[] boards;
-    private final int width;
-    private final int height;
+    private Board[] boards;
+    private int width;
+    private int height;
 
+    protected TableTop(){}
     public TableTop(Board[] boards) throws Exception {
+        setBoards(boards);
+    }
+    public TableTop(Board board) {
+        try {
+            setBoards(new Board[]{board});
+        }catch (Exception e){
+            // this will never happen
+        }
+    }
+
+    public void setBoards(Board[] boards) throws Exception{
         this.boards = boards;
         this.width = boards[0].width();
         this.height = boards[0].height();
@@ -13,11 +25,7 @@ public class TableTop {
             if(width!=b.width() || height!=b.height()) throw new Exception("board size mismatch");
         }
     }
-    public TableTop(Board board) {
-        this.boards = new Board[]{board};
-        this.width = boards[0].width();
-        this.height = boards[0].height();
-    }
+
     public int width() {
         return width;
     }

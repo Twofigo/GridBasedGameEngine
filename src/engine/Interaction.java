@@ -1,5 +1,7 @@
 package engine;
 
+import java.util.ArrayList;
+
 public abstract class Interaction {
-    abstract boolean action(PuppetMaster p, Tile obj1, Tile obj2);
+    public abstract boolean action(PuppetMaster p, TableTop tb, Entity obj1, int x, int y);
 }

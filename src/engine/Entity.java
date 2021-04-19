@@ -6,13 +6,24 @@ abstract public class Entity extends Tile{
     private int x;
     private int y;
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     public Entity(Image texture) {
         super(texture);
+    }
+    public Entity(String name) {
+        super(name);
     }
 
     public void setPosition(int x, int y){
         this.x = x;
         this.y = y;
     }
-    abstract void update();
+    public abstract void update();
 }

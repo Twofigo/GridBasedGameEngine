@@ -1,5 +1,6 @@
 package engine;
 
+import java.util.EmptyStackException;
 import java.util.Iterator;
 
 public class Board implements Iterable{
@@ -15,10 +16,7 @@ public class Board implements Iterable{
     }
     public Board(int width, int height, Tile defTile) {
         this(width, height);
-        for(int y=0;y<height;y++)
-            for(int x=0;x<width;x++){
-                this.set(defTile, x,y);
-            }
+        clear(defTile);
     }
     public void update(){
         Iterator<Tile> itr = this.iterator();
@@ -28,6 +26,12 @@ public class Board implements Iterable{
                 ((Entity) t).update();
             }
         }
+    }
+    public void clear(Tile defTile){
+        for(int y=0;y<height;y++)
+            for(int x=0;x<width;x++){
+                this.set(defTile, x,y);
+            }
     }
 
     public int width(){
@@ -46,7 +50,13 @@ public class Board implements Iterable{
         return true;
     }
     public Tile pickup(int x,int y){
-        return null;
+        Tile t = get(x,y);
+        set(null, x,y);
+        return t;
+    }
+    public void pickup(Entity e){
+        pickup(e.getX(), e.getY());
+        e.setPosition(0,0);
     }
     public boolean place(Tile tile, int x, int y){
         if(!set(tile, x, y)) return false;

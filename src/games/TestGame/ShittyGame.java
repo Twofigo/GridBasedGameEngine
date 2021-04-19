@@ -11,7 +11,6 @@ public class ShittyGame extends PuppetMaster{
     private MenuView mv;
     Tile click;
     TableTop tb;
-    Window window;
 
     public static void main(String[] args) {
         new ShittyGame();
@@ -20,9 +19,6 @@ public class ShittyGame extends PuppetMaster{
     public ShittyGame() {
         super();
 
-        Image img1;
-        Image img2;
-        Image img3;
         TextureHandler th = TextureHandler.getInstance();
         th.setRootPath("src/Texture/");
         th.setDefaultTexture("effect/sling_bullet0.png");
@@ -65,16 +61,16 @@ public class ShittyGame extends PuppetMaster{
                 changeToBoardView();
             }});
 
-        window = getWindow();
-        window.addView(bv);
-        window.addView(mv);
+        Window win = getWindow();
+        win.addView(bv);
+        win.addView(mv);
 
-        window.setView("mainBoard");
-        window.setAspect(4, 3);
-        window.updateSize();
-        window.lockResize(true);
-        window.setSize(800, 600+40);
-        window.repaint();
+        win.setView("mainBoard");
+        win.setAspect(4, 3);
+        win.updateSize();
+        win.lockResize(true);
+        win.setSize(800, 600+40);
+        win.repaint();
         //bv.setOffset(3.5,5);
         //bv.setZoom(0.8);
     }
@@ -89,14 +85,6 @@ public class ShittyGame extends PuppetMaster{
 
     }
     @Override
-    public boolean interact(Interaction i, Tile obj1, Tile obj2) {
-        return false;
-    }
-    @Override
-    public boolean interact(Interaction i, int x, int y) {
-        return false;
-    }
-    @Override
     public void mouseClicked(MouseEvent e) {
         int x = bv.boardTransX(e.getX());
         int y = bv.boardTransY(e.getY());
@@ -104,7 +92,7 @@ public class ShittyGame extends PuppetMaster{
         x/=100;
         y/=100;
         tb.getBoard(1).set(click, x,y);
-        window.draw();
+        getWindow().draw();
     }
     @Override
     public void mousePressed(MouseEvent e) {
