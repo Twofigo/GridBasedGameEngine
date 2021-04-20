@@ -64,10 +64,10 @@ class BoardRenderer extends Renderer{
     }
 
     @Override
-    public void draw(Graphics g, double scalar) {
+    public void draw(Graphics g) {
         if(tb==null) return;
 
-        scalar*=1000.0/(tb.width()*100);
+        double scalar=1000.0/(tb.width()*100);
         int trX = (int)((tb.width()*100*0.5-offsetX*zoom)*scalar);;
         int trY = (int)((tb.height()*100*0.5-offsetY*zoom)*scalar);
 

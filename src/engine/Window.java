@@ -6,6 +6,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Window extends JFrame{
@@ -14,6 +15,7 @@ public class Window extends JFrame{
     private ArrayList<View> views;
     private final JPanel cardPanel;
     private final CardLayout cardLayout;
+
 
     private int aspectX;
     private int aspectY;
@@ -26,11 +28,12 @@ public class Window extends JFrame{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setTitle("Little Game");
         this.setVisible(true);
-        cardLayout = new CardLayout(0,0);
-        cardPanel = new JPanel(cardLayout);
-        cardPanel.setBackground(Color.PINK);
-        this.add(cardPanel);
-        views = new ArrayList<View>();
+
+        this.cardLayout = new CardLayout(0,0);
+        this.cardPanel = new JPanel(this.cardLayout);
+        this.cardPanel.setBackground(Color.PINK);
+        this.add(this.cardPanel);
+        this.views = new ArrayList<View>();
         repaint();
     }
 
@@ -41,7 +44,6 @@ public class Window extends JFrame{
     }
 
     public void draw(){
-        System.out.println("Draw window");
         for (View v:views) {
             v.draw();
         }
