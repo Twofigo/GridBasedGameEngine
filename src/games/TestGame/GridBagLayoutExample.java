@@ -1,7 +1,11 @@
 package games.TestGame;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Button;
+import java.awt.CardLayout;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import javax.swing.JFrame;
 
 public class GridBagLayoutExample extends JFrame {
 
@@ -10,58 +14,43 @@ public class GridBagLayoutExample extends JFrame {
     }
 
     public GridBagLayoutExample() {
-        setSize(800, 800);
-        //setPreferredSize(getSize());
-
-        setBackground(Color.CYAN);
-
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
+        setSize(300, 300);
+        setPreferredSize(getSize());
+        setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        GridBagLayout g = new GridBagLayout();
+        GridBagConstraints gbc = new GridBagConstraints();
+        setLayout(g);
         setTitle("GridBag Layout");
 
+        GridBagLayout layout = new GridBagLayout();
 
-
-
-        GridBagConstraints gbc = new GridBagConstraints();
+        this.setLayout(layout);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
+        this.add(new Button("Button 1"), gbc);
 
-        JPanel p;
-        p = new JPanel();
-        p.setBackground(Color.blue);
-        this.add(p, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        this.add(new Button("Button 2"), gbc);
 
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        p = new JPanel();
-        p.setBackground(Color.red);
-        this.add(p, gbc);
-
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 20;
         gbc.gridx = 0;
+        gbc.gridy = 1;
+        this.add(new Button("Button 3"), gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        this.add(new Button("Button 4"), gbc);
+
+        gbc.gridx = 0;
         gbc.gridy = 2;
-        p = new JPanel();
-        p.setBackground(Color.orange);
-        this.add(p, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        p = new JPanel();
-        p.setBackground(Color.cyan);
-        this.add(p, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 4;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        //gbc.gridwidth = 2;
-        p = new JPanel();
-        p.setBackground(Color.yellow);
-        this.add(p, gbc);
-
-        setVisible(true);
+        gbc.gridwidth = 2;
+        this.add(new Button("Button 5"), gbc);
 
     }
 }

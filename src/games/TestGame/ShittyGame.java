@@ -3,12 +3,14 @@ import engine.*;
 import engine.Window;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class ShittyGame extends PuppetMaster{
-    static PuppetMaster p;
-
+    private static PuppetMaster p;
+    private BoardView bv;
+    private MenuView mv;
+    Tile click;
+    TableTop tb;
     public static void main(String[] args) {
         new ShittyGame();
     }
@@ -28,51 +30,53 @@ public class ShittyGame extends PuppetMaster{
         th.addTexture("dc-dngn/floor/bog_green0.png", "Floor1");
         th.addTexture("dc-dngn/floor/cobble_blood1.png", "Floor2");
         th.addTexture("dc-mon/deep_elf_mage.png", "Elf");
+        th.addTexture("spells/air/chain_lightning.png", "Pow!");
 
         Tile t1 = new Tile("Floor1");
         Tile t2 = new Tile("Floor2");
         Tile t3 = new Tile("Elf");
+        click = new Tile("Pow!");
 
 
-        Board b1 = new Board(10, 10, t1);
+        Board b1 = new Board(8, 8, t1);
         b1.set(t2, 0, 0);
 
-        Board b2 = new Board(10, 10);
+        Board b2 = new Board(8, 8);
         b2.set(t3, 1, 1);
         b2.set(t3, 2, 2);
         b2.set(t3, 3, 3);
 
-        TableTop tb;
         try {
              tb = new TableTop(new Board[]{b1, b2});
         } catch (Exception e) {
             return;
         }
 
-        BoardView bv = new BoardView("mainBoard", new String[]{"hej", "hopp", "snopp"}, new ActionListener[]{new ActionListener() {
+        bv = new BoardView("mainBoard", tb);
+        mv = new MenuView("mainMenu");
+
+        bv.addButton("Menu", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeToMenuView();
-            }
-        }, null, null}, tb);
-        MenuView mv = new MenuView("mainMenu", new String[]{"hej", "hopp", "snopp"}, new ActionListener[]{new ActionListener() {
+            }});
+        mv.addButton("Game", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeToBoardView();
-            }
-        }, null, null});
+            }});
 
-        Window window = getWindow();
-        window.addView(bv);
-        window.addView(mv);
+        Window win = getWindow();
+        win.addView(bv);
+        win.addView(mv);
 
-        window.setView("mainBoard");
-        window.setAspect(4, 3);
-        window.updateSize();
-        window.lockResize(true);
-        window.setSize(800, 600+40);
+        win.setView("mainBoard");
+        win.setAspect(4, 3);
+        win.lockResize(true);
+        win.updateSize(800, 600+40);
+        win.repaint();
         //bv.setOffset(3.5,5);
-        //bv.setZoom(1.5);
+        //bv.setZoom(0.8);
     }
     private void changeToBoardView(){
         getWindow().setView("mainBoard");
@@ -80,39 +84,47 @@ public class ShittyGame extends PuppetMaster{
     private void changeToMenuView(){
         getWindow().setView("mainMenu");
     }
-
     @Override
-    public boolean interact(Interaction i, Tile obj1, Tile obj2) {
-        return false;
+    public void update() {
+        //tb.update();
     }
-
     @Override
-    public boolean interact(Interaction i, int x, int y) {
-        return false;
+    public void mouseClicked(MouseEvent e) {
+        int x = bv.boardTransX(e.getX());
+        int y = bv.boardTransY(e.getY());
+        System.out.println(x+" : "+y);
+        x/=100;
+        y/=100;
+        tb.getBoard(1).set(click, x,y);
+        getWindow().draw();
     }
-
     @Override
-    protected void onClick(int x, int y, int button) {
-
-    }
-
-    @Override
-    protected void onMouseDown(int x, int y, int button) {
+    public void mousePressed(MouseEvent e) {
 
     }
-
     @Override
-    protected void onMouseMove(int x, int y) {
+    public void mouseReleased(MouseEvent e) {
 
     }
-
     @Override
-    protected void onMouseUp(int x, int y, int button) {
+    public void mouseDragged(MouseEvent e) {
 
     }
-
     @Override
-    protected void onKeyStroke(int keyCode) {
+    public void mouseMoved(MouseEvent e) {
 
+    }
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        int amount = e.getUnitsToScroll();
+        double zoom = bv.getZoom() - (bv.getZoom()/20)*amount;
+        if(zoom<0.1) return;
+        if(zoom>50) return;
+        bv.setZoom(zoom);
+        bv.draw();
     }
 }
