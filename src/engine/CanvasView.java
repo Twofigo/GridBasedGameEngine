@@ -2,6 +2,7 @@ package engine;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.*;
@@ -14,6 +15,8 @@ public class CanvasView extends View {
         super(name);
         buttonPanel.setLayout(new GridLayout(12,1,0,0));
         canvasC = new CanvasComponent();
+
+
 
         this.setLayout(new GridBagLayout());
 
@@ -37,12 +40,11 @@ public class CanvasView extends View {
 
     @Override
     public void updateSize(int width, int height) {
-        canvasC.setScalar(width*3.0/4);
+        canvasC.updateSize(height, height);
         draw();
     }
     @Override
     public void draw() {
-        System.out.println("canvasView");
         this.repaint();
         canvasC.draw();
     }
@@ -56,47 +58,49 @@ public class CanvasView extends View {
     public void addRenderer(Renderer renderer){
         canvasC.addRenderer(renderer);
     }
-    public void setScalar(double canvasWidth){
-        canvasC.setScalar(canvasWidth);
-    }
 }
 
 class CanvasComponent extends JPanel{
     private ArrayList<Renderer> renderers;
+    private BufferedImage offscreenImage;
+    private Graphics offscreen;
 
-    private double scalar;
-    private final int WIDTH = 1000;
-    private final int HEIGHT = 1000;
 
-    public double getScalar() {
-        return scalar;
-    }
+    private final int innerWidth = 1000;
+    private final int innerHeight = 1000;
+    private int width = 1000;
+    private int height = 1000;
 
     public CanvasComponent(){
         renderers = new ArrayList<Renderer>();
-        this.scalar = 1;
+        this.offscreenImage = new BufferedImage(innerWidth, innerHeight, BufferedImage.TYPE_INT_ARGB);
+        this.offscreen = this.offscreenImage.getGraphics();
     }
     public void addRenderer(Renderer renderer){
         renderers.add(renderer);
     }
-    public void setScalar(double width){
-        this.scalar=(width/WIDTH);
+    public void updateSize(int width, int height) {
+        this.width = width;
+        this.height = height;
+        draw();
     }
 
     public void draw(){
-        System.out.println("canvas");
         repaint();
     }
     @Override
     public void paint(Graphics g){
         for (Renderer r: renderers) {
-            r.draw(g,scalar);
+            r.draw(offscreen);
         }
+        g.drawImage(this.offscreenImage, 0, 0,width,height, null);
     }
     public int transX(int x){
+        double scalar = width/innerWidth;
         return (int)((x)/(scalar));
     }
     public int transY(int y){
+        double scalar = height/innerHeight;
         return (int)((y)/(scalar));
     }
 }
