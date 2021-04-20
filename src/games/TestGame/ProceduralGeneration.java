@@ -11,26 +11,36 @@ public class ProceduralGeneration {
                 arr[i][j] = initialNum;
             }
         }
-        return createRooms(arr);
+        return arr;
     }
     public void printArray(int[][] array)
     {
         System.out.println(Arrays.deepToString(array).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
     }
 
-    private int[][] createRooms(int[][] map)
-    {
+    public int[][] createRoom(int[][] map){
         Random rand = new Random();
         int width = rand.nextInt((int)(map.length/6)+(int)(map.length/6));
         int height = rand.nextInt((int)(map[0].length/6)+(int)(map[0].length/6));
-        int[][] room = createArray(0,width,height);
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                map[i][j] = room[i][j];
+        int[][] room = createArray(0,width+3,height+3);
+        int posX = rand.nextInt(map.length-room.length);
+        int posY = rand.nextInt(map[0].length-room[0].length);
+        for (int i = 0; i < room.length; i++) {
+            for (int j = 0; j < room[0].length; j++) {
+                if(map[posX+i][posY+j]==room[i][j]){
+                    return null;
+                }
+                map[posX+i][posY+j] = room[i][j];
             }
         }
+        System.out.println(Arrays.deepToString(map).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
         System.out.println(Arrays.deepToString(room).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
-        return room;
+
+        return map;
+    }
+
+    public int[][] createRooms(int[][] map){
+
     }
 
 
