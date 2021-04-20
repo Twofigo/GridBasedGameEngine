@@ -36,7 +36,7 @@ public class Sokoban extends PuppetMaster {
         th.addTexture("dc-dngn/wall/stone2_gray0.png", "box");
         th.addTexture("dc-dngn/wall/crystal_wall02.png", "ActiveBox");
         th.addTexture("dc-dngn/floor/tutorial_pad.png", "plate");
-
+        //System.setProperty("sun.java2d.opengl", "true");
 
         // level setup
         p = new Player("Elf");
@@ -72,7 +72,7 @@ public class Sokoban extends PuppetMaster {
         l.getForeground().place(b1,3,3);
         l.getForeground().place(b2,4,3);
         l.getForeground().place(b3,3,4);
-        l.getForeground().place(b4,4,4);
+        l.getForeground().place(b4,2,4);
         l.getBackground().clear(new Tile("Floor2"));
         levels.add(l);
 
@@ -81,7 +81,7 @@ public class Sokoban extends PuppetMaster {
         Window win = getWindow();
         win.addView(bv);
 
-        bv.setZoom(1);
+        //bv.setZoom(20);
         win.setView("mainBoard");
         win.setAspect(4, 3);
         win.lockResize(true);
@@ -212,7 +212,7 @@ class Box extends Entity implements MoveInto{
 
     }
     public boolean moveInto(Sokoban p, Entity e){
-        // push
+        if(e instanceof Box){return false;}
         Sokoban game = ((Sokoban)p);
         int x = this.getX()*2 - e.getX();
         int y = this.getY()*2 - e.getY();

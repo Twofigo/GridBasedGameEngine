@@ -11,7 +11,6 @@ public class ShittyGame extends PuppetMaster{
     private MenuView mv;
     Tile click;
     TableTop tb;
-
     public static void main(String[] args) {
         new ShittyGame();
     }
