@@ -17,8 +17,8 @@ public class ShittyGame extends PuppetMaster{
         super();
         ProceduralGeneration p = new ProceduralGeneration();
         int[][] arr = p.createArray(1,12,12);
-        //p.printArray(arr);
-        arr = p.createRoom(arr);
+        arr = p.createRooms(arr);
+        p.printArray(arr);
         Image img1;
         Image img2;
         Image img3;

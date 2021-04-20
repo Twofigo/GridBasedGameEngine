@@ -1,5 +1,9 @@
 package games.TestGame;
 
+import engine.Board;
+import engine.Tile;
+
+import java.io.File;
 import java.util.*;
 
 public class ProceduralGeneration {
@@ -22,7 +26,7 @@ public class ProceduralGeneration {
         Random rand = new Random();
         int width = rand.nextInt((int)(map.length/6)+(int)(map.length/6));
         int height = rand.nextInt((int)(map[0].length/6)+(int)(map[0].length/6));
-        int[][] room = createArray(0,width+3,height+3);
+        int[][] room = createArray(0,width+2,height+2);
         int posX = rand.nextInt(map.length-room.length);
         int posY = rand.nextInt(map[0].length-room[0].length);
         for (int i = 0; i < room.length; i++) {
@@ -33,14 +37,19 @@ public class ProceduralGeneration {
                 map[posX+i][posY+j] = room[i][j];
             }
         }
-        System.out.println(Arrays.deepToString(map).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
-        System.out.println(Arrays.deepToString(room).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
 
         return map;
     }
 
     public int[][] createRooms(int[][] map){
-
+        int fails = 0;
+        while(fails < 10){
+            if(createRoom(map) == null);
+            {
+                fails++;
+            }
+        }
+        return map;
     }
 
 
@@ -49,12 +58,16 @@ public class ProceduralGeneration {
 class map
 {
     int[][] array;
-    int maxTunnels;
-    int maxLength;
+    File floor;
+    File walls;
+    Board board;
 
-    public map(int size, int maxTunnels, int maxLength)
+    public map(int[][] bitmap)
     {
-
+        Tile t1 = new Tile(floor);
+        Board board = new Board(10,10,t1);
     }
+
+
 
 }
