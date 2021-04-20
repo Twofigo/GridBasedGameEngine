@@ -90,6 +90,7 @@ class CanvasComponent extends JPanel{
     }
     @Override
     public void paint(Graphics g){
+        offscreen.clearRect(0,0,innerWidth,innerHeight);
         for (Renderer r: renderers) {
             r.draw(offscreen);
         }
