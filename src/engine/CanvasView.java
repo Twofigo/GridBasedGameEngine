@@ -97,11 +97,11 @@ class CanvasComponent extends JPanel{
         g.drawImage(this.offscreenImage, 0, 0,width,height, null);
     }
     public int transX(int x){
-        double scalar = innerHeight/height;
+        double scalar = width/innerWidth;
         return (int)((x)/(scalar));
     }
     public int transY(int y){
-        double scalar = innerHeight/height;
+        double scalar = height/innerHeight;
         return (int)((y)/(scalar));
     }
 }
