@@ -43,7 +43,7 @@ public class ProceduralGeneration {
 
     public int[][] createRooms(int[][] map){
         int fails = 0;
-        while(fails < 10){
+        while(fails < 20){
             if(createRoom(map) == null);
             {
                 fails++;
@@ -58,14 +58,26 @@ public class ProceduralGeneration {
 class map
 {
     int[][] array;
-    File floor;
-    File walls;
-    Board board;
+    String walls;
 
-    public map(int[][] bitmap)
+    public map(int[][] bitmap, String texturePath)
     {
-        Tile t1 = new Tile(floor);
-        Board board = new Board(10,10,t1);
+        array = bitmap;
+        walls = texturePath;
+    }
+
+    public Board getBoard(){
+        Board board = new Board(array.length,array[0].length);
+        Tile Wall = new Tile("src/Texture/dc-dngn/wall/marble_wall9.png");
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                if(array[i][j]==1){
+                    board.set(Wall,i,j);
+                }
+
+            }
+        }
+        return board;
     }
 
 

@@ -37,17 +37,20 @@ public class ShittyGame extends PuppetMaster{
         Tile t3 = new Tile("Elf");
         click = new Tile("Pow!");
 
+        map m = new map(arr,"src/Texture/dc-dngn/wall/marble_wall3.png");
 
-        Board b1 = new Board(8, 8, t1);
+        Board b3 = m.getBoard();
+
+        Board b1 = new Board(12, 12, t1);
         b1.set(t2, 0, 0);
 
-        Board b2 = new Board(8, 8);
+        Board b2 = new Board(12, 12);
         b2.set(t3, 1, 1);
         b2.set(t3, 2, 2);
         b2.set(t3, 3, 3);
 
         try {
-             tb = new TableTop(new Board[]{b1, b2});
+             tb = new TableTop(new Board[]{b1,b2,b3});
         } catch (Exception e) {
             return;
         }
