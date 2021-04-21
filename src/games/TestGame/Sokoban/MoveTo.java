@@ -1,8 +1,6 @@
 package games.TestGame.Sokoban;
 
 import engine.*;
-import games.TestGame.Sokoban.MoveInto;
-import games.TestGame.Sokoban.Sokoban;
 
 public class MoveTo extends Interaction {
     @Override

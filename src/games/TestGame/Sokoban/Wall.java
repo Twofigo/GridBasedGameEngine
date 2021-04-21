@@ -2,8 +2,6 @@ package games.TestGame.Sokoban;
 
 import engine.Entity;
 import engine.Tile;
-import games.TestGame.Sokoban.MoveInto;
-import games.TestGame.Sokoban.Sokoban;
 
 import java.awt.*;
 

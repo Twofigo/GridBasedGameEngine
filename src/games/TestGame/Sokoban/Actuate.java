@@ -1,9 +1,6 @@
 package games.TestGame.Sokoban;
 
 import engine.*;
-import games.TestGame.Sokoban.Box;
-import games.TestGame.Sokoban.Plate;
-import games.TestGame.Sokoban.Sokoban;
 
 public class Actuate extends Interaction {
     @Override
