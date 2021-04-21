@@ -9,12 +9,6 @@ public class Box extends Entity implements MoveInto {
 
     private Image neutralTexure;
     private Image activeTexture;
-    public Box(Image texture, Image activeTexture) {
-        super(texture);
-        this.neutralTexure = texture;
-        this.activeTexture = activeTexture;
-        this.active = false;
-    }
     public Box(String textureName, String activeTextureName) {
         super(textureName);
         this.neutralTexure = TextureHandler.getInstance().getTexture(textureName);

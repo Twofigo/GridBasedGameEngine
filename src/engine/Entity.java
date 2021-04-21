@@ -13,10 +13,6 @@ abstract public class Entity extends Tile{
     public int getY() {
         return y;
     }
-
-    public Entity(Image texture) {
-        super(texture);
-    }
     public Entity(String name) {
         super(name);
     }

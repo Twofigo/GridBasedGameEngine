@@ -6,9 +6,6 @@ import engine.Tile;
 import java.awt.*;
 
 public class Plate extends Tile implements MoveInto {
-    public Plate(Image texture) {
-        super(texture);
-    }
     public Plate(String textureName){
         super(textureName);
     }

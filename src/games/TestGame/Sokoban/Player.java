@@ -6,9 +6,6 @@ import java.awt.*;
 
 public class Player extends Entity {
 
-    public Player(Image texture) {
-        super(texture);
-    }
     public Player(String name) {
         super(name);
     }
