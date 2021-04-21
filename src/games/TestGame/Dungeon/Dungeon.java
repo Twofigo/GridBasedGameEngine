@@ -7,13 +7,20 @@ import java.util.ArrayList;
 
 public class Dungeon extends PuppetMaster {
     public final MoveTo MOVETO = new MoveTo();
+    public final Pickup PICKUP = new Pickup();
+
+    public Level getLevel() {
+        return level;
+    }
+    public Inventory getInventory() {
+        return inventory;
+    }
 
     private Player player;
     private BoardView dungeonView;
     private BoardView inventoryView;
     private Level level;
     private Inventory inventory;
-
 
     public static void main(String[] args) {
         new Dungeon();
@@ -24,17 +31,21 @@ public class Dungeon extends PuppetMaster {
         // resource setup
         TextureHandler th = TextureHandler.getInstance();
         th.setRootPath("src/Texture/");
-        th.setDefaultTexture("effect/sling_bullet0.png");
+        th.setDefaultTexture("dc-misc/error.png");
+        th.addTexture("dc-mon/deep_elf_mage.png", "Elf");
+        th.addTexture("item/misc/gold_pile.png", "coin");
+
         th.addTexture("dc-dngn/floor/bog_green0.png", "Floor1");
         th.addTexture("dc-dngn/floor/cobble_blood1.png", "Floor2");
-        th.addTexture("dc-mon/deep_elf_mage.png", "Elf");
+        th.addTexture("dc-dngn/wall/crystal_wall02.png", "inventory");
         th.addTexture("dc-dngn/wall/stone_brick1.png", "wall");
+
         //System.setProperty("sun.java2d.opengl", "true");
 
         // player setup
         player = new Player("Elf");
-        inventory = new Inventory(12,12);
-        inventory.getBackground().clear(new Tile("Floor2"));
+        inventory = new Inventory(8,8);
+        inventory.getBackground().clear(new Tile("inventory"));
 
         // level setup
         level = createLevel(1);
@@ -60,8 +71,8 @@ public class Dungeon extends PuppetMaster {
         });
 
         Window win = getWindow();
-        win.addView(inventoryView);
         win.addView(dungeonView);
+        win.addView(inventoryView);
         //bv.setZoom(20);
         win.setView("mainBoard");
         win.setAspect(4, 3);
@@ -79,6 +90,9 @@ public class Dungeon extends PuppetMaster {
     }
     public Level createLevel(int difficulty){
         Level l = new Level(8,8);
+        l.getFloor().place(new Item("coin"),2,2);
+        l.getFloor().place(new Item("coin"),6,3);
+        l.getFloor().place(new Item("coin"),3,6);
         l.getBackground().clear(new Tile("Floor1"));
         return l;
     }

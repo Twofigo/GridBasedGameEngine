@@ -19,8 +19,9 @@ public class MoveTo extends Interaction {
         board.pickup(e);
         board.place(e,x,y);
 
+        t = floor.get(x,y);
         if(t instanceof MoveInto) {
-            if (!((MoveInto)t).moveInto(game, e)) return false;
+            ((MoveInto)t).moveInto(game, e);
         }
         return true;
     }

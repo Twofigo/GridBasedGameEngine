@@ -1,5 +1,7 @@
 package engine;
 
+import games.TestGame.Dungeon.Pickup;
+
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
