@@ -55,24 +55,91 @@ public class Dungeon extends PuppetMaster {
 
         // window setup
         dungeonView = new BoardView("dungeon", level);
+        dungeonView.addLabel("Navigation");
+        dungeonView.addButton("Settings", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                return;
+            }
+        });
         dungeonView.addButton("Inventory", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeToInventoryView();
             }
         });
+        dungeonView.addButton("Stats", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                return;
+            }
+        });
+        dungeonView.addLabel("Actions");
+        dungeonView.addButton("Attack", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                return;
+            }
+        });
+        dungeonView.addButton("Investigate", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                return;
+            }
+        });
+        dungeonView.addButton("Wait", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                return;
+            }
+        });
+        dungeonView.addLabel("Spells");
+        dungeonView.addButton("Spell slot 1", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                return;
+            }
+        });
+
+        dungeonView.addButton("Spell slot 2", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                return;
+            }
+        });
+
+        dungeonView.addButton("Spell slot 3", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                return;
+            }
+        });
 
         inventoryView = new BoardView("inventory", inventory);
+        inventoryView.addLabel("Navigation");
+        inventoryView.addButton("Settings", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                return;
+            }
+        });
         inventoryView.addButton("Return", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeToDungeonView();
             }
         });
+        inventoryView.addButton("Stats", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                return;
+            }
+        });
 
         Window win = getWindow();
         win.addView(dungeonView);
         win.addView(inventoryView);
+        win.setView("dungeon");
         //bv.setZoom(20);
         win.setView("mainBoard");
         win.setAspect(4, 3);

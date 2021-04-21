@@ -29,6 +29,14 @@ abstract public class View extends JPanel{
         buttonPanel.add(b);
         this.draw();
     }
+    public void addLabel(String name){
+        JLabel l = new JLabel(name);
+        l.setHorizontalAlignment(JLabel.CENTER);
+        l.setPreferredSize(new Dimension(0,0));
+        buttonCount++;
+        buttonPanel.add(l);
+        this.draw();
+    }
     public boolean removeButton(String name){
         Button b = getButton(name);
         if(b==null) return false;
