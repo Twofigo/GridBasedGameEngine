@@ -2,17 +2,17 @@ package games.TestGame.Dungeon;
 
 import engine.*;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseWheelEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class Dungeon extends PuppetMaster {
     public final MoveTo MOVETO = new MoveTo();
 
     private Player player;
-    private BoardView boardView;
+    private BoardView dungeonView;
+    private BoardView inventoryView;
     private Level level;
+    private Inventory inventory;
 
 
     public static void main(String[] args) {
@@ -31,23 +31,51 @@ public class Dungeon extends PuppetMaster {
         th.addTexture("dc-dngn/wall/stone_brick1.png", "wall");
         //System.setProperty("sun.java2d.opengl", "true");
 
-        // level setup
+        // player setup
         player = new Player("Elf");
+        inventory = new Inventory(12,12);
+        inventory.getBackground().clear(new Tile("Floor2"));
+
+        // level setup
         level = createLevel(1);
         level.getMiddleground().place(player,0,0);
         this.setTableTop(level);
 
-        // window setup
-        boardView = new BoardView("mainBoard", level);
-        Window win = getWindow();
-        win.addView(boardView);
 
+        // window setup
+        dungeonView = new BoardView("dungeon", level);
+        dungeonView.addButton("Inventory", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changeToInventoryView();
+            }
+        });
+
+        inventoryView = new BoardView("inventory", inventory);
+        inventoryView.addButton("Return", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                changeToDungeonView();
+            }
+        });
+
+        Window win = getWindow();
+        win.addView(inventoryView);
+        win.addView(dungeonView);
         //bv.setZoom(20);
         win.setView("mainBoard");
         win.setAspect(4, 3);
         win.lockResize(true);
         win.updateSize(800, 600+40);
         win.draw();
+    }
+    private void changeToDungeonView(){
+        getWindow().setView("dungeon");
+        setTableTop(level);
+    }
+    private void changeToInventoryView(){
+        getWindow().setView("inventory");
+        setTableTop(inventory);
     }
     public Level createLevel(int difficulty){
         Level l = new Level(8,8);
@@ -61,17 +89,19 @@ public class Dungeon extends PuppetMaster {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        char c = e.getKeyChar();
-        int x = player.getX();
-        int y = player.getY();
-        if(c=='w') y-=1;
-        else if(c=='a') x-=1;
-        else if(c=='s') y+=1;
-        else if(c=='d') x+=1;
-        interact(MOVETO,player, x, y);
-        //bv.setOffset(p.getX()-0.5, p.getY()-0.5);
-        getWindow().draw();
-        update();
+        if(this.getTableTop() instanceof Level){
+            char c = e.getKeyChar();
+            int x = player.getX();
+            int y = player.getY();
+            if(c=='w') y-=1;
+            else if(c=='a') x-=1;
+            else if(c=='s') y+=1;
+            else if(c=='d') x+=1;
+            interact(MOVETO,player, x, y);
+            //bv.setOffset(p.getX()-0.5, p.getY()-0.5);
+            getWindow().draw();
+            update();
+        }
     }
 
     @Override

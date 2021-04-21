@@ -16,7 +16,6 @@ public class Window extends JFrame{
     private final JPanel cardPanel;
     private final CardLayout cardLayout;
 
-
     private int aspectX;
     private int aspectY;
 
@@ -80,6 +79,7 @@ public class Window extends JFrame{
             if(v.getName().equals(name)){
                 currentView = v;
                 cardLayout.show(cardPanel, name);
+                this.requestFocusInWindow();
                 draw();
             }
         }
