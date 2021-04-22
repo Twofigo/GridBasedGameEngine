@@ -4,6 +4,7 @@ import engine.Board;
 import engine.TextureHandler;
 import engine.Tile;
 
+import javax.swing.*;
 import java.io.File;
 import java.util.*;
 
@@ -25,9 +26,9 @@ public class ProceduralGeneration {
 
     public int[][] createRoom(int[][] map){
         Random rand = new Random();
-        int width = rand.nextInt((int)(map.length/6)+(int)(map.length/6));
-        int height = rand.nextInt((int)(map[0].length/6)+(int)(map[0].length/6));
-        int[][] room = createArray(0,width+2,height+2);
+        int width = rand.nextInt((int)(map.length/6)+(int)(map.length/6))+2;
+        int height = rand.nextInt((int)(map[0].length/6)+(int)(map[0].length/6))+2;
+        int[][] room = createArray(0,width+1,height+1);
         int posX = rand.nextInt(map.length-room.length);
         int posY = rand.nextInt(map[0].length-room[0].length);
         for (int i = 0; i < room.length; i++) {
@@ -44,11 +45,16 @@ public class ProceduralGeneration {
 
     public int[][] createRooms(int[][] map){
         int fails = 0;
-        while(fails < 20){
-            if(createRoom(map) == null);
+        int sucess = 0;
+        while(fails < 4){
+            if(createRoom(map) == null)
             {
                 fails++;
             }
+            else {
+                sucess++;
+            }
+
         }
         return map;
     }
