@@ -1,6 +1,7 @@
 package games.TestGame;
 
 import engine.Board;
+import engine.TextureHandler;
 import engine.Tile;
 
 import java.io.File;
@@ -59,16 +60,19 @@ class map
 {
     int[][] array;
     String walls;
+    TextureHandler th;
 
-    public map(int[][] bitmap, String texturePath)
+    public map(int[][] bitmap, String texturePath,TextureHandler textures)
     {
+        th = textures;
         array = bitmap;
         walls = texturePath;
     }
 
     public Board getBoard(){
         Board board = new Board(array.length,array[0].length);
-        Tile Wall = new Tile("src/Texture/dc-dngn/wall/marble_wall9.png");
+        th.addTexture(walls,"Texture");
+        Tile Wall = new Tile("Texture");
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
                 if(array[i][j]==1){

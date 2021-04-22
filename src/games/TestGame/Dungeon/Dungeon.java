@@ -43,7 +43,7 @@ public class Dungeon extends PuppetMaster {
         //System.setProperty("sun.java2d.opengl", "true");
 
         // player setup
-        player = new Player("Elf");
+        player = new Player("Elf",10);
         inventory = new Inventory(8,8);
         inventory.getBackground().clear(new Tile("inventory"));
 

@@ -18,33 +18,33 @@ public class ShittyGame extends PuppetMaster{
     public ShittyGame() {
         super();
         ProceduralGeneration p = new ProceduralGeneration();
-        int[][] arr = p.createArray(1,12,12);
+        int[][] arr = p.createArray(1,30,30);
         arr = p.createRooms(arr);
         p.printArray(arr);
         Image img1;
         Image img2;
         Image img3;
         TextureHandler th = TextureHandler.getInstance();
-        th.setRootPath("src/Texture/");
-        th.setDefaultTexture("effect/sling_bullet0.png");
-        th.addTexture("dc-dngn/floor/bog_green0.png", "Floor1");
-        th.addTexture("dc-dngn/floor/cobble_blood1.png", "Floor2");
-        th.addTexture("dc-mon/deep_elf_mage.png", "Elf");
-        th.addTexture("spells/air/chain_lightning.png", "Pow!");
+        th.setRootPath("");
+        th.setDefaultTexture("src/Texture/effect/arrow2.png");
+        th.addTexture("src/Texture/dc-dngn/floor/bog_green0.png", "Floor1");
+        th.addTexture("src/Texture/dc-dngn/floor/cobble_blood1.png", "Floor2");
+        th.addTexture("src/Texture/dc-mon/deep_elf_mage.png", "Elf");
+        th.addTexture("src/Texture/spells/air/chain_lightning.png", "Pow!");
 
         Tile t1 = new Tile("Floor1");
         Tile t2 = new Tile("Floor2");
         Tile t3 = new Tile("Elf");
         click = new Tile("Pow!");
 
-        map m = new map(arr,"src/Texture/dc-dngn/wall/marble_wall3.png");
+        map m = new map(arr,"src/Texture/dc-dngn/wall/tree1_lightred.png", th);
 
         Board b3 = m.getBoard();
 
-        Board b1 = new Board(12, 12, t1);
+        Board b1 = new Board(30, 30, t1);
         b1.set(t2, 0, 0);
 
-        Board b2 = new Board(12, 12);
+        Board b2 = new Board(30, 30);
         b2.set(t3, 1, 1);
         b2.set(t3, 2, 2);
         b2.set(t3, 3, 3);
