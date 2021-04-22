@@ -18,6 +18,7 @@ public class TextureHandler {
         list = new ArrayList<TextureNode>();
         rootPath = "";
         list.add(new TextureNode(null, "default"));
+        list.add(new TextureNode(null, "void"));
     }
 
     public Image getTexture(String name){

@@ -3,6 +3,7 @@ package games.TestGame.Dungeon;
 import engine.*;
 import games.TestGame.Dungeon.Inventory.*;
 import games.TestGame.Dungeon.World.Level;
+import games.TestGame.Dungeon.World.Wall;
 
 import java.awt.event.*;
 
@@ -89,16 +90,16 @@ public class Dungeon extends PuppetMaster {
         th.addTexture("player/body/bikini_red.png", "bikini");
         th.addTexture("item/misc/gold_pile.png", "coin");
 
-        th.addTexture("dc-dngn/floor/floor_sand_stone0.png", "Floor1");
-        th.addTexture("dc-dngn/floor/floor_sand_stone1.png", "Floor3");
-        th.addTexture("dc-dngn/floor/floor_sand_stone2.png", "Floor4");
-        th.addTexture("dc-dngn/floor/floor_sand_stone3.png", "Floor5");
-        th.addTexture("dc-dngn/floor/floor_sand_stone4.png", "Floor6");
-        th.addTexture("dc-dngn/floor/floor_sand_stone5.png", "Floor7");
-        th.addTexture("dc-dngn/floor/floor_sand_stone6.png", "Floor8");
-        th.addTexture("dc-dngn/floor/floor_sand_stone7.png", "Floor9");
+        th.addTexture("dc-dngn/floor/ice0.png", "Floor1");
+        th.addTexture("dc-dngn/floor/ice1.png", "Floor2");
+        th.addTexture("dc-dngn/floor/ice2.png", "Floor3");
+        th.addTexture("dc-dngn/floor/ice3.png", "Floor4");
+        th.addTexture("dc-dngn/floor/dirt_full.png", "grass");
+        th.addTexture("dc-dngn/floor/floor_sand_stone5.png", "Floor6");
+        th.addTexture("dc-dngn/floor/floor_sand_stone6.png", "Floor7");
+        th.addTexture("dc-dngn/floor/floor_sand_stone7.png", "Floor8");
 
-        th.addTexture("dc-dngn/floor/cobble_blood1.png", "Floor2");
+        th.addTexture("dc-dngn/floor/cobble_blood1.png", "Floor");
 
         th.addTexture("dc-dngn/wall/dngn_mirrored_wall.png", "inventory");
         th.addTexture("dc-dngn/wall/stone_brick1.png", "wall");
@@ -202,6 +203,7 @@ public class Dungeon extends PuppetMaster {
         setTableTop(inventory);
     }
     public Level createLevel(int difficulty){
+        /*
         Level l = new Level(8,8);
         l.getFloor().place(new Item("coin"),2,2);
         l.getFloor().place(new Item("coin"),6,3);
@@ -210,6 +212,49 @@ public class Dungeon extends PuppetMaster {
         l.getFloor().place(new Equipable("bikini",1,1), 4,4);
         Tile[] tiles = {new Tile("Floor3"),new Tile("Floor1"),new Tile("Floor4"),new Tile("Floor5"),new Tile("Floor6"),new Tile("Floor7"),new Tile("Floor8"),new Tile("Floor9"),};
         l.getBackground().clear(tiles);
+        */
+        Level l = new Level(60,60);
+        Wall voidWall = new Wall("grass");
+        Wall wall = new Wall("wall");
+        Tile t3 = new Tile("Floor");
+
+        Tile[] floors = new Tile[]{
+            new Tile("Floor1"),
+            new Tile("Floor2"),
+            new Tile("Floor3"),
+            new Tile("Floor4")};
+                    /*
+            new Tile("Floor5"),
+            new Tile("Floor6"),
+            new Tile("Floor7"),
+            new Tile("Floor8")}
+            */
+
+        l.getBackground().clear(floors);
+
+        DungeonGenerator dg = new DungeonGenerator();
+        int[][] bitmap = dg.getBitmap();
+        for(int y=0;y<bitmap[0].length;y++){
+            for(int x=0;x<bitmap.length;x++){
+                int v = bitmap[y][x];
+                Tile t = voidWall;
+                if(v==0){
+                    t = voidWall;
+                    l.getBackground().set(null,x,y);
+                }
+                if(v==2){
+                    t = wall;
+                }
+                if(v==3){
+                    t=null;
+                    l.getBackground().set(t3,x,y);
+                }
+                if(v==4){
+                    t=null;
+                }
+                l.getForeground().set(t,x,y);
+            }
+        }
         return l;
     }
     @Override

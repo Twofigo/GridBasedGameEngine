@@ -144,10 +144,10 @@ public class DungeonGenerator{
                     ).replace("], ", "]\n"
                     ).replace("[[", "["
                     ).replace("]]", "]"
-                    ).replace("0"," "
-                    ).replace("3","@"
-                    ).replace("2","#"
-                    ).replace("4","-"
+                    ).replace("0"," " //void
+                    ).replace("3","@" // path
+                    ).replace("2","#" // wall
+                    ).replace("4","-" //floor
                     ));
         }
     }
