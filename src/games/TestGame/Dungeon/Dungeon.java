@@ -101,10 +101,21 @@ public class Dungeon extends PuppetMaster {
         th.addTexture("player/body/bikini_red.png", "bikini");
         th.addTexture("item/misc/gold_pile.png", "coin");
 
+        /*
         th.addTexture("dc-dngn/floor/ice0.png", "Floor1");
         th.addTexture("dc-dngn/floor/ice1.png", "Floor2");
         th.addTexture("dc-dngn/floor/ice2.png", "Floor3");
         th.addTexture("dc-dngn/floor/ice3.png", "Floor4");
+        */
+        th.addTexture("dc-dngn/floor/grey_dirt0.png", "Floor1");
+        th.addTexture("dc-dngn/floor/grey_dirt1.png", "Floor2");
+        th.addTexture("dc-dngn/floor/grey_dirt2.png", "Floor3");
+        th.addTexture("dc-dngn/floor/grey_dirt3.png", "Floor4");
+        th.addTexture("dc-dngn/floor/grey_dirt4.png", "Floor5");
+        th.addTexture("dc-dngn/floor/grey_dirt5.png", "Floor6");
+        th.addTexture("dc-dngn/floor/grey_dirt6.png", "Floor7");
+        th.addTexture("dc-dngn/floor/grey_dirt7.png", "Floor8");
+
         th.addTexture("dc-dngn/floor/dirt_full.png", "grass");
         th.addTexture("dc-dngn/floor/floor_sand_stone5.png", "Floor6");
         th.addTexture("dc-dngn/floor/floor_sand_stone6.png", "Floor7");
@@ -233,13 +244,12 @@ public class Dungeon extends PuppetMaster {
             new Tile("Floor1"),
             new Tile("Floor2"),
             new Tile("Floor3"),
-            new Tile("Floor4")};
-                    /*
+            new Tile("Floor4"),
             new Tile("Floor5"),
             new Tile("Floor6"),
             new Tile("Floor7"),
-            new Tile("Floor8")}
-            */
+            new Tile("Floor8")};
+            
 
         l.getBackground().clear(floors);
 
