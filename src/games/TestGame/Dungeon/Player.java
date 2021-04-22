@@ -9,7 +9,6 @@ public class Player extends Creature {
     public Player(String name, int health) {
         super(name);
         super.health = health;
-        //super.texturePath
     }
 
     @Override

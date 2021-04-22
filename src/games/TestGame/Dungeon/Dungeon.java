@@ -36,8 +36,12 @@ public class Dungeon extends PuppetMaster {
         th.addTexture("item/misc/gold_pile.png", "coin");
 
         th.addTexture("dc-dngn/floor/bog_green0.png", "Floor1");
+        th.addTexture("dc-dngn/floor/bog_green1.png", "Floor3");
+        th.addTexture("dc-dngn/floor/bog_green2.png", "Floor4");
+        th.addTexture("dc-dngn/floor/bog_green3.png", "Floor5");
+
         th.addTexture("dc-dngn/floor/cobble_blood1.png", "Floor2");
-        th.addTexture("dc-dngn/wall/crystal_wall02.png", "inventory");
+        th.addTexture("dc-dngn/wall/dngn_mirrored_wall.png", "inventory");
         th.addTexture("dc-dngn/wall/stone_brick1.png", "wall");
 
         //System.setProperty("sun.java2d.opengl", "true");
@@ -160,7 +164,8 @@ public class Dungeon extends PuppetMaster {
         l.getFloor().place(new Item("coin"),2,2);
         l.getFloor().place(new Item("coin"),6,3);
         l.getFloor().place(new Item("coin"),3,6);
-        l.getBackground().clear(new Tile("Floor1"));
+        Tile[] tiles = {new Tile("Floor3"),new Tile("Floor1"),new Tile("Floor4"),new Tile("Floor5")};
+        l.getBackground().clear(tiles);
         return l;
     }
     @Override

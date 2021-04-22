@@ -2,6 +2,7 @@ package engine;
 
 import java.util.EmptyStackException;
 import java.util.Iterator;
+import java.util.Random;
 
 public class Board implements Iterable{
     private final int width;
@@ -18,6 +19,10 @@ public class Board implements Iterable{
         this(width, height);
         clear(defTile);
     }
+    public Board(int width, int height, Tile[] defTile) {
+        this(width, height);
+        clear(defTile);
+    }
     public void update(){
         Iterator<Tile> itr = this.iterator();
         for(Tile t;itr.hasNext();){
@@ -31,6 +36,14 @@ public class Board implements Iterable{
         for(int y=0;y<height;y++)
             for(int x=0;x<width;x++){
                 this.set(defTile, x,y);
+            }
+    }
+    public void clear(Tile[] defTile){
+        for(int y=0;y<height;y++)
+            for(int x=0;x<width;x++){
+                Random rand = new Random();
+                int randValue = rand.nextInt(defTile.length);
+                this.set(defTile[randValue], x,y);
             }
     }
 
