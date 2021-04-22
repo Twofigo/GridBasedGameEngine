@@ -1,6 +1,7 @@
 package games.TestGame.Dungeon;
 
-import engine.Entity;
+import games.TestGame.Dungeon.Inventory.Equipable;
+import games.TestGame.Dungeon.Inventory.Weapon;
 
 import java.awt.*;
 

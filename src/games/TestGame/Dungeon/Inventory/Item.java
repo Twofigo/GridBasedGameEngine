@@ -1,7 +1,10 @@
-package games.TestGame.Dungeon;
+package games.TestGame.Dungeon.Inventory;
 
 import engine.Entity;
 import engine.Tile;
+import games.TestGame.Dungeon.Dungeon;
+import games.TestGame.Dungeon.MoveInto;
+import games.TestGame.Dungeon.Player;
 
 public class Item extends Entity implements MoveInto {
     public Item(String name) {

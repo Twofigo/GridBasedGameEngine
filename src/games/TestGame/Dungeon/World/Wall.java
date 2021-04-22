@@ -1,7 +1,9 @@
-package games.TestGame.Dungeon;
+package games.TestGame.Dungeon.World;
 
 import engine.Entity;
 import engine.Tile;
+import games.TestGame.Dungeon.Dungeon;
+import games.TestGame.Dungeon.MoveInto;
 
 import java.awt.*;
 

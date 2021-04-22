@@ -1,6 +1,8 @@
-package games.TestGame.Dungeon;
+package games.TestGame.Dungeon.Inventory;
 
-public class Weapon extends Item{
+import games.TestGame.Dungeon.Inventory.Item;
+
+public class Weapon extends Item {
     private int damage;
     private int range;
 

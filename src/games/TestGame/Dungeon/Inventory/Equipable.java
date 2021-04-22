@@ -1,6 +1,8 @@
-package games.TestGame.Dungeon;
+package games.TestGame.Dungeon.Inventory;
 
-public class Equipable extends Item{
+import games.TestGame.Dungeon.Inventory.Item;
+
+public class Equipable extends Item {
     private int armorRating;
     private int equipmentSlot;
 

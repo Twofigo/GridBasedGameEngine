@@ -1,10 +1,7 @@
 package engine;
 
-import games.TestGame.Dungeon.Pickup;
-
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
-import java.awt.*;
 import java.awt.event.*;
 
 public abstract class PuppetMaster extends JFrame implements KeyListener, MouseInputListener, MouseWheelListener {
