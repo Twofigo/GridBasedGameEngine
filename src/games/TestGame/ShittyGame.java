@@ -1,7 +1,7 @@
 package games.TestGame;
 import engine.*;
 import engine.Window;
-import games.TestGame.Dungeon.DungeonGenerator;
+import games.TestGame.Dungeon.World.DungeonGenerator;
 
 import java.awt.*;
 import java.awt.event.*;

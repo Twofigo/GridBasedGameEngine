@@ -2,10 +2,12 @@ package games.TestGame.Dungeon;
 
 import engine.*;
 import games.TestGame.Dungeon.Inventory.*;
+import games.TestGame.Dungeon.World.DungeonGenerator;
 import games.TestGame.Dungeon.World.Level;
 import games.TestGame.Dungeon.World.Wall;
 
 import java.awt.event.*;
+import java.util.Random;
 
 public class Dungeon extends PuppetMaster {
     public final MoveTo MOVETO = new MoveTo();
@@ -40,16 +42,24 @@ public class Dungeon extends PuppetMaster {
         player = new Player("human",10);
 
         // level setup
-        level = createLevel(1);
-        level.getMiddleground().place(player,0,0);
+        level = generateFloor(1);
         this.setTableTop(level);
+
+        spawn(player);
+        spawn(new Item("coin"));
+        spawn(new Item("coin"));
+        spawn(new Item("coin"));
+        spawn(new Equipable("hat",1,0));
+        spawn(new Equipable("bikini",1,1));
 
         setupInventory();
 
         setupDungeonView();
         setupInventoryView();
 
-        //dungeonView.setZoom(3);
+        dungeonView.setZoom(9);
+        dungeonView.setOffset(player.getX()+0.5, player.getY()+0.5);
+
         Window win = getWindow();
         win.addView(dungeonView);
         win.addView(inventoryView);
@@ -72,7 +82,8 @@ public class Dungeon extends PuppetMaster {
                 bg.set(empty,x,y);
             }
         }
-        bg.set(getPlayer(),6,1);
+        inventory.getForeground().set(getPlayer(),6,1);
+        bg.place(new Tile("inventory"),6,1);
         bg.place(new EquipmentSlot("inventory",0),6,2);
         bg.place(new EquipmentSlot("inventory",1),6,3);
         bg.place(new EquipmentSlot("inventory",2),6,4);
@@ -202,7 +213,7 @@ public class Dungeon extends PuppetMaster {
         getWindow().setView("inventory");
         setTableTop(inventory);
     }
-    public Level createLevel(int difficulty){
+    private Level generateFloor(int difficulty){
         /*
         Level l = new Level(8,8);
         l.getFloor().place(new Item("coin"),2,2);
@@ -214,7 +225,7 @@ public class Dungeon extends PuppetMaster {
         l.getBackground().clear(tiles);
         */
         Level l = new Level(60,60);
-        Wall voidWall = new Wall("grass");
+        Wall voidWall = new Wall("void");
         Wall wall = new Wall("wall");
         Tile t3 = new Tile("Floor");
 
@@ -252,10 +263,34 @@ public class Dungeon extends PuppetMaster {
                 if(v==4){
                     t=null;
                 }
-                l.getForeground().set(t,x,y);
+                l.getMiddleground().set(t,x,y);
             }
         }
         return l;
+    }
+    private boolean spawn(Tile t){
+        Random rand = new Random();
+        Board foreGround = ((Level)getTableTop()).getMiddleground();
+        Board floor = ((Level)getTableTop()).getFloor();
+        int x;
+        int y;
+        while(true){
+            x = rand.nextInt(floor.width());
+            y = rand.nextInt(floor.height());
+            if(foreGround.get(x,y)==null) {
+                if (floor.get(x, y) == null) break;
+            }
+        }
+        if(t instanceof Item){
+            floor.place(t,x,y);
+        }
+        else if(t instanceof Creature){
+            foreGround.place(t,x,y);
+        }
+        else {
+            System.out.println("You're in deep shit");
+        }
+        return true;
     }
     @Override
     public void update() {
@@ -273,7 +308,7 @@ public class Dungeon extends PuppetMaster {
             else if(c=='s') y+=1;
             else if(c=='d') x+=1;
             interact(MOVETO,player, x, y);
-            //bv.setOffset(p.getX()-0.5, p.getY()-0.5);
+            dungeonView.setOffset(player.getX()+0.5, player.getY()+0.5);
             getWindow().draw();
             update();
         }
@@ -295,6 +330,7 @@ public class Dungeon extends PuppetMaster {
                 y/=100;
                 Tile t = b.get(x,y);
                 if (t==null) return;
+                if (!(t instanceof Item)) return;
                 inventoryPickedUpItem = (Item)t;
                 mouseDragged = false;
             }
@@ -349,6 +385,13 @@ public class Dungeon extends PuppetMaster {
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-
+        if (getTableTop() instanceof Level) {
+            double amount = (e.getUnitsToScroll()>1?1:-1)*0.5;
+            double zoom = dungeonView.getZoom() + amount;
+            if (zoom < 1) return;
+            if (zoom > 50) return;
+            dungeonView.setZoom(zoom);
+            dungeonView.draw();
+        }
     }
 }

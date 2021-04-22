@@ -70,17 +70,17 @@ class BoardRenderer extends Renderer{
     public void draw(Graphics g) {
         if(tb==null) return;
 
-        int trX = (int)((zoom*50-offsetX));;
-        int trY = (int)((zoom*50-offsetY));
+        int trX = (int)((zoom*50-offsetX-1));;
+        int trY = (int)((zoom*50-offsetY-1));
 
         //int trX = 0;
         //int trY = 0;
+        offscreen.clearRect(0,0,(int)(100*zoom),(int)(100*zoom));
         offscreen.translate(trX, trY);
         for (Board b:tb.getBoards()){
             drawBoard(offscreen,b);
         }
         offscreen.translate(-trX, -trY);
-        g.drawImage(this.offscreenImage, 0, 0,1000,1000, null);
         g.drawImage(this.offscreenImage, 0, 0,1000,1000, null);
     }
     public void setZoom(double zoom){
