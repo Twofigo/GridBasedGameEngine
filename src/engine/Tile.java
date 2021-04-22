@@ -14,7 +14,7 @@ public class Tile {
         this.texture = texture;
     }
 
-    public Image getTexture() {
-        return texture;
+    public void render(Graphics g, int x, int y){
+        g.drawImage(texture, x,y,100,100,null);
     }
 }

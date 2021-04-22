@@ -144,6 +144,7 @@ public class Dungeon extends PuppetMaster {
             }
         });
 
+        dungeonView.setZoom(3);
         Window win = getWindow();
         win.addView(dungeonView);
         win.addView(inventoryView);
@@ -154,6 +155,7 @@ public class Dungeon extends PuppetMaster {
         win.lockResize(true);
         win.updateSize(800, 600+40);
         win.draw();
+
     }
     private void changeToDungeonView(){
         getWindow().setView("dungeon");
