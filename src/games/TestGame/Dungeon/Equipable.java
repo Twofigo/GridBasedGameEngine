@@ -12,7 +12,9 @@ public class Equipable extends Item{
         return equipmentSlot;
     }
 
-    public Equipable(String name) {
+    public Equipable(String name, int armorRating, int equipmentSlot) {
         super(name);
+        this.armorRating = armorRating;
+        this.equipmentSlot = equipmentSlot;
     }
 }

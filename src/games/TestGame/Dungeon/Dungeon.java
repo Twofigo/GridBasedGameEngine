@@ -33,6 +33,9 @@ public class Dungeon extends PuppetMaster {
         th.setRootPath("src/Texture/");
         th.setDefaultTexture("dc-misc/error.png");
         th.addTexture("dc-mon/deep_elf_mage.png", "Elf");
+        th.addTexture("player/base/human_m.png", "human");
+        th.addTexture("player/head/wizard_purple.png", "hat");
+        th.addTexture("player/body/bikini_red.png", "bikini");
         th.addTexture("item/misc/gold_pile.png", "coin");
 
         th.addTexture("dc-dngn/floor/floor_sand_stone0.png", "Floor1");
@@ -45,13 +48,18 @@ public class Dungeon extends PuppetMaster {
         th.addTexture("dc-dngn/floor/floor_sand_stone7.png", "Floor9");
 
         th.addTexture("dc-dngn/floor/cobble_blood1.png", "Floor2");
+
         th.addTexture("dc-dngn/wall/dngn_mirrored_wall.png", "inventory");
         th.addTexture("dc-dngn/wall/stone_brick1.png", "wall");
 
         //System.setProperty("sun.java2d.opengl", "true");
 
         // player setup
-        player = new Player("Elf",10);
+        Equipable hat = new Equipable("hat",1,0);
+        Equipable bikini = new Equipable("bikini",1,1);
+        player = new Player("human",10);
+        player.equip(hat);
+        player.equip(bikini);
         inventory = new Inventory(8,8);
         inventory.getBackground().clear(new Tile("inventory"));
 
@@ -144,7 +152,7 @@ public class Dungeon extends PuppetMaster {
             }
         });
 
-        dungeonView.setZoom(3);
+        //dungeonView.setZoom(3);
         Window win = getWindow();
         win.addView(dungeonView);
         win.addView(inventoryView);
