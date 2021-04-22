@@ -1,6 +1,7 @@
 package games.TestGame;
 import engine.*;
 import engine.Window;
+import games.TestGame.Dungeon.DungeonGenerator;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -20,7 +21,7 @@ public class ShittyGame extends PuppetMaster{
         ProceduralGeneration p = new ProceduralGeneration();
         int[][] arr = p.createArray(1,30,30);
         arr = p.createRooms(arr);
-        p.printArray(arr);
+        new DungeonGenerator();
         Image img1;
         Image img2;
         Image img3;
