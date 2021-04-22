@@ -35,10 +35,14 @@ public class Dungeon extends PuppetMaster {
         th.addTexture("dc-mon/deep_elf_mage.png", "Elf");
         th.addTexture("item/misc/gold_pile.png", "coin");
 
-        th.addTexture("dc-dngn/floor/bog_green0.png", "Floor1");
-        th.addTexture("dc-dngn/floor/bog_green1.png", "Floor3");
-        th.addTexture("dc-dngn/floor/bog_green2.png", "Floor4");
-        th.addTexture("dc-dngn/floor/bog_green3.png", "Floor5");
+        th.addTexture("dc-dngn/floor/floor_sand_stone0.png", "Floor1");
+        th.addTexture("dc-dngn/floor/floor_sand_stone1.png", "Floor3");
+        th.addTexture("dc-dngn/floor/floor_sand_stone2.png", "Floor4");
+        th.addTexture("dc-dngn/floor/floor_sand_stone3.png", "Floor5");
+        th.addTexture("dc-dngn/floor/floor_sand_stone4.png", "Floor6");
+        th.addTexture("dc-dngn/floor/floor_sand_stone5.png", "Floor7");
+        th.addTexture("dc-dngn/floor/floor_sand_stone6.png", "Floor8");
+        th.addTexture("dc-dngn/floor/floor_sand_stone7.png", "Floor9");
 
         th.addTexture("dc-dngn/floor/cobble_blood1.png", "Floor2");
         th.addTexture("dc-dngn/wall/dngn_mirrored_wall.png", "inventory");
@@ -164,7 +168,7 @@ public class Dungeon extends PuppetMaster {
         l.getFloor().place(new Item("coin"),2,2);
         l.getFloor().place(new Item("coin"),6,3);
         l.getFloor().place(new Item("coin"),3,6);
-        Tile[] tiles = {new Tile("Floor3"),new Tile("Floor1"),new Tile("Floor4"),new Tile("Floor5")};
+        Tile[] tiles = {new Tile("Floor3"),new Tile("Floor1"),new Tile("Floor4"),new Tile("Floor5"),new Tile("Floor6"),new Tile("Floor7"),new Tile("Floor8"),new Tile("Floor9"),};
         l.getBackground().clear(tiles);
         return l;
     }
