@@ -34,8 +34,9 @@ public class DungeonGenerator{
             int width = bitmap[0].length;
             int height = bitmap.length;
 
-            int x = (int)((10+(width)-20)*Math.random());
-            int y = (int)((10+(height)-20)*Math.random());
+            int x = (int)(10+((width)-20)*Math.random());
+            int y = (int)(10+((height)-20)*Math.random());
+
             Point p = new Point(x,y);
 
             int w = (int)(ROOM_MIN_SIZE + ((ROOM_MAX_SIZE - ROOM_MIN_SIZE) * Math.random()));
@@ -72,29 +73,25 @@ public class DungeonGenerator{
 
             rooms.add(ra);
 
-            for (int j = 0; j < ra.height; j++) {
-                for (int k = 0; k < ra.width; k++) {
-                    bitmap[j+ra.y][k+ra.x] = 2;
-                }
-            }
+            bitmap = drawRectangle(bitmap, ra.x, ra.y,ra.width,ra.height,2);
             points.add(p);
 
         }
 
         tree.add(points.remove(0));
 
-        while(!points.isEmpty()){
+        while(!points.isEmpty()) {
             Point a = null;
             Point b = null;
 
             double minDistance = Double.MAX_VALUE;
 
-            for (Point p1 : tree){
-                for (Point p2 : points){
+            for (Point p1 : tree) {
+                for (Point p2 : points) {
                     double dx = p2.x - p1.x;
                     double dy = p2.y - p1.y;
-                    double distance = Math.sqrt(dx*dx + dy*dy);
-                    if (distance<minDistance){
+                    double distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < minDistance) {
                         minDistance = distance;
                         a = p1;
                         b = p2;
@@ -102,35 +99,70 @@ public class DungeonGenerator{
                 }
             }
 
-            if(a==null || b==null){
+            if (a == null || b == null) {
                 throw new RuntimeException("we're in deep shit if we crashed here");
             }
 
             points.remove(b);
             tree.add(b);
 
-            for (int i = 0; i < Math.abs(a.y-b.y); i++) {
-                if(a.y < b.y)
-                {
-                    bitmap[a.y+i][a.x] = 3;
-                }
-                else if(b.y < a.y)
-                {
-                    bitmap[b.y+i][b.x] = 3;
-                }
+            //från (a.x;a.y) till (a.x;b.y)
+
+            //från (a.x;b.y) till (b.x;b.y)
+
+            Point walker = new Point();
+            if (a.y < b.y){
+                walker.y = a.y;
+                walker.x = a.x;
             }
-            for (int i = 0; i < Math.abs(a.x-b.x); i++) {
-                if(a.x < b.x)
-                {
-                    bitmap[a.y][a.x+i] = 3;
-                }
-                else if(b.x < a.x)
-                {
-                    bitmap[b.y][b.x+i] = 3;
-                }
+            else{
+                walker.y = b.y;
+                walker.x = b.x;
             }
+            for (int i = 0; i <= Math.abs(a.y-b.y); i++) {
+                bitmap[walker.y+i][walker.x] = 3;
+            }
+            walker.y+=Math.abs(a.y-b.y);
+            if (a.x < b.x){
+                walker.x = a.x;
+            }
+            else{
+                walker.x = b.x;
+            }
+            for (int i = 0; i <= Math.abs(a.x-b.x); i++) {
+                bitmap[walker.y][walker.x+i] = 3;
+            }
+
+            for (Rectangle room : rooms) {
+                //bitmap = drawRectangle(bitmap,room.x + 1, room.y + 1, room.width - ROOM_MIN_DISTANCE / 2, room.height - ROOM_MIN_DISTANCE / 2,4);
+                bitmap = drawRectangle(bitmap,room.x + 1, room.y + 1, room.width - 2, room.height - 2,4);
+            }
+
             System.out.println("\n\n\n\n");
-            System.out.println(Arrays.deepToString(bitmap).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
+            System.out.println(Arrays.
+                    deepToString(bitmap
+                    ).replace("], ", "]\n"
+                    ).replace("[[", "["
+                    ).replace("]]", "]"
+                    ).replace("0"," "
+                    ).replace("3","@"
+                    ).replace("2","#"
+                    ).replace("4","-"
+                    ));
         }
+    }
+
+    public int[][] getBitmap(){
+        return bitmap;
+    }
+
+    public int[][] drawRectangle(int[][] map, int x, int y, int width, int height,int fillValue )
+    {
+        for (int j = 0; j < height; j++) {
+            for (int k = 0; k < width; k++) {
+                map[j+y][k+x] = fillValue;
+            }
+        }
+        return map;
     }
 }
