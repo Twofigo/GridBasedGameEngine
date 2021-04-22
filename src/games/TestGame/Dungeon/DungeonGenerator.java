@@ -30,8 +30,12 @@ public class DungeonGenerator{
 
         outer:
         for (int i = 0; i < NUMBER_OF_POINTS; i++) {
-            int x = (int)((10+(bitmap[0].length)-20)*Math.random());
-            int y = (int)((10+(bitmap.length)-20)*Math.random());
+
+            int width = bitmap[0].length;
+            int height = bitmap.length;
+
+            int x = (int)((10+(width)-20)*Math.random());
+            int y = (int)((10+(height)-20)*Math.random());
             Point p = new Point(x,y);
 
             int w = (int)(ROOM_MIN_SIZE + ((ROOM_MAX_SIZE - ROOM_MIN_SIZE) * Math.random()));
@@ -125,6 +129,7 @@ public class DungeonGenerator{
                     bitmap[b.y][b.x+i] = 3;
                 }
             }
+            System.out.println("\n\n\n\n");
             System.out.println(Arrays.deepToString(bitmap).replace("], ", "]\n").replace("[[", "[").replace("]]", "]"));
         }
     }
