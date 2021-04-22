@@ -2,6 +2,7 @@ package engine;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
 public class BoardView extends CanvasView{
@@ -32,12 +33,12 @@ public class BoardView extends CanvasView{
     public int boardTransX(int x){
         // translate between coordinate systems they said. will be fun they said.
         // NO! THIS IS NOT FUN; THIS IS DEGRADING MY WILL TO LIVE FOR EACH SYMBOL I TYPE WRONG
-        int trX = (int)(((tb.width()*100)*0.5-br.getOffsetX()*br.getZoom()));
-        return (int)((transX(x)/(1000.0/(tb.width()*100))-trX)/getZoom());
+        int trX = (int)(((br.getZoom()*50)-br.getOffsetX()));
+        return (int)((transX(x)/(1000.0/(br.getZoom()*100))-trX));
     }
     public int boardTransY(int y){
-        int trY = (int)(((tb.height()*100)*0.5-br.getOffsetY()*br.getZoom()));
-        return (int)((transY(y)/(1000.0/(tb.width()*100))-trY)/getZoom());
+        int trY = (int)(((br.getZoom()*50)-br.getOffsetY()));
+        return (int)((transY(y)/(1000.0/(br.getZoom()*100))-trY));
     }
 }
 
@@ -47,9 +48,11 @@ class BoardRenderer extends Renderer{
     private int offsetX;
     private int offsetY;
 
+    private BufferedImage offscreenImage;
+    private Graphics offscreen;
     public BoardRenderer(TableTop tb) {
         setTableTop(tb);
-        this.zoom = 1;
+        setZoom(tb.width());
     }
     public void setTableTop(TableTop tb) {
         this.tb = tb;
@@ -67,20 +70,23 @@ class BoardRenderer extends Renderer{
     public void draw(Graphics g) {
         if(tb==null) return;
 
-        double scalar=1000.0/(tb.width()*100);
-        int trX = (int)((tb.width()*100*0.5-offsetX*zoom)*scalar);;
-        int trY = (int)((tb.height()*100*0.5-offsetY*zoom)*scalar);
+        int trX = (int)((zoom*50-offsetX));;
+        int trY = (int)((zoom*50-offsetY));
 
         //int trX = 0;
         //int trY = 0;
-        g.translate(trX, trY);
+        offscreen.translate(trX, trY);
         for (Board b:tb.getBoards()){
-            drawBoard(g,b,scalar*zoom);
+            drawBoard(offscreen,b);
         }
-        g.translate(-trX, -trY);
+        offscreen.translate(-trX, -trY);
+        g.drawImage(this.offscreenImage, 0, 0,1000,1000, null);
+        g.drawImage(this.offscreenImage, 0, 0,1000,1000, null);
     }
     public void setZoom(double zoom){
         this.zoom=zoom;
+        this.offscreenImage = new BufferedImage((int)(zoom*100), (int)(zoom*100), BufferedImage.TYPE_INT_ARGB);
+        this.offscreen = this.offscreenImage.getGraphics();
     }
     public double getZoom(){
         return this.zoom;
@@ -89,7 +95,7 @@ class BoardRenderer extends Renderer{
         this.offsetX=(int)(offsetX*100);
         this.offsetY=(int)(offsetY*100);
     }
-    public void drawBoard(Graphics g, Board b, double scalar) {
+    public void drawBoard(Graphics g, Board b) {
         int index=0;
         int w;
         int h;
@@ -100,7 +106,7 @@ class BoardRenderer extends Renderer{
             h = index/b.width();
             index++;
             if(t==null) continue;
-            g.drawImage(t.getTexture(), (int)(scalar*(w*100)),(int)(scalar*(h*100)), (int)(scalar*100)+1,(int)(scalar*100)+1,null);
+            t.render(g,w*100, h*100);
             //System.out.println("i:"+index+" x:"+tranX(w*100)+" y:"+tranY(h*100)+" w:"+(int)(100*scalar*zoom+0.5)+" h:"+(int)(100*scalar*zoom+0.5));
         }
     }

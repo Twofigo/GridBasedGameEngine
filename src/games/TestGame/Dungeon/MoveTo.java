@@ -1,6 +1,7 @@
 package games.TestGame.Dungeon;
 
 import engine.*;
+import games.TestGame.Dungeon.World.Level;
 
 public class MoveTo extends Interaction {
     @Override

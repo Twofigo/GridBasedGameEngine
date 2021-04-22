@@ -1,6 +1,7 @@
 package games.TestGame.Dungeon;
 
-import engine.Entity;
+import games.TestGame.Dungeon.Inventory.Equipable;
+import games.TestGame.Dungeon.Inventory.Weapon;
 
 import java.awt.*;
 
@@ -12,6 +13,26 @@ public class Player extends Creature {
 
     private Equipable[] equipment;
     private Weapon weapon;
+
+    public Player(String name, int health) {
+        super(name);
+        equipment = new Equipable[6];
+        super.health = health;
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void render(Graphics g, int x, int y){
+        super.render(g,x,y);
+        for (Equipable eq:equipment) {
+            if (eq==null) continue;
+            eq.render(g,x,y);
+        }
+    }
 
     public int getIntelligence() {
         return intelligence;
@@ -33,7 +54,7 @@ public class Player extends Creature {
         return weapon;
     }
 
-    public int getArmor() {
+    public int getArmorRating() {
         int armor = 0;
         for(int k=0;k<equipment.length;k++) {
             armor+=getEquipment(k).getArmorRating();
@@ -41,13 +62,12 @@ public class Player extends Creature {
         return armor;
     }
 
-    public Player(String name, int health) {
-        super(name);
-        super.health = health;
+    public void equip(Equipable eq){
+        equipment[eq.getEquipmentSlot()] = eq;
+    }
+    public void unEquip(int slot){
+        equipment[slot] = null;
     }
 
-    @Override
-    public void update() {
 
-    }
 }

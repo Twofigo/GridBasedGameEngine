@@ -1,6 +1,8 @@
-package games.TestGame.Dungeon;
+package games.TestGame.Dungeon.Inventory;
 
 import engine.*;
+import games.TestGame.Dungeon.Dungeon;
+import games.TestGame.Dungeon.World.Level;
 
 
 public class Pickup extends Interaction {
@@ -14,7 +16,7 @@ public class Pickup extends Interaction {
         Board invB = inv.getForeground();
 
         for(int ky=0;ky<inv.height();ky++){
-            for(int kx=0;kx<inv.width();kx++){
+            for(int kx=0;kx<inv.width()-3;kx++){
                 if (invB.get(kx, ky)!=null)continue;
                 invB.place(obj1, kx,ky);
                 return true;

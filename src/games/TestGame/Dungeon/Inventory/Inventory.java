@@ -1,4 +1,4 @@
-package games.TestGame.Dungeon;
+package games.TestGame.Dungeon.Inventory;
 
 import engine.Board;
 import engine.TableTop;
