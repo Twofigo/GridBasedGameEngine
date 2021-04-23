@@ -5,7 +5,7 @@ import games.TestGame.Dungeon.Dungeon;
 import games.TestGame.Dungeon.World.Level;
 
 
-public class Pickup extends Interaction {
+public class Pickup implements Interaction {
     @Override
     public boolean action(PuppetMaster p, TableTop tb, Entity obj1, int x, int y) {
         Dungeon game = ((Dungeon)p);

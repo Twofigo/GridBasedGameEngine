@@ -326,7 +326,6 @@ public class Dungeon extends PuppetMaster {
     }
     @Override
     public void update() {
-
     }
 
     @Override
