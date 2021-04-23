@@ -27,18 +27,20 @@ private static void printMatrix(int[][] m)
   prints a matrix to the console.
 */
 
+import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.Arrays;
+import java.util.Iterator;
 
 
 // i wrote this code ages ago, and it is practically impossible for me to decode what it's doing.
 // it works tho....
-public class Dijkstra {
+public class Dijkstra implements Iterator<Point> {
 
     private int[][] distMatrix;
     private int[][] mazeMatrix;
 
-    private int[] walker;
+    private Point walker;
     private int width;
     private int height;
 
@@ -46,53 +48,6 @@ public class Dijkstra {
     private int fromY;
     private int toX;
     private int toY;
-
-    public Dijkstra(int[][] mazeMatrix, int fromX, int fromY, int toX, int toY){
-        this.mazeMatrix = mazeMatrix;
-        this.height = mazeMatrix.length;
-        this.width = mazeMatrix[0].length;
-
-        this.walker = new int[2];
-
-        this.fromX = fromX;
-        this.fromY = fromY;
-        this.toX = toX;
-        this.toY = toY;
-
-        if (fromX>=width || fromX<0 || fromY>=height ||  fromY<0 || toX>=width || toX<0 || toY>=height ||  toY<0){
-            throw new IllegalArgumentException("coordinate outside bounds");
-        }
-
-        findPath();
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getFromX() {
-        return fromX;
-    }
-
-    public int getFromY() {
-        return fromY;
-    }
-
-    public int getToX() {
-        return toX;
-    }
-
-    public int getToY() {
-        return toY;
-    }
-
-    public int[] getWalker() {
-        return walker;
-    }
 
     public static void main(String[] args){
         int[][] matrix =
@@ -135,72 +90,103 @@ public class Dijkstra {
         }
     }
     public static int[][] pathfinder(int[][] mazeMatrix, int fromX, int fromY, int toX, int toY){
+        int height = mazeMatrix.length;
+        int width = mazeMatrix[0].length;
         Dijkstra dj= new Dijkstra(mazeMatrix, fromX, fromY, toX, toY);
-        int[][] pathMatrix = Dijkstra.createMatrix(dj.getHeight(), dj.getWidth(), 0);
-        int[] next = dj.getNext();
-        while (next!=null){
-            pathMatrix[next[0]][next[1]] = 1;
-            next = dj.getNext();
+        int[][] pathMatrix = Dijkstra.createMatrix(height, width, 0);
+
+        while (dj.hasNext()) {
+            Point p = dj.next();
+            pathMatrix[p.y][p.x] = 1;
         }
-        printMatrix(pathMatrix);
         return pathMatrix;
     }
-    public boolean findPath() {
-        this.walker[0] = toY;
-        this.walker[1] = toX;
+
+    public Dijkstra(int[][] mazeMatrix, int fromX, int fromY, int toX, int toY){
+        this.mazeMatrix = mazeMatrix;
+        this.height = mazeMatrix.length;
+        this.width = mazeMatrix[0].length;
+
+        this.walker = new Point(0,0);
+
+        this.fromX = fromX;
+        this.fromY = fromY;
+        this.toX = toX;
+        this.toY = toY;
+
+        if (fromX>=width || fromX<0 || fromY>=height ||  fromY<0 || toX>=width || toX<0 || toY>=height ||  toY<0){
+            throw new IllegalArgumentException("coordinate outside bounds");
+        }
+
+        findPath();
+        printMatrix(this.distMatrix);
+    }
+
+    @Override
+    public boolean hasNext() {
+        if (walker.y==toY && walker.x==toX) return false; // destination reached
+        return true;
+    }
+
+    @Override
+    public Point next() {
+        if(!hasNext()) return null;
+
+        int minX=fromX;
+        int minY=fromY;
+        int dist=-1;
+        int x=0;
+        int y=0;
+
+        for(int k=0;k<4;k++) {
+            if (k==0 && walker.y >= 1) {               // walk up
+                y = walker.y - 1;
+                x = walker.x;
+            }
+            else if (k==1 && walker.x >= 1) {               // walk left
+                y = walker.y;
+                x = walker.x - 1;
+            }
+            else if (k==2 && walker.y < (height - 1)) {         // walk down
+                y = walker.y + 1;
+                x = walker.x;
+            }
+            else if (k==3 && walker.x < (width - 1)) {      // walk right
+                y = walker.y;
+                x = walker.x + 1;
+            }
+            if(distMatrix[y][x]!=-1) {
+                if (dist==-1 || dist > distMatrix[y][x]) { // finds the tile of smallest distance
+                    dist = distMatrix[y][x];
+                    minY = y;
+                    minX = x;
+                }
+            }
+        }
+        walker.y = minY;
+        walker.x = minX;
+        return walker;
+    }
+
+    private boolean findPath() {
+        this.walker.y = fromX;
+        this.walker.x = fromY;
         try{
-            this.distMatrix = distanceCloud(this.mazeMatrix, fromX, fromY, toX, toY);
+            this.distMatrix = distanceCloud(this.mazeMatrix, toX, toY,fromX, fromY);
         }
         catch (IllegalArgumentException e){
             return false;
         }
         return true;
     }
-    private int[] getNext(){
-        int[] newWalker = {toY,toX};
-        int dist=-1;
-        int x=0;
-        int y=0;
 
-        if (walker[0]==fromY && walker[1]==fromX) return null; // destination reached
-
-        for(int k=0;k<4;k++) {
-            if (k==0 && walker[0] >= 1) {               // walk up
-                y = walker[0] - 1;
-                x = walker[1];
-            }
-            else if (k==1 && walker[1] >= 1) {               // walk left
-                y = walker[0];
-                x = walker[1] - 1;
-            }
-            else if (k==2 && walker[0] < (height - 1)) {         // walk down
-                y = walker[0] + 1;
-                x = walker[1];
-            }
-            else if (k==3 && walker[1] < (width - 1)) {      // walk right
-                y = walker[0];
-                x = walker[1] + 1;
-            }
-            if(distMatrix[y][x]!=-1) {
-                if (dist==-1 || dist > distMatrix[y][x]) { // finds the tile of smallest distance
-                    dist = distMatrix[y][x];
-                    newWalker[0] = y;
-                    newWalker[1] = x;
-                }
-            }
-        }
-        walker[0] = newWalker[0];
-        walker[1] = newWalker[1];
-
-        return walker;
-    }
     private static int[][] distanceCloud(int[][] matrix, int fromX, int fromY, int toX, int toY) throws IllegalArgumentException
     {
         int height = matrix.length;
         int width = matrix[0].length;
         int[][] distMatrix = createMatrix(height, width, -1);
         int[][] walkedMatrix = createMatrix(height, width, 0);
-        int[] walker = {fromY,fromX};// row,colum : y,x
+        Point walker = new Point(fromX, fromY);// row,colum : y,x
         int dist;
         distMatrix[fromY][fromX] = matrix[fromY][fromX];
         walkedMatrix[fromY][fromX] = 1;
@@ -214,53 +200,53 @@ public class Dijkstra {
                 }
             }
         }
+
         while(true){
             // find smallest walker
-            walker[0] = -1;
-            walker[1] = -1;
+            walker.y = -1;
+            walker.x = -1;
             for(int row=0;row<height;row++){
                 for(int col=0;col<width;col++){
                     if(walkedMatrix[row][col]!=1) continue;
-                    if(walker[0]==-1 || distMatrix[row][col]<distMatrix[walker[0]][walker[1]]){
-                        walker[0] = row;
-                        walker[1] = col;
+                    if(walker.y==-1 || distMatrix[row][col]<distMatrix[walker.y][walker.x]){
+                        walker.y = row;
+                        walker.x = col;
                     }
                 }
             }
-            if (walker[0]==-1){
+            if (walker.y==-1){
                 throw new IllegalArgumentException("no path found");
             }
             // walk one walker 1 step in all directions
-            int x=0;
-            int y=0;
+            int x=-1;
+            int y=-1;
             for(int k=0;k<4;k++) {
-                if (k==0 && walker[0] >= 1) {               // walk up
-                    y = walker[0] - 1;
-                    x = walker[1];
+                if (k==0 && walker.y >= 1) {               // walk up
+                    y = walker.y - 1;
+                    x = walker.x;
                 }
-                else if (k==1 && walker[1] >= 1) {               // walk left
-                    y = walker[0];
-                    x = walker[1] - 1;
+                else if (k==1 && walker.x >= 1) {               // walk left
+                    y = walker.y;
+                    x = walker.x - 1;
 
                 }
-                else if (k==2 && walker[0] < (height - 1)) {         // walk down
-                    y = walker[0] + 1;
-                    x = walker[1];
+                else if (k==2 && walker.y < (height - 1)) {         // walk down
+                    y = walker.y + 1;
+                    x = walker.x;
                 }
-                else if (k==3 && walker[1] < (width - 1)) {      // walk right
-                    y = walker[0];
-                    x = walker[1] + 1;
+                else if (k==3 && walker.x < (width - 1)) {      // walk right
+                    y = walker.y;
+                    x = walker.x + 1;
                 }
-
-                if(walkedMatrix[y][x] != 2) {
-                    dist = matrix[y][x] + distMatrix[walker[0]][walker[1]];
+                if(x!=-1 && walkedMatrix[y][x] != 2) {
+                    dist = matrix[y][x] + distMatrix[walker.y][walker.x];
                     if (walkedMatrix[y][x] == 0 || distMatrix[y][x] > dist) {
                         distMatrix[y][x] = dist;
                         walkedMatrix[y][x] = 1;
                     }
                 }
             }
-            walkedMatrix[walker[0]][walker[1]] = 2;
+            walkedMatrix[walker.y][walker.x] = 2;
 
             // if goal reached
             if (walkedMatrix[toY][toX]==1) break;
@@ -299,4 +285,5 @@ public class Dijkstra {
         }
         System.out.println();
     }
+
 }
