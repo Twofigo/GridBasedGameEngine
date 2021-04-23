@@ -9,7 +9,6 @@ import java.util.List;
 public class DungeonGenerator{
     int[][] bitmap = new int[60][60];
 
-
     private final List<Rectangle> rooms = new ArrayList<>();
     private final List<Point> points = new ArrayList<>();
 
@@ -59,18 +58,18 @@ public class DungeonGenerator{
             // checks to make sure rooms center don't align up with edges of other rooms
             if (    xs.contains(ra.x)
                     || xs.contains(p.x)
-                    || xs.contains(ra.x + ra.width)
+                    || xs.contains(ra.x + ra.width-1)
                     || ys.contains(ra.y)
                     || ys.contains(p.y)
-                    || ys.contains(ra.y + ra.height)) {
+                    || ys.contains(ra.y + ra.height-1)) {
                 continue;
             }
             xs.add(ra.x);
             xs.add(p.x);
-            xs.add(ra.x + ra.width);
+            xs.add(ra.x + ra.width-1);
             ys.add(ra.y);
             ys.add(p.y);
-            ys.add(ra.y + ra.height);
+            ys.add(ra.y + ra.height-1);
 
             rooms.add(ra);
 
@@ -92,6 +91,7 @@ public class DungeonGenerator{
     }
 
     public static void drawPaths(int[][] map, List<Point> points){
+        // the rooms that are already attached with one another
         List<Point> tree = new ArrayList<>();
         //tree.clear();
         tree.add(points.remove(0));
@@ -114,6 +114,7 @@ public class DungeonGenerator{
                     }
                 }
             }
+            // finds shortest distance from the tree to any un-attached room
 
             if (a == null || b == null) {
                 throw new RuntimeException("we're in deep shit if we crashed here");
@@ -123,6 +124,12 @@ public class DungeonGenerator{
             tree.add(b);
 
             drawPath(map, a, b);
+        }
+
+        for(int k=0;k<tree.size();k++){
+            int a = (int)(tree.size()*Math.random());
+            int b = (int)(tree.size()*Math.random());
+            drawPath(map, tree.get(a), tree.get(b));
         }
     }
 
