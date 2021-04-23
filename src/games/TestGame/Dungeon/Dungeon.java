@@ -51,13 +51,16 @@ public class Dungeon extends PuppetMaster {
         spawn(new Item("coin"));
         spawn(new Equipable("hat",1,0));
         spawn(new Equipable("bikini",1,1));
+        spawn(new Equipable("chainmale",3,1));
+        spawn(new Equipable("legs",3,3));
+        spawn(new Equipable("axe",3,2));
 
         setupInventory();
 
         setupDungeonView();
         setupInventoryView();
 
-        dungeonView.setZoom(9);
+        dungeonView.setZoom(15);
         dungeonView.setOffset(player.getX()+0.5, player.getY()+0.5);
 
         Window win = getWindow();
@@ -99,6 +102,9 @@ public class Dungeon extends PuppetMaster {
         th.addTexture("player/base/human_m.png", "human");
         th.addTexture("player/head/wizard_purple.png", "hat");
         th.addTexture("player/body/bikini_red.png", "bikini");
+        th.addTexture("player/body/chainmail3.png", "chainmale");
+        th.addTexture("player/legs/leg_armor02.png", "legs");
+        th.addTexture("item/weapon/battle_axe1.png", "axe");
         th.addTexture("item/misc/gold_pile.png", "coin");
 
         /*
