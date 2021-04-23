@@ -338,14 +338,30 @@ public class Dungeon extends PuppetMaster {
         //sightRay(bm, player.getX(), player.getY(), player.getX()+sightRange, player.getY()-sightRange);
         //sightRay(bm, player.getX(), player.getY(), player.getX()-sightRange, player.getY()-sightRange);
 
+        int px = player.getX();
+        int py = player.getY();
 
         for(int x=-sightRange;x<=sightRange;x++){
-            sightRay(bm, player.getX(), player.getY(), player.getX()+x, player.getY()-sightRange);
-            sightRay(bm, player.getX(), player.getY(), player.getX()+x, player.getY()+sightRange);
+            sightRay(bm, px, py, px+x, py-sightRange);
+            sightRay(bm, px, py, px+x, py+sightRange);
         }
         for(int y=-sightRange;y<=sightRange;y++){
-            sightRay(bm, player.getX(), player.getY(), player.getX()-sightRange, player.getY()+y);
-            sightRay(bm, player.getX(), player.getY(), player.getX()+sightRange, player.getY()+y);
+            sightRay(bm, px, py, px-sightRange, py+y);
+            sightRay(bm, px, py, px+sightRange, py+y);
+        }
+
+        // if 3 adjacent tiles are visible, set the tile to visible too
+        // "quick" way to fill in wierd holes in sigth algorithm without adding more rays
+        for(int x=-sightRange;x<=sightRange;x++){
+            for(int y=-sightRange;y<=sightRange;y++){
+                if(bm.get(px+x,py+y)) continue;
+                if((    (bm.get(px+x-1,py+y)?1:0) +
+                        (bm.get(px+x+1,py+y)?1:0) +
+                        (bm.get(px+x,py+y-1)?1:0) +
+                        (bm.get(px+x,py+y+1)?1:0)) >=3){
+                    bm.set(true,px+x,py+y);
+                }
+            }
         }
 
         dungeonView.getDiscoveredMask().mergeOR(bm);

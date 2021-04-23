@@ -65,7 +65,7 @@ class DungeonRenderer extends BoardRenderer {
         BinaryMask bm = getVisable();
         bm.mergeAND(this.getDiscoveredMask());
         drawBoard(offscreen,l.getBackground(),bm);
-        ((Graphics2D)offscreen).setPaint(new Color(0,0,0,(int)(256*(2.0/3))));
+        ((Graphics2D)offscreen).setPaint(new Color(0,9,20,(int)(256*(3.0/5))));
         ((Graphics2D)offscreen).fillRect(-trX,-trY,(int)(100*zoom),(int)(100*zoom));
         bm.mergeAND(this.getVisibilityMask());
         drawBoard(offscreen,l.getBackground(),bm);
