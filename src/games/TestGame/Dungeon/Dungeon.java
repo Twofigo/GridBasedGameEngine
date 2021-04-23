@@ -260,7 +260,10 @@ public class Dungeon extends PuppetMaster {
         l.getBackground().clear(floors);
 
         DungeonGenerator dg = new DungeonGenerator();
-        int[][] bitmap = dg.getBitmap();
+        dg.setROOM_MIN_DISTANCE(0);
+        dg.setROOM_MIN_SIZE(5);
+        dg.setRANDOM_PATHS(6);
+        int[][] bitmap = dg.generateMap();
         for(int y=0;y<bitmap[0].length;y++){
             for(int x=0;x<bitmap.length;x++){
                 int v = bitmap[y][x];
