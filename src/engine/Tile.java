@@ -6,8 +6,8 @@ import java.awt.*;
 public class Tile {
     private Image texture;
 
-    public Tile(String name) {
-        this.texture = TextureHandler.getInstance().getTexture(name);
+    public Tile(String textureName) {
+        this.texture = TextureHandler.getInstance().getTexture(textureName);
     }
 
     public void setTexture(Image texture) {

@@ -49,11 +49,11 @@ public class Dungeon extends PuppetMaster {
         spawn(new Item("coin"));
         spawn(new Item("coin"));
         spawn(new Item("coin"));
-        spawn(new Equipable("hat",1,0));
-        spawn(new Equipable("bikini",1,1));
-        spawn(new Equipable("chainmale",3,1));
-        spawn(new Equipable("legs",3,3));
-        spawn(new Equipable("axe2",3,2));
+        spawn(new Equipable("hat","hat_eq",1,0));
+        spawn(new Equipable("bikini","bikini_eq",1,1));
+        spawn(new Equipable("chainmail","chainmail_eq",3,1));
+        spawn(new Equipable("legs","legs_eq",3,3));
+        spawn(new Equipable("axe2","axe2_eq",3,2));
 
         setupInventory();
 
@@ -94,44 +94,56 @@ public class Dungeon extends PuppetMaster {
         bg.place(new EquipmentSlot("inventory",4),6,6);
 
     }
+
     private void loadTextures(){
         TextureHandler th = TextureHandler.getInstance();
-        th.setRootPath("src/Texture/");
-        th.setDefaultTexture("dc-misc/error.png");
-        th.addTexture("dc-mon/deep_elf_mage.png", "Elf");
-        th.addTexture("player/base/human_m.png", "human");
-        th.addTexture("player/head/wizard_purple.png", "hat");
-        th.addTexture("player/body/bikini_red.png", "bikini");
-        th.addTexture("player/body/chainmail3.png", "chainmale");
-        th.addTexture("player/legs/leg_armor02.png", "legs");
-        th.addTexture("player/hand1/axe_double.png", "axe");
-        th.addTexture("player/hand1/axe_executioner.png", "axe2");
-        th.addTexture("item/misc/gold_pile.png", "coin");
+        th.setRootPath("");
+        // creatures
+        th.setDefaultTexture("src/Texture/dc-misc/error.png");
+        th.addTexture("src/Texture/dc-mon/deep_elf_mage.png", "Elf");
+        th.addTexture("src/Texture/player/base/human_m.png", "human");
+        th.addTexture("src/Texture/item/misc/gold_pile.png", "coin");
 
+        // equipment
+        th.addTexture("src/Texture/item/armour/headgear/wizard_hat2.png", "hat");
+        th.addTexture("src/Texture/item/armour/mottled_dragon_hide.png", "bikini");
+        th.addTexture("src/Texture/item/armour/dwarven_ringmail.png", "chainmail");
+        th.addTexture("src/Texture/player/legs/leg_armor02.png", "legs");
+        th.addTexture("src/Texture/item/weapon/battle_axe1.png", "axe");
+        th.addTexture("src/Texture/item/weapon/executioner_axe1.png", "axe2");
+
+        th.addTexture("src/Texture/player/head/wizard_purple.png", "hat_eq");
+        th.addTexture("src/Texture/player/body/bikini_red.png", "bikini_eq");
+        th.addTexture("src/Texture/player/body/chainmail3.png", "chainmail_eq");
+        th.addTexture("src/Texture/player/legs/leg_armor02.png", "legs_eq");
+        th.addTexture("src/Texture/player/hand1/axe_double.png", "axe_eq");
+        th.addTexture("src/Texture/player/hand1/axe_executioner.png", "axe2_eq");
+
+        // world
         /*
-        th.addTexture("dc-dngn/floor/ice0.png", "Floor1");
-        th.addTexture("dc-dngn/floor/ice1.png", "Floor2");
-        th.addTexture("dc-dngn/floor/ice2.png", "Floor3");
-        th.addTexture("dc-dngn/floor/ice3.png", "Floor4");
+        th.addTexture("src/Texture/dc-dngn/floor/ice0.png", "Floor1");
+        th.addTexture("src/Texture/dc-dngn/floor/ice1.png", "Floor2");
+        th.addTexture("src/Texture/dc-dngn/floor/ice2.png", "Floor3");
+        th.addTexture("src/Texture/dc-dngn/floor/ice3.png", "Floor4");
         */
-        th.addTexture("dc-dngn/floor/grey_dirt0.png", "Floor1");
-        th.addTexture("dc-dngn/floor/grey_dirt1.png", "Floor2");
-        th.addTexture("dc-dngn/floor/grey_dirt2.png", "Floor3");
-        th.addTexture("dc-dngn/floor/grey_dirt3.png", "Floor4");
-        th.addTexture("dc-dngn/floor/grey_dirt4.png", "Floor5");
-        th.addTexture("dc-dngn/floor/grey_dirt5.png", "Floor6");
-        th.addTexture("dc-dngn/floor/grey_dirt6.png", "Floor7");
-        th.addTexture("dc-dngn/floor/grey_dirt7.png", "Floor8");
+        th.addTexture("src/Texture/dc-dngn/floor/grey_dirt0.png", "Floor1");
+        th.addTexture("src/Texture/dc-dngn/floor/grey_dirt1.png", "Floor2");
+        th.addTexture("src/Texture/dc-dngn/floor/grey_dirt2.png", "Floor3");
+        th.addTexture("src/Texture/dc-dngn/floor/grey_dirt3.png", "Floor4");
+        th.addTexture("src/Texture/dc-dngn/floor/grey_dirt4.png", "Floor5");
+        th.addTexture("src/Texture/dc-dngn/floor/grey_dirt5.png", "Floor6");
+        th.addTexture("src/Texture/dc-dngn/floor/grey_dirt6.png", "Floor7");
+        th.addTexture("src/Texture/dc-dngn/floor/grey_dirt7.png", "Floor8");
 
-        th.addTexture("dc-dngn/floor/dirt_full.png", "grass");
-        th.addTexture("dc-dngn/floor/floor_sand_stone5.png", "Floor6");
-        th.addTexture("dc-dngn/floor/floor_sand_stone6.png", "Floor7");
-        th.addTexture("dc-dngn/floor/floor_sand_stone7.png", "Floor8");
+        th.addTexture("src/Texture/dc-dngn/floor/dirt_full.png", "grass");
+        //th.addTexture("src/Texture/dc-dngn/floor/floor_sand_stone5.png", "Floor6");
+        //th.addTexture("src/Texture/dc-dngn/floor/floor_sand_stone6.png", "Floor7");
+        //th.addTexture("src/Texture/dc-dngn/floor/floor_sand_stone7.png", "Floor8");
 
-        th.addTexture("dc-dngn/floor/cobble_blood1.png", "Floor");
+        th.addTexture("src/Texture/dc-dngn/floor/cobble_blood1.png", "Floor");
 
-        th.addTexture("dc-dngn/wall/dngn_mirrored_wall.png", "inventory");
-        th.addTexture("dc-dngn/wall/stone_brick1.png", "wall");
+        th.addTexture("src/Texture/dc-dngn/wall/dngn_mirrored_wall.png", "inventory");
+        th.addTexture("src/Texture/dc-dngn/wall/stone_brick1.png", "wall");
     }
     private void setupDungeonView(){
         // window setup
