@@ -77,8 +77,9 @@ class BoardRenderer extends Renderer{
         //int trY = 0;
         offscreen.clearRect(0,0,(int)(100*zoom),(int)(100*zoom));
         offscreen.translate(trX, trY);
+        BinaryMask bm = getVisable();
         for (Board b:tb.getBoards()){
-            drawBoard(offscreen,b);
+            drawBoard(offscreen,b,bm);
         }
         offscreen.translate(-trX, -trY);
         g.drawImage(this.offscreenImage, 0, 0,1000,1000, null);
@@ -96,6 +97,15 @@ class BoardRenderer extends Renderer{
         this.offsetY=(int)(offsetY*100);
     }
     public void drawBoard(Graphics g, Board b) {
+        drawBoard(g,b,null);
+    }
+    public BinaryMask getVisable(){
+        BinaryMask bm = new BinaryMask(tb.width(),tb.height());
+        bm.clear(false);
+        bm.clearRect(true, (int)(offsetX/100-zoom*0.5-0.5), (int)(offsetY/100-zoom*0.5-0.5), (int)(zoom+2), (int)(zoom+2));
+        return bm;
+    }
+    public void drawBoard(Graphics g, Board b, BinaryMask mask) {
         int index=0;
         int w;
         int h;
@@ -105,8 +115,12 @@ class BoardRenderer extends Renderer{
             w = index%b.width();
             h = index/b.width();
             index++;
-            if(t==null) continue;
-            t.render(g,w*100, h*100);
+            if (t == null) continue;
+
+            if(mask==null || mask.get(w,h)) {
+
+                t.render(g, w * 100, h * 100);
+            }
             //System.out.println("i:"+index+" x:"+tranX(w*100)+" y:"+tranY(h*100)+" w:"+(int)(100*scalar*zoom+0.5)+" h:"+(int)(100*scalar*zoom+0.5));
         }
     }
