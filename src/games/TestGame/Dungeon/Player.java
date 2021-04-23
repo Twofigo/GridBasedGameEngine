@@ -30,7 +30,7 @@ public class Player extends Creature {
         super.render(g,x,y);
         for (Equipable eq:equipment) {
             if (eq==null) continue;
-            eq.render(g,x,y);
+            eq.renderEquiped(g,x,y);
         }
     }
 
