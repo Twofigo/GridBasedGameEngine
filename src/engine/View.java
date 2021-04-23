@@ -15,6 +15,8 @@ abstract public class View extends JPanel{
         this.name = name;
         this.buttonCount = 0;
     }
+
+    public abstract void setup();
     public String getName(){
         return name;
     }

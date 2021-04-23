@@ -13,15 +13,19 @@ public class CanvasView extends View {
 
     public CanvasView(String name) {
         super(name);
+    }
+
+    @Override
+    public void setup() {
+        setupCanvasView();
+        draw();
+    }
+
+    protected void setupCanvasView() {
         buttonPanel.setLayout(new GridLayout(12,1,0,0));
         canvasC = new CanvasComponent();
-
-
-
         this.setLayout(new GridBagLayout());
-
         GridBagConstraints con = new GridBagConstraints();
-
         con.fill = GridBagConstraints.BOTH;
         con.gridy = 0;
         con.gridx = 0;

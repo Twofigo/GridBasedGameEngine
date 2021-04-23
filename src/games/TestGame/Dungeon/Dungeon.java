@@ -22,7 +22,7 @@ public class Dungeon extends PuppetMaster {
     }
 
     private Player player;
-    private BoardView dungeonView;
+    private DungeonView dungeonView;
     private BoardView inventoryView;
     private Level level;
     private Inventory inventory;
@@ -147,7 +147,8 @@ public class Dungeon extends PuppetMaster {
     }
     private void setupDungeonView(){
         // window setup
-        dungeonView = new BoardView("dungeon", level);
+        dungeonView = new DungeonView("dungeon", level);
+        dungeonView.setup();
         dungeonView.addLabel("Navigation");
         dungeonView.addButton("Settings", new ActionListener() {
             @Override
@@ -207,9 +208,12 @@ public class Dungeon extends PuppetMaster {
                 return;
             }
         });
+
+        dungeonView.getDiscoveredMask().clear(false);
     }
     private void setupInventoryView(){
         inventoryView = new BoardView("inventory", inventory);
+        inventoryView.setup();
         inventoryView.addLabel("Navigation");
         inventoryView.addButton("Settings", new ActionListener() {
             @Override
@@ -283,33 +287,32 @@ public class Dungeon extends PuppetMaster {
                 Tile t = voidWall;
                 if(v==0){
                     t = voidWall;
-                    l.getBackground().set(null,x,y);
                 }
-                if(v==2){
+                else if(v==2){
                     t = wall;
                 }
-                if(v==3){
-                    t=null;
-                    l.getBackground().set(t3,x,y);
+                else if(v==3){
+                    t = t3;
                 }
-                if(v==4){
-                    t=null;
+                else{
+                    continue;
                 }
-                l.getForeground().set(t,x,y);
+                l.getBackground().set(t,x,y);
             }
         }
         return l;
     }
     private boolean spawn(Tile t){
         Random rand = new Random();
-        Board foreGround = ((Level)getTableTop()).getForeground();
+        Board back = ((Level)getTableTop()).getBackground();
+        Board board = ((Level)getTableTop()).getForeground();
         Board floor = ((Level)getTableTop()).getFloor();
         int x;
         int y;
         while(true){
             x = rand.nextInt(floor.width());
             y = rand.nextInt(floor.height());
-            if(foreGround.get(x,y)==null) {
+            if(!(back.get(x,y) instanceof Wall)) {
                 if (floor.get(x, y) == null) break;
             }
         }
@@ -317,15 +320,54 @@ public class Dungeon extends PuppetMaster {
             floor.place(t,x,y);
         }
         else if(t instanceof Creature){
-            foreGround.place(t,x,y);
+            board.place(t,x,y);
         }
         else {
             System.out.println("You're in deep shit");
         }
         return true;
     }
+    private void updateVisibility(){
+        TableTop tb = getTableTop();
+        BinaryMask bm = dungeonView.getVisibilityMask();
+        bm.clear(false);
+
+        int sightRange = 8;
+        //sightRay(bm, player.getX(), player.getY(), player.getX()+sightRange, player.getY()+sightRange);
+        //sightRay(bm, player.getX(), player.getY(), player.getX()-sightRange, player.getY()+sightRange);
+        //sightRay(bm, player.getX(), player.getY(), player.getX()+sightRange, player.getY()-sightRange);
+        //sightRay(bm, player.getX(), player.getY(), player.getX()-sightRange, player.getY()-sightRange);
+
+
+        for(int x=-sightRange;x<=sightRange;x++){
+            sightRay(bm, player.getX(), player.getY(), player.getX()+x, player.getY()-sightRange);
+            sightRay(bm, player.getX(), player.getY(), player.getX()+x, player.getY()+sightRange);
+        }
+        for(int y=-sightRange;y<=sightRange;y++){
+            sightRay(bm, player.getX(), player.getY(), player.getX()-sightRange, player.getY()+y);
+            sightRay(bm, player.getX(), player.getY(), player.getX()+sightRange, player.getY()+y);
+        }
+
+        dungeonView.getDiscoveredMask().mergeOR(bm);
+    }
+    private void sightRay(BinaryMask bm, int fromX, int fromY, int toX, int toY){
+        // draw a ray from point to closes wall or endpoint
+        Board b = ((Level)this.getTableTop()).getBackground();
+        int lenX = toX-fromX;
+        int lenY = toY-fromY;
+        int iter = Math.max(Math.abs(lenY),Math.abs(lenX));
+        for(int k=0;k<=iter;k++){
+            int x = fromX+(int)Math.round((k*lenX)/((float)iter));
+            int y = fromY+(int)Math.round((k*lenY)/((float)iter));
+            bm.set(true,x,y);
+            if (b.get(x,y) instanceof Wall) break;
+        }
+    }
+
     @Override
     public void update() {
+        ((Level)getTableTop()).getForeground().update();
+
     }
 
     @Override
@@ -341,6 +383,7 @@ public class Dungeon extends PuppetMaster {
             interact(MOVETO,player, x, y);
             dungeonView.setOffset(player.getX()+0.5, player.getY()+0.5);
             getWindow().draw();
+            updateVisibility();
             update();
         }
     }

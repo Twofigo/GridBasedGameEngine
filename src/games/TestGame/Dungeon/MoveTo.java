@@ -8,15 +8,15 @@ public class MoveTo implements Interaction {
     public boolean action(PuppetMaster p, TableTop tb, Entity e, int x, int y) {
         Dungeon game = ((Dungeon)p);
         Level world = ((Level)tb);
+        Board back = world.getBackground();
         Board board = world.getForeground();
         Board floor = world.getFloor();
 
-        if(board.OutOfBounds(x,y)) return false;
-        Tile t = board.get(x,y);
+        if(back.OutOfBounds(x,y)) return false;
+        Tile t = back.get(x,y);
         if(t instanceof MoveInto) {
             if (!((MoveInto)t).moveInto(game, e)) return false;
         }
-        else if(t!=null) return false;
         board.pickup(e);
         board.place(e,x,y);
 
