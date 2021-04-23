@@ -7,21 +7,61 @@ import java.util.*;
 import java.util.List;
 
 public class DungeonGenerator{
-    int[][] bitmap = new int[60][60];
-
     private final List<Rectangle> rooms = new ArrayList<>();
     private final List<Point> points = new ArrayList<>();
 
     Set<Integer> xs = new HashSet<>();
     Set<Integer> ys = new HashSet<>();
 
-    private static final int NUMBER_OF_POINTS = 10000;
-    private static final int ROOM_MAX_SIZE = 20;
-    private static final int ROOM_MIN_SIZE = 10;
-    private static final int ROOM_MIN_DISTANCE = 0;
-
+    private int SIZE_X;
+    private int SIZE_Y;
+    private int NUMBER_OF_POINTS;
+    private int ROOM_MAX_SIZE;
+    private int ROOM_MIN_SIZE;
+    private int ROOM_MIN_DISTANCE;
+    private int RANDOM_PATHS;
 
     public DungeonGenerator(){
+        SIZE_X = 60;
+        SIZE_Y = 60;
+        NUMBER_OF_POINTS = 10000;
+        ROOM_MAX_SIZE = 20;
+        ROOM_MIN_SIZE = 10;
+        ROOM_MIN_DISTANCE = 0;
+        RANDOM_PATHS = 10;
+    }
+    public void setSIZE_X(int SIZE_X) {
+        this.SIZE_X = SIZE_X;
+    }
+
+    public void setSIZE_Y(int SIZE_Y) {
+        this.SIZE_Y = SIZE_Y;
+    }
+
+    public void setNUMBER_OF_POINTS(int NUMBER_OF_POINTS) {
+        this.NUMBER_OF_POINTS = NUMBER_OF_POINTS;
+    }
+
+    public void setROOM_MAX_SIZE(int ROOM_MAX_SIZE) {
+        this.ROOM_MAX_SIZE = ROOM_MAX_SIZE;
+    }
+
+    public void setROOM_MIN_SIZE(int ROOM_MIN_SIZE) {
+        this.ROOM_MIN_SIZE = ROOM_MIN_SIZE;
+    }
+
+    public void setROOM_MIN_DISTANCE(int ROOM_MIN_DISTANCE) {
+        this.ROOM_MIN_DISTANCE = ROOM_MIN_DISTANCE;
+    }
+
+    public void setRANDOM_PATHS(int RANDOM_PATHS) {
+        this.RANDOM_PATHS = RANDOM_PATHS;
+    }
+
+    public int[][] generateMap(){
+
+        int[][] bitmap = new int[SIZE_X][SIZE_Y];
+
         points.clear();
         rooms.clear();
 
@@ -84,13 +124,10 @@ public class DungeonGenerator{
             drawRectangle(bitmap,room.x + 1, room.y + 1, room.width - 2, room.height - 2,4);
         }
         printMap(bitmap);
-    }
 
-    public int[][] getBitmap(){
         return bitmap;
     }
-
-    public static void drawPaths(int[][] map, List<Point> points){
+    public void drawPaths(int[][] map, List<Point> points){
         // the rooms that are already attached with one another
         List<Point> tree = new ArrayList<>();
         //tree.clear();
@@ -126,7 +163,7 @@ public class DungeonGenerator{
             drawPath(map, a, b);
         }
 
-        for(int k=0;k<tree.size();k++){
+        for(int k=0;k<RANDOM_PATHS;k++){
             int a = (int)(tree.size()*Math.random());
             int b = (int)(tree.size()*Math.random());
             drawPath(map, tree.get(a), tree.get(b));
