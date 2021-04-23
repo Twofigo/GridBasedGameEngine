@@ -9,9 +9,9 @@ import java.util.List;
 public class DungeonGenerator{
     int[][] bitmap = new int[60][60];
 
-    private final List<Point> points = new ArrayList<>();
-    private final List<Point> tree = new ArrayList<>();
+
     private final List<Rectangle> rooms = new ArrayList<>();
+    private final List<Point> points = new ArrayList<>();
 
     Set<Integer> xs = new HashSet<>();
     Set<Integer> ys = new HashSet<>();
@@ -24,7 +24,6 @@ public class DungeonGenerator{
 
     public DungeonGenerator(){
         points.clear();
-        tree.clear();
         rooms.clear();
 
         outer:
@@ -58,27 +57,43 @@ public class DungeonGenerator{
             ra.height -= 2 * ROOM_MIN_DISTANCE;
 
             // checks to make sure rooms center don't align up with edges of other rooms
-            if (    xs.contains(p.x)
-                    || xs.contains(ra.x + ra.width / 2)
+            if (    xs.contains(ra.x)
+                    || xs.contains(p.x)
                     || xs.contains(ra.x + ra.width)
+                    || ys.contains(ra.y)
                     || ys.contains(p.y)
-                    || ys.contains(ra.y + ra.height / 2)
                     || ys.contains(ra.y + ra.height)) {
                 continue;
             }
+            xs.add(ra.x);
             xs.add(p.x);
-            xs.add(ra.x + ra.width / 2 );
             xs.add(ra.x + ra.width);
+            ys.add(ra.y);
             ys.add(p.y);
-            ys.add(ra.y + ra.height / 2);
             ys.add(ra.y + ra.height);
 
             rooms.add(ra);
 
-            bitmap = drawRectangle(bitmap, ra.x, ra.y,ra.width,ra.height,2);
+            drawRectangle(bitmap, ra.x, ra.y,ra.width,ra.height,2);
             points.add(p);
         }
 
+        drawPaths(bitmap, points);
+
+        for (Rectangle room : rooms) {
+            //bitmap = drawRectangle(bitmap,room.x + 1, room.y + 1, room.width - ROOM_MIN_DISTANCE / 2, room.height - ROOM_MIN_DISTANCE / 2,4);
+            drawRectangle(bitmap,room.x + 1, room.y + 1, room.width - 2, room.height - 2,4);
+        }
+        printMap(bitmap);
+    }
+
+    public int[][] getBitmap(){
+        return bitmap;
+    }
+
+    public static void drawPaths(int[][] map, List<Point> points){
+        List<Point> tree = new ArrayList<>();
+        //tree.clear();
         tree.add(points.remove(0));
 
         while(!points.isEmpty()) {
@@ -107,63 +122,67 @@ public class DungeonGenerator{
             points.remove(b);
             tree.add(b);
 
-            //från (a.x;a.y) till (a.x;b.y)
-
-            //från (a.x;b.y) till (b.x;b.y)
-
-            Point walker = new Point();
-            if (a.y < b.y){
-                walker.y = a.y;
-                walker.x = a.x;
-            }
-            else{
-                walker.y = b.y;
-                walker.x = b.x;
-            }
-            for (int i = 0; i <= Math.abs(a.y-b.y); i++) {
-                bitmap[walker.y+i][walker.x] = 3;
-            }
-            walker.y+=Math.abs(a.y-b.y);
-            if (a.x < b.x){
-                walker.x = a.x;
-            }
-            else{
-                walker.x = b.x;
-            }
-            for (int i = 0; i <= Math.abs(a.x-b.x); i++) {
-                bitmap[walker.y][walker.x+i] = 3;
-            }
-
-            for (Rectangle room : rooms) {
-                //bitmap = drawRectangle(bitmap,room.x + 1, room.y + 1, room.width - ROOM_MIN_DISTANCE / 2, room.height - ROOM_MIN_DISTANCE / 2,4);
-                bitmap = drawRectangle(bitmap,room.x + 1, room.y + 1, room.width - 2, room.height - 2,4);
-            }
-
-            System.out.println("\n\n\n\n");
-            System.out.println(Arrays.
-                    deepToString(bitmap
-                    ).replace("], ", "]\n"
-                    ).replace("[[", "["
-                    ).replace("]]", "]"
-                    ).replace("0"," " //void
-                    ).replace("3","@" // path
-                    ).replace("2","#" // wall
-                    ).replace("4","-" //floor
-                    ));
+            drawPath(map, a, b);
         }
     }
 
-    public int[][] getBitmap(){
-        return bitmap;
+    public static void drawPath(int[][] map, Point a, Point b){
+        //från (a.x;a.y) till (a.x;b.y)
+
+        //från (a.x;b.y) till (b.x;b.y)
+
+        Point walker = new Point();
+        if (a.y < b.y){
+            walker.y = a.y;
+            walker.x = a.x;
+        }
+        else{
+            walker.y = b.y;
+            walker.x = b.x;
+        }
+        for (int i = 0; i <= Math.abs(a.y-b.y); i++) {
+            drawPathPoint(map,walker.x, walker.y+i);
+        }
+        walker.y+=Math.abs(a.y-b.y);
+        if (a.x < b.x){
+            walker.x = a.x;
+        }
+        else{
+            walker.x = b.x;
+        }
+        for (int i = 0; i <= Math.abs(a.x-b.x); i++) {
+            drawPathPoint(map,walker.x+i, walker.y);
+        }
+    }
+    public static void drawPathPoint(int[][] map, int x, int y){
+        map[y][x] = 3;
+        for (int ky = -1; ky <= 1; ky++) {
+            for (int kx = -1; kx <= 1; kx++) {
+                if(map[ky+y][kx+x]==0)map[ky+y][kx+x] = 2;
+            }
+        }
     }
 
-    public int[][] drawRectangle(int[][] map, int x, int y, int width, int height,int fillValue )
+    public static void printMap(int[][] map){
+        System.out.println("\n\n\n\n");
+        System.out.println(Arrays.
+                deepToString(map
+                ).replace("], ", "]\n"
+        ).replace("[[", "["
+        ).replace("]]", "]"
+        ).replace("0"," " //void
+        ).replace("3","@" // path
+        ).replace("2","#" // wall
+        ).replace("4","-" //floor
+        ));
+    }
+
+    public static void drawRectangle(int[][] map, int x, int y, int width, int height,int fillValue )
     {
         for (int j = 0; j < height; j++) {
             for (int k = 0; k < width; k++) {
                 map[j+y][k+x] = fillValue;
             }
         }
-        return map;
     }
 }
