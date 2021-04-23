@@ -24,10 +24,10 @@ public class Level extends TableTop {
     public Board getFloor(){
         return getBoard(1);
     }
-    public Board getMiddleground(){
+    public Board getForeground(){
         return getBoard(2);
     }
-    public Board getForeground(){
+    public Board getOverlay(){
         return getBoard(3);
     }
 }

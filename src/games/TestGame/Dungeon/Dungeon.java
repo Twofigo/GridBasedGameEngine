@@ -249,7 +249,7 @@ public class Dungeon extends PuppetMaster {
             new Tile("Floor6"),
             new Tile("Floor7"),
             new Tile("Floor8")};
-            
+
 
         l.getBackground().clear(floors);
 
@@ -273,14 +273,14 @@ public class Dungeon extends PuppetMaster {
                 if(v==4){
                     t=null;
                 }
-                l.getMiddleground().set(t,x,y);
+                l.getForeground().set(t,x,y);
             }
         }
         return l;
     }
     private boolean spawn(Tile t){
         Random rand = new Random();
-        Board foreGround = ((Level)getTableTop()).getMiddleground();
+        Board foreGround = ((Level)getTableTop()).getForeground();
         Board floor = ((Level)getTableTop()).getFloor();
         int x;
         int y;

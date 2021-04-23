@@ -8,22 +8,21 @@ import java.util.List;
 
 public class DungeonGenerator{
     int[][] bitmap = new int[60][60];
-    private static final int NUMBER_OF_POINTS = 10000;
 
     private final List<Point> points = new ArrayList<>();
     private final List<Point> tree = new ArrayList<>();
-
-    private static final int ROOM_MAX_SIZE = 20;
-    private static final int ROOM_MIN_SIZE = 10;
-    private static final int ROOM_MIN_DISTANCE = 2;
-
     private final List<Rectangle> rooms = new ArrayList<>();
 
+    Set<Integer> xs = new HashSet<>();
+    Set<Integer> ys = new HashSet<>();
+
+    private static final int NUMBER_OF_POINTS = 10000;
+    private static final int ROOM_MAX_SIZE = 20;
+    private static final int ROOM_MIN_SIZE = 10;
+    private static final int ROOM_MIN_DISTANCE = 0;
+
+
     public DungeonGenerator(){
-
-        Set<Integer> xs = new HashSet<>();
-        Set<Integer> ys = new HashSet<>();
-
         points.clear();
         tree.clear();
         rooms.clear();
@@ -43,7 +42,7 @@ public class DungeonGenerator{
             int h = (int)(ROOM_MIN_SIZE + ((ROOM_MAX_SIZE - ROOM_MIN_SIZE) * Math.random()));
 
             //check for intersects between rooms
-            Rectangle ra = new Rectangle(p.x - w / 2 , p.y - h / 2 ,w,h);
+            Rectangle ra = new Rectangle(p.x - w / 2 , p.y - h / 2 ,w-1,h-1);
             for (Rectangle rb: rooms){
                 if(ra.intersects(rb)){
                     continue outer;
@@ -53,29 +52,31 @@ public class DungeonGenerator{
             //makes sure each room does not touch others
             ra.x += ROOM_MIN_DISTANCE;
             ra.y += ROOM_MIN_DISTANCE;
+            ra.width +=1;
+            ra.height +=1;
             ra.width -= 2 * ROOM_MIN_DISTANCE;
             ra.height -= 2 * ROOM_MIN_DISTANCE;
 
-            if (xs.contains(ra.x) || xs.contains(ra.x + ra.width / 2)
+            // checks to make sure rooms center don't align up with edges of other rooms
+            if (    xs.contains(p.x)
+                    || xs.contains(ra.x + ra.width / 2)
                     || xs.contains(ra.x + ra.width)
-                    || ys.contains(ra.y) || ys.contains(ra.y + ra.height / 2)
+                    || ys.contains(p.y)
+                    || ys.contains(ra.y + ra.height / 2)
                     || ys.contains(ra.y + ra.height)) {
-
                 continue;
             }
-            int d = 0;
-            xs.add(ra.x + d);
-            xs.add(ra.x + ra.width / 2 + d);
-            xs.add(ra.x + ra.width + d);
-            ys.add(ra.y + d);
-            ys.add(ra.y + ra.height / 2 + d);
-            ys.add(ra.y + ra.height + d);
+            xs.add(p.x);
+            xs.add(ra.x + ra.width / 2 );
+            xs.add(ra.x + ra.width);
+            ys.add(p.y);
+            ys.add(ra.y + ra.height / 2);
+            ys.add(ra.y + ra.height);
 
             rooms.add(ra);
 
             bitmap = drawRectangle(bitmap, ra.x, ra.y,ra.width,ra.height,2);
             points.add(p);
-
         }
 
         tree.add(points.remove(0));

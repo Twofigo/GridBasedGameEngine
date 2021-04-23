@@ -8,7 +8,7 @@ public class MoveTo extends Interaction {
     public boolean action(PuppetMaster p, TableTop tb, Entity e, int x, int y) {
         Dungeon game = ((Dungeon)p);
         Level world = ((Level)tb);
-        Board board = world.getMiddleground();
+        Board board = world.getForeground();
         Board floor = world.getFloor();
 
         if(board.OutOfBounds(x,y)) return false;
