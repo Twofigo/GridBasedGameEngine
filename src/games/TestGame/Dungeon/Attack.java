@@ -3,7 +3,8 @@ package games.TestGame.Dungeon;
 import engine.*;
 import games.TestGame.Dungeon.World.Level;
 
-public class MoveTo implements Interaction {
+public class Attack implements Interaction{
+
     @Override
     public boolean action(PuppetMaster p, TableTop tb, Entity e, int x, int y) {
         Dungeon game = ((Dungeon)p);
@@ -13,7 +14,7 @@ public class MoveTo implements Interaction {
 
         if(board.OutOfBounds(x,y)) return false;
         Tile t = board.get(x,y);
-        if(t instanceof MoveInto) {
+        if(t instanceof Creature) {
             if (!((MoveInto)t).moveInto(game, e)) return false;
         }
         else if(t!=null) return false;

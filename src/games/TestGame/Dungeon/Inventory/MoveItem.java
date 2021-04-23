@@ -5,7 +5,7 @@ import games.TestGame.Dungeon.Dungeon;
 import games.TestGame.Dungeon.MoveInto;
 import games.TestGame.Dungeon.World.Level;
 
-public class MoveItem extends Interaction {
+public class MoveItem implements Interaction {
 
     @Override
     public boolean action(PuppetMaster p, TableTop tb, Entity e, int x, int y) {

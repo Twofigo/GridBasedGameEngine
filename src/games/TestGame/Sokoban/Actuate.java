@@ -2,7 +2,7 @@ package games.TestGame.Sokoban;
 
 import engine.*;
 
-public class Actuate extends Interaction {
+public class Actuate implements Interaction {
     @Override
     public boolean action(PuppetMaster p, TableTop tb, Entity e, int x, int y) {
         if (!(e instanceof Box)) return false;

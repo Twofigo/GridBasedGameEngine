@@ -2,7 +2,7 @@ package games.TestGame.Sokoban;
 
 import engine.*;
 
-public class MoveTo extends Interaction {
+public class MoveTo implements Interaction {
     @Override
     public boolean action(PuppetMaster p, TableTop tb, Entity e, int x, int y) {
         Sokoban game = ((Sokoban)p);

@@ -1,5 +1,10 @@
 package games.TestGame.Dungeon;
 
+import engine.Entity;
+import engine.Interaction;
+import engine.PuppetMaster;
+import engine.TableTop;
+
 public class Monster extends Creature{
 
     private int damage;
@@ -12,4 +17,5 @@ public class Monster extends Creature{
     public void update() {
 
     }
+
 }
