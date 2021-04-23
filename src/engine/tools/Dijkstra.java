@@ -87,30 +87,32 @@ public class Dijkstra {
 
         while(true){
             dist=-1;
-            if (walker[0]>=1 && distMatrix[walker[0]-1][walker[1]]!=-1){               // walk up
-                dist = distMatrix[walker[0]-1][walker[1]];
-                newWalker[0] = walker[0]-1;
-                newWalker[1] = walker[1];
-            }
-            if (walker[1]>=1 && distMatrix[walker[0]][walker[1]-1]!=-1){               // walk left
-                if (dist==-1 || dist > distMatrix[walker[0]][walker[1]-1]){
-                    dist = distMatrix[walker[0]][walker[1]-1];
-                    newWalker[0] = walker[0];
-                    newWalker[1] = walker[1]-1;
+
+            int x=0;
+            int y=0;
+            for(int k=0;k<4;k++) {
+                if (k==0 && walker[0] >= 1) {               // walk up
+                    y = walker[0] - 1;
+                    x = walker[1];
                 }
-            }
-            if (walker[0]<(rows-1) && distMatrix[walker[0]+1][walker[1]]!=-1){         // walk down
-                if (dist==-1 || dist > distMatrix[walker[0]+1][walker[1]]){
-                    dist = distMatrix[walker[0]+1][walker[1]];
-                    newWalker[0] = walker[0]+1;
-                    newWalker[1] = walker[1];
+                else if (k==1 && walker[1] >= 1) {               // walk left
+                    y = walker[0];
+                    x = walker[1] - 1;
                 }
-            }
-            if (walker[1]<(columns-1) && distMatrix[walker[0]][walker[1]+1]!=-1){      // walk right
-                if (dist==-1 || dist > distMatrix[walker[0]][walker[1]+1]){
-                    dist = distMatrix[walker[0]][walker[1]+1];
-                    newWalker[0] = walker[0];
-                    newWalker[1] = walker[1]+1;
+                else if (k==2 && walker[0] < (rows - 1)) {         // walk down
+                    y = walker[0] + 1;
+                    x = walker[1];
+                }
+                else if (k==3 && walker[1] < (columns - 1)) {      // walk right
+                    y = walker[0];
+                    x = walker[1] + 1;
+                }
+                if(distMatrix[y][x]!=-1) {
+                    if (dist==-1 || dist > distMatrix[y][x]) {
+                        dist = distMatrix[y][x];
+                        newWalker[0] = y;
+                        newWalker[1] = x;
+                    }
                 }
             }
             walker[0] = newWalker[0];
@@ -158,32 +160,33 @@ public class Dijkstra {
                 throw new IllegalArgumentException("no path found");
             }
             // walk one walker 1 step in all directions
-            if (walker[0]>=1 && walkedMatrix[walker[0]-1][walker[1]]!=2){               // walk up
-                dist = matrix[walker[0]-1][walker[1]] + distMatrix[walker[0]][walker[1]];
-                if (walkedMatrix[walker[0]-1][walker[1]]==0 || distMatrix[walker[0]-1][walker[1]]>dist){
-                    distMatrix[walker[0]-1][walker[1]] = dist;
-                    walkedMatrix[walker[0]-1][walker[1]] = 1;
+            int x=0;
+            int y=0;
+            for(int k=0;k<4;k++) {
+                if (k==0 && walker[0] >= 1) {               // walk up
+                    y = walker[0] - 1;
+                    x = walker[1];
                 }
-            }
-            if (walker[1]>=1 && walkedMatrix[walker[0]][walker[1]-1]!=2){               // walk left
-                dist = matrix[walker[0]][walker[1]-1] + distMatrix[walker[0]][walker[1]];
-                if (walkedMatrix[walker[0]][walker[1]-1]==0 || distMatrix[walker[0]][walker[1]-1]>dist){
-                    distMatrix[walker[0]][walker[1]-1] = dist;
-                    walkedMatrix[walker[0]][walker[1]-1] = 1;
+                else if (k==1 && walker[1] >= 1) {               // walk left
+                    y = walker[0];
+                    x = walker[1] - 1;
+
                 }
-            }
-            if (walker[0]<(rows-1) && walkedMatrix[walker[0]+1][walker[1]]!=2){         // walk down
-                dist = matrix[walker[0]+1][walker[1]] + distMatrix[walker[0]][walker[1]];
-                if (walkedMatrix[walker[0]+1][walker[1]]==0 || distMatrix[walker[0]+1][walker[1]]>dist){
-                    distMatrix[walker[0]+1][walker[1]] = dist;
-                    walkedMatrix[walker[0]+1][walker[1]] = 1;
+                else if (k==2 && walker[0] < (rows - 1)) {         // walk down
+                    y = walker[0] + 1;
+                    x = walker[1];
                 }
-            }
-            if (walker[1]<(columns-1) && walkedMatrix[walker[0]][walker[1]+1]!=2){      // walk right
-                dist = matrix[walker[0]][walker[1]+1] + distMatrix[walker[0]][walker[1]];
-                if (walkedMatrix[walker[0]][walker[1]+1]==0 || distMatrix[walker[0]][walker[1]+1]>dist){
-                    distMatrix[walker[0]][walker[1]+1] = dist;
-                    walkedMatrix[walker[0]][walker[1]+1] = 1;
+                else if (k==3 && walker[1] < (columns - 1)) {      // walk right
+                    y = walker[0];
+                    x = walker[1] + 1;
+                }
+
+                if(walkedMatrix[y][x] != 2) {
+                    dist = matrix[y][x] + distMatrix[walker[0]][walker[1]];
+                    if (walkedMatrix[y][x] == 0 || distMatrix[y][x] > dist) {
+                        distMatrix[y][x] = dist;
+                        walkedMatrix[y][x] = 1;
+                    }
                 }
             }
             walkedMatrix[walker[0]][walker[1]] = 2;
