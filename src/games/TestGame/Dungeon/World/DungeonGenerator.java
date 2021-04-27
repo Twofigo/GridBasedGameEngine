@@ -25,7 +25,7 @@ public class DungeonGenerator{
         SIZE_X = 60;
         SIZE_Y = 60;
         NUMBER_OF_POINTS = 10000;
-        ROOM_MAX_SIZE = 20;
+        ROOM_MAX_SIZE = 16;
         ROOM_MIN_SIZE = 10;
         ROOM_MIN_DISTANCE = 0;
         RANDOM_PATHS = 10;
