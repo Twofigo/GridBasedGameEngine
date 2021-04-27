@@ -53,6 +53,7 @@ public class Sokoban extends PuppetMaster {
 
         // window setup
         bv = new BoardView("mainBoard", levels.get(0));
+        bv.setup();
         Window win = getWindow();
         win.addView(bv);
 
@@ -203,6 +204,7 @@ public class Sokoban extends PuppetMaster {
         l = ((Level)getTableTop());
         l.getForeground().place(p,l.getPlayerSpawnX(),l.getPlayerSpawnY());
         bv.setOffset(l.width()*0.5, l.height()*0.5);
+        bv.setZoom(l.width());
 
     }
     public void updateVictoryProgress(int i){

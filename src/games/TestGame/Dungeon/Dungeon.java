@@ -75,6 +75,117 @@ public class Dungeon extends PuppetMaster {
         win.draw();
 
     }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    @Override
+    public void update() {
+        ((Level)getTableTop()).getForeground().update();
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(this.getTableTop() instanceof Level){
+            char c = e.getKeyChar();
+            int x = player.getX();
+            int y = player.getY();
+            if(c=='w') y-=1;
+            else if(c=='a') x-=1;
+            else if(c=='s') y+=1;
+            else if(c=='d') x+=1;
+            interact(MOVETO,player, x, y);
+            dungeonView.setOffset(player.getX()+0.5, player.getY()+0.5);
+            getWindow().draw();
+            updateVisibility();
+            update();
+        }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if (this.getTableTop() instanceof Inventory){
+            if (inventoryPickedUpItem == null){
+                Board b = inventory.getForeground();
+                int x = inventoryView.boardTransX(e.getX());
+                int y = inventoryView.boardTransY(e.getY());
+                x/=100;
+                y/=100;
+                Tile t = b.get(x,y);
+                if (t==null) return;
+                if (!(t instanceof Item)) return;
+                inventoryPickedUpItem = (Item)t;
+                mouseDragged = false;
+            }
+        }
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        if (this.getTableTop() instanceof Inventory) {
+            if (inventoryPickedUpItem != null){
+                Board b = inventory.getForeground();
+                int x = inventoryView.boardTransX(e.getX());
+                int y = inventoryView.boardTransY(e.getY());
+                x/=100;
+                y/=100;
+
+                if (mouseDragged){
+                    this.interact(this.MOVEITEM, inventoryPickedUpItem, x,y);
+                    inventoryPickedUpItem = null;
+                }
+                else{
+                    // consume
+                }
+
+            }
+        }
+    }
+
+
+    private Item inventoryPickedUpItem;
+    private boolean mouseDragged;
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (this.getTableTop() instanceof Inventory) {
+            if (inventoryPickedUpItem != null) {
+                Board b = inventory.getForeground();
+                int x = inventoryView.boardTransX(e.getX());
+                int y = inventoryView.boardTransY(e.getY());
+                x /= 100;
+                y /= 100;
+                if (x!=inventoryPickedUpItem.getX() || y !=inventoryPickedUpItem.getY()){
+                    mouseDragged = true;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        if (getTableTop() instanceof Level) {
+            double amount = (e.getUnitsToScroll()>1?1:-1)*0.5;
+            double zoom = dungeonView.getZoom() + amount;
+            if (zoom < 1) return;
+            if (zoom > 50) return;
+            dungeonView.setZoom(zoom);
+            dungeonView.draw();
+        }
+    }
+
+
     private void setupInventory(){
         inventory = new Inventory(8,8);
         inventory.getBackground().clear(new Tile("inventory"));
@@ -94,7 +205,6 @@ public class Dungeon extends PuppetMaster {
         bg.place(new EquipmentSlot("inventory",4),6,6);
 
     }
-
     private void loadTextures(){
         TextureHandler th = TextureHandler.getInstance();
         th.setRootPath("");
@@ -235,10 +345,6 @@ public class Dungeon extends PuppetMaster {
         });
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
     private void changeToDungeonView(){
         getWindow().setView("dungeon");
         setTableTop(level);
@@ -264,14 +370,14 @@ public class Dungeon extends PuppetMaster {
         Tile t3 = new Tile("Floor");
 
         Tile[] floors = new Tile[]{
-            new Tile("Floor1"),
-            new Tile("Floor2"),
-            new Tile("Floor3"),
-            new Tile("Floor4"),
-            new Tile("Floor5"),
-            new Tile("Floor6"),
-            new Tile("Floor7"),
-            new Tile("Floor8")};
+                new Tile("Floor1"),
+                new Tile("Floor2"),
+                new Tile("Floor3"),
+                new Tile("Floor4"),
+                new Tile("Floor5"),
+                new Tile("Floor6"),
+                new Tile("Floor7"),
+                new Tile("Floor8")};
 
 
         l.getBackground().clear(floors);
@@ -380,108 +486,4 @@ public class Dungeon extends PuppetMaster {
         }
     }
 
-    @Override
-    public void update() {
-        ((Level)getTableTop()).getForeground().update();
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        if(this.getTableTop() instanceof Level){
-            char c = e.getKeyChar();
-            int x = player.getX();
-            int y = player.getY();
-            if(c=='w') y-=1;
-            else if(c=='a') x-=1;
-            else if(c=='s') y+=1;
-            else if(c=='d') x+=1;
-            interact(MOVETO,player, x, y);
-            dungeonView.setOffset(player.getX()+0.5, player.getY()+0.5);
-            getWindow().draw();
-            updateVisibility();
-            update();
-        }
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        if (this.getTableTop() instanceof Inventory){
-            if (inventoryPickedUpItem == null){
-                Board b = inventory.getForeground();
-                int x = inventoryView.boardTransX(e.getX());
-                int y = inventoryView.boardTransY(e.getY());
-                x/=100;
-                y/=100;
-                Tile t = b.get(x,y);
-                if (t==null) return;
-                if (!(t instanceof Item)) return;
-                inventoryPickedUpItem = (Item)t;
-                mouseDragged = false;
-            }
-        }
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        if (this.getTableTop() instanceof Inventory) {
-            if (inventoryPickedUpItem != null){
-                Board b = inventory.getForeground();
-                int x = inventoryView.boardTransX(e.getX());
-                int y = inventoryView.boardTransY(e.getY());
-                x/=100;
-                y/=100;
-
-                if (mouseDragged){
-                    this.interact(this.MOVEITEM, inventoryPickedUpItem, x,y);
-                    inventoryPickedUpItem = null;
-                }
-                else{
-                    // consume
-                }
-
-            }
-        }
-    }
-
-
-    private Item inventoryPickedUpItem;
-    private boolean mouseDragged;
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        if (this.getTableTop() instanceof Inventory) {
-            if (inventoryPickedUpItem != null) {
-                Board b = inventory.getForeground();
-                int x = inventoryView.boardTransX(e.getX());
-                int y = inventoryView.boardTransY(e.getY());
-                x /= 100;
-                y /= 100;
-                if (x!=inventoryPickedUpItem.getX() || y !=inventoryPickedUpItem.getY()){
-                    mouseDragged = true;
-                }
-            }
-        }
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        if (getTableTop() instanceof Level) {
-            double amount = (e.getUnitsToScroll()>1?1:-1)*0.5;
-            double zoom = dungeonView.getZoom() + amount;
-            if (zoom < 1) return;
-            if (zoom > 50) return;
-            dungeonView.setZoom(zoom);
-            dungeonView.draw();
-        }
-    }
 }

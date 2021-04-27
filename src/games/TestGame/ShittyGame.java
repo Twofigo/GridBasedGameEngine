@@ -57,7 +57,9 @@ public class ShittyGame extends PuppetMaster{
         }
 
         bv = new BoardView("mainBoard", tb);
+        bv.setup();
         mv = new MenuView("mainMenu");
+        mv.setup();
 
         bv.addButton("Menu", new ActionListener() {
             @Override
