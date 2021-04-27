@@ -33,10 +33,9 @@ public class Dungeon extends PuppetMaster {
 
     public Dungeon(){
         super();
+        System.setProperty("sun.java2d.opengl", "true");
         // resource setup
-
         loadTextures();
-        //System.setProperty("sun.java2d.opengl", "true");
 
         // player setup
         player = new Player("human",10);
