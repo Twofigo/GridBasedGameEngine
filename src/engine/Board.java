@@ -1,5 +1,6 @@
 package engine;
 
+import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Iterator;
 import java.util.Random;
@@ -9,11 +10,13 @@ public class Board implements Iterable{
     private final int height;
 
     private final Tile[][] tiles;
+    private ArrayList<Entity> entities;
 
     public Board(int width, int height) {
         this.width = width;
         this.height = height;
         this.tiles = new Tile[width][height];
+        this.entities = new ArrayList<Entity>(4);
     }
     public Board(int width, int height, Tile defTile) {
         this(width, height);
@@ -24,12 +27,10 @@ public class Board implements Iterable{
         clear(defTile);
     }
     public void update(PuppetMaster pm, TableTop tt){
-        Iterator<Tile> itr = this.iterator();
-        for(Tile t;itr.hasNext();){
-            t = itr.next();
-            if(t instanceof Entity){
-                ((Entity) t).update(pm, tt);
-            }
+        if (entities.size()==0)return;
+
+        for(Object e: entities.toArray()){
+            ((Entity)e).update(pm, tt);
         }
     }
     public void clear(Tile defTile){
@@ -98,6 +99,9 @@ public class Board implements Iterable{
     }
     public Tile pickup(int x,int y){
         Tile t = get(x,y);
+        if(t instanceof Entity){
+            entities.remove((Entity)t);
+        }
         set(null, x,y);
         return t;
     }
@@ -108,7 +112,8 @@ public class Board implements Iterable{
     public boolean place(Tile tile, int x, int y){
         if(!set(tile, x, y)) return false;
         if(tile instanceof Entity){
-            ((Entity)(tile)).setPosition(x,y);
+            ((Entity)tile).setPosition(x,y);
+            entities.add((Entity)tile);
         }
         return true;
     }

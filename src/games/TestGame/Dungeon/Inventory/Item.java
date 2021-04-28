@@ -20,7 +20,7 @@ public class Item extends Entity implements MoveInto {
 
     @Override
     public boolean moveInto(DungeonMaster p, Entity e) {
-        if (!(e instanceof Player)) return false;
+        if (!(e instanceof Player)) return true;
         p.interact(p.PICKUP, this, this.getX(), this.getY());
         return true;
     }

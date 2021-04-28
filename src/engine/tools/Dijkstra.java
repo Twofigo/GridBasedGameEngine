@@ -118,7 +118,6 @@ public class Dijkstra implements Iterator<Point> {
             throw new IllegalArgumentException("coordinate outside bounds");
         }
 
-        findPath();
         //printMatrix(this.distMatrix);
     }
 
@@ -168,7 +167,7 @@ public class Dijkstra implements Iterator<Point> {
         return walker;
     }
 
-    private boolean findPath() {
+    public boolean findPath() {
         this.walker.y = fromX;
         this.walker.x = fromY;
         try{

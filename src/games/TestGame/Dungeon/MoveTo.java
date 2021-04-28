@@ -19,6 +19,10 @@ public class MoveTo implements Interaction {
             return false;
         }
 
+        if (Math.abs(e.getX()-x)>1 || Math.abs(e.getY()-y)>1){ // no walk more than 1 block
+            return false;
+        }
+
         if(t instanceof MoveInto) {
             if (!((MoveInto)t).moveInto(game, e)) return false;
         }
@@ -28,14 +32,15 @@ public class MoveTo implements Interaction {
             a.action(p,tb,e,x,y);
             return false;
         }
-        board.pickup(e);
-        board.place(e,x,y);
-
 
         t = floor.get(x,y);
         if(t instanceof MoveInto) {
-            ((MoveInto)t).moveInto(game, e);
+            if(!((MoveInto)t).moveInto(game, e)) return false;
         }
+
+        board.pickup(e);
+        board.place(e,x,y);
+
         return true;
     }
 }

@@ -44,7 +44,7 @@ public class DungeonMaster extends PuppetMaster {
         loadTextures();
 
         // player setup
-        player = new Player("human",10,1,5,3);
+        player = new Player("human",50,1,5,3);
 
         level = generateFloor(1);
         this.setTableTop(level);
@@ -54,12 +54,12 @@ public class DungeonMaster extends PuppetMaster {
         spawn(new Item("coin"));
         spawn(new Item("coin"));
         spawn(new Item("coin"));
-        spawn(new Monster("zombie",10,5));
-        //spawn(new Monster("zombie",10,5));
-        //spawn(new Monster("zombie",10,5));
-        //spawn(new Monster("zombie",10,5));
-        //spawn(new Monster("zombie",10,5));
-        //spawn(new Monster("zombie",10,5));
+        spawn(new Monster("zombie",10,1));
+        spawn(new Monster("zombie",10,1));
+        spawn(new Monster("zombie",10,1));
+        spawn(new Monster("zombie",10,1));
+        spawn(new Monster("zombie",10,1));
+        spawn(new Monster("zombie",10,1));
         // level setup
         spawn(new Armor("hat","hat_eq",1, Player.HAT));
         spawn(new Armor("bikini","bikini_eq",1, Player.CHEST));
@@ -75,6 +75,7 @@ public class DungeonMaster extends PuppetMaster {
         dungeonView.setZoom(15);
         dungeonView.setOffset(player.getX()+0.5, player.getY()+0.5);
 
+        updateVisibility();
         Window win = getWindow();
         win.addView(dungeonView);
         win.addView(inventoryView);
@@ -85,7 +86,6 @@ public class DungeonMaster extends PuppetMaster {
         win.lockResize(true);
         win.updateSize(800, 600+40);
         win.draw();
-
     }
 
     public Player getPlayer() {
@@ -100,6 +100,7 @@ public class DungeonMaster extends PuppetMaster {
     @Override
     public void keyPressed(KeyEvent e) {
         if(this.getTableTop() instanceof Level){
+            update();
             char c = e.getKeyChar();
             int x = player.getX();
             int y = player.getY();
@@ -111,7 +112,6 @@ public class DungeonMaster extends PuppetMaster {
             dungeonView.setOffset(player.getX()+0.5, player.getY()+0.5);
             getWindow().draw();
             updateVisibility();
-            update();
         }
     }
 
@@ -488,7 +488,7 @@ public class DungeonMaster extends PuppetMaster {
                 }
             }
         }
-        bm.clear(true);
+        //bm.clear(true); // make everything visable
         dungeonView.getDiscoveredMask().mergeOR(bm);
     }
     private void sightRay(BinaryMask bm, int fromX, int fromY, int toX, int toY){
@@ -503,5 +503,17 @@ public class DungeonMaster extends PuppetMaster {
             bm.set(true,x,y);
             if (b.get(x,y) instanceof Wall) break;
         }
+    }
+    public boolean isVisable(int fromX, int fromY, int toX, int toY){
+        Board b = ((Level)this.getTableTop()).getBackground();
+        int lenX = toX-fromX;
+        int lenY = toY-fromY;
+        int iter = Math.max(Math.abs(lenY),Math.abs(lenX));
+        for(int k=0;k<=iter;k++){
+            int x = fromX+(int)Math.round((k*lenX)/((float)iter));
+            int y = fromY+(int)Math.round((k*lenY)/((float)iter));
+            if (b.get(x,y) instanceof Wall) return false;
+        }
+        return true;
     }
 }
