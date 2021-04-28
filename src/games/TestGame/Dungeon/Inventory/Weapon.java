@@ -5,9 +5,8 @@ import games.TestGame.Dungeon.Inventory.Item;
 
 import java.awt.*;
 
-public class Weapon extends Item {
+public class Weapon extends Equipable {
     private int damage;
-    private int range;
     private int equipmentSlot;
 
     private Image textureEquiped;
@@ -16,19 +15,12 @@ public class Weapon extends Item {
         return damage;
     }
 
-    public int getRange() {
-        return range;
-    }
-
-    public Weapon(String textureName, String textureEquipedName,int equipmentSlot, int damage, int range) {
-        super(textureName);
-        this.textureEquiped = TextureHandler.getInstance().getTexture(textureEquipedName);
-        this.equipmentSlot = equipmentSlot;
+    public Weapon(String textureName, String textureEquipedName, int damage) {
+        super(textureName, textureEquipedName, 0);
         this.damage = damage;
-        this.range = range;
     }
 
-    public void renderEquiped(Graphics g, int x, int y){
+    public void renderEquipped(Graphics g, int x, int y){
         g.drawImage(textureEquiped, x,y,100,100,null);
     }
 }

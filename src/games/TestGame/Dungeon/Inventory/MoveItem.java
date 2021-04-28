@@ -1,15 +1,13 @@
 package games.TestGame.Dungeon.Inventory;
 
 import engine.*;
-import games.TestGame.Dungeon.Dungeon;
-import games.TestGame.Dungeon.MoveInto;
-import games.TestGame.Dungeon.World.Level;
+import games.TestGame.Dungeon.DungeonMaster;
 
 public class MoveItem implements Interaction {
 
     @Override
     public boolean action(PuppetMaster p, TableTop tb, Entity e, int x, int y) {
-        Dungeon game = ((Dungeon)p);
+        DungeonMaster game = ((DungeonMaster)p);
         if (!(tb instanceof Inventory)) return false;
         if (!(e instanceof Item)) return false;
         Item item = (Item)e;

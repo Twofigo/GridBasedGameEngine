@@ -6,7 +6,7 @@ import games.TestGame.Dungeon.World.Level;
 public class MoveTo implements Interaction {
     @Override
     public boolean action(PuppetMaster p, TableTop tb, Entity e, int x, int y) {
-        Dungeon game = ((Dungeon)p);
+        DungeonMaster game = ((DungeonMaster)p);
         Level world = ((Level)tb);
         Board back = world.getBackground();
         Board board = world.getForeground();

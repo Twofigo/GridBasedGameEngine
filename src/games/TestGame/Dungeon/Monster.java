@@ -8,10 +8,9 @@ import engine.TableTop;
 public class Monster extends Creature{
 
     private int damage;
-    public Monster(String name, int dmg, int health) {
-        super(name);
+    public Monster(String name, int health, int dmg) {
+        super(name, health);
         damage = dmg;
-        super.health = health;
     }
 
     @Override

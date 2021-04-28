@@ -1,8 +1,7 @@
 package games.TestGame.Dungeon.Inventory;
 
 import engine.Entity;
-import engine.Tile;
-import games.TestGame.Dungeon.Dungeon;
+import games.TestGame.Dungeon.DungeonMaster;
 
 public class EquipmentSlot extends Entity implements PlaceAt{
     private int slot;
@@ -18,7 +17,7 @@ public class EquipmentSlot extends Entity implements PlaceAt{
     }
 
     @Override
-    public boolean placeAt(Dungeon d, Item e) {
+    public boolean placeAt(DungeonMaster d, Item e) {
         if (!(e instanceof Equipable)) return false;
         Equipable eq = (Equipable)e;
         if (eq.getEquipmentSlot()!=slot) return false;
@@ -29,7 +28,7 @@ public class EquipmentSlot extends Entity implements PlaceAt{
     }
 
     @Override
-    public boolean moveFrom(Dungeon d, Item e) {
+    public boolean moveFrom(DungeonMaster d, Item e) {
         if (!(e instanceof Equipable)) return true;
         Equipable eq = (Equipable)e;
         d.getPlayer().unEquip(eq.getEquipmentSlot());

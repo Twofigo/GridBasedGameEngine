@@ -9,7 +9,7 @@ import games.TestGame.Dungeon.World.Wall;
 import java.awt.event.*;
 import java.util.Random;
 
-public class Dungeon extends PuppetMaster {
+public class DungeonMaster extends PuppetMaster {
     public final MoveTo MOVETO = new MoveTo();
     public final Pickup PICKUP = new Pickup();
     public final MoveItem MOVEITEM = new MoveItem();
@@ -34,10 +34,10 @@ public class Dungeon extends PuppetMaster {
     private Inventory inventory;
 
     public static void main(String[] args) {
-        new Dungeon();
+        new DungeonMaster();
     }
 
-    public Dungeon(){
+    public DungeonMaster(){
         super();
         System.setProperty("sun.java2d.opengl", "true");
         // resource setup
@@ -45,12 +45,12 @@ public class Dungeon extends PuppetMaster {
 
         // player setup
         player = new Player("human",10,1,5,3);
-        monster1 = new Monster("zombie",1,10);
-        monster2 = new Monster("zombie",1,10);
-        monster3 = new Monster("zombie",1,10);
-        monster4 = new Monster("zombie",1,10);
-        monster5 = new Monster("zombie",1,10);
-        monster6 = new Monster("zombie",1,10);
+        monster1 = new Monster("zombie",10,5);
+        monster2 = new Monster("zombie",10,5);
+        monster3 = new Monster("zombie",10,5);
+        monster4 = new Monster("zombie",10,5);
+        monster5 = new Monster("zombie",10,5);
+        monster6 = new Monster("zombie",10,5);
 
         // level setup
         level = generateFloor(1);
@@ -66,11 +66,11 @@ public class Dungeon extends PuppetMaster {
         spawn(new Item("coin"));
         spawn(new Item("coin"));
         spawn(new Item("coin"));
-        spawn(new Equipable("hat","hat_eq",1,0));
-        spawn(new Equipable("bikini","bikini_eq",1,1));
-        spawn(new Equipable("chainmail","chainmail_eq",3,1));
-        spawn(new Equipable("legs","legs_eq",3,3));
-        spawn(new Equipable("axe2","axe2_eq",3,2));
+        spawn(new Armor("hat","hat_eq",1, Player.HAT));
+        spawn(new Armor("bikini","bikini_eq",1, Player.CHEST));
+        spawn(new Armor("chainmail","chainmail_eq",3,Player.CHEST));
+        spawn(new Armor("legs","legs_eq",3,Player.LEGS));
+        spawn(new Weapon("axe2","axe2_eq",3));
 
         setupInventory();
 
@@ -202,26 +202,6 @@ public class Dungeon extends PuppetMaster {
         }
     }
 
-
-    private void setupInventory(){
-        inventory = new Inventory(8,8);
-        inventory.getBackground().clear(new Tile("inventory"));
-        Board bg = inventory.getBackground();
-        EmptySpace empty = new EmptySpace("wall");
-        for(int y=0;y<inventory.height();y++) {
-            for (int x = 5; x<inventory.width();x++){
-                bg.set(empty,x,y);
-            }
-        }
-        inventory.getForeground().set(getPlayer(),6,1);
-        bg.place(new Tile("inventory"),6,1);
-        bg.place(new EquipmentSlot("inventory",0),6,2);
-        bg.place(new EquipmentSlot("inventory",1),6,3);
-        bg.place(new EquipmentSlot("inventory",2),6,4);
-        bg.place(new EquipmentSlot("inventory",3),6,5);
-        bg.place(new EquipmentSlot("inventory",4),6,6);
-
-    }
     private void loadTextures(){
         TextureHandler th = TextureHandler.getInstance();
         th.setRootPath("");
@@ -273,6 +253,110 @@ public class Dungeon extends PuppetMaster {
         th.addTexture("src/Texture/dc-dngn/wall/dngn_mirrored_wall.png", "inventory");
         th.addTexture("src/Texture/dc-dngn/wall/stone_brick1.png", "wall");
     }
+
+    private void setupInventory(){
+        inventory = new Inventory(8,8);
+        inventory.getBackground().clear(new Tile("inventory"));
+        Board bg = inventory.getBackground();
+        EmptySpace empty = new EmptySpace("wall");
+        for(int y=0;y<inventory.height();y++) {
+            for (int x = 5; x<inventory.width();x++){
+                bg.set(empty,x,y);
+            }
+        }
+        inventory.getForeground().set(getPlayer(),6,1);
+        bg.place(new Tile("inventory"),6,1);
+        bg.place(new EquipmentSlot("inventory",Player.HAT),6,2);
+        bg.place(new EquipmentSlot("inventory",Player.CHEST),6,3);
+        bg.place(new EquipmentSlot("inventory",Player.LEGS),6,4);
+        bg.place(new EquipmentSlot("inventory",Player.BOOTS),6,5);
+        bg.place(new EquipmentSlot("inventory",Player.CAPE),6,6);
+        bg.place(new EquipmentSlot("inventory",Player.SHIELD),6,7);
+
+        bg.place(new EquipmentSlot("inventory",Player.WEAPON),7,1); // weapon
+
+    }
+    private Level generateFloor(int difficulty){
+        /*
+        Level l = new Level(8,8);
+        l.getFloor().place(new Item("coin"),2,2);
+        l.getFloor().place(new Item("coin"),6,3);
+        l.getFloor().place(new Item("coin"),3,6);
+        l.getFloor().place(new Equipable("hat",1,0), 3,3);
+        l.getFloor().place(new Equipable("bikini",1,1), 4,4);
+        Tile[] tiles = {new Tile("Floor3"),new Tile("Floor1"),new Tile("Floor4"),new Tile("Floor5"),new Tile("Floor6"),new Tile("Floor7"),new Tile("Floor8"),new Tile("Floor9"),};
+        l.getBackground().clear(tiles);
+        */
+        Level l = new Level(60,60);
+        Wall voidWall = new Wall("void");
+        Wall wall = new Wall("wall");
+        Tile t3 = new Tile("Floor");
+
+        Tile[] floors = new Tile[]{
+                new Tile("Floor1"),
+                new Tile("Floor2"),
+                new Tile("Floor3"),
+                new Tile("Floor4"),
+                new Tile("Floor5"),
+                new Tile("Floor6"),
+                new Tile("Floor7"),
+                new Tile("Floor8")};
+
+
+        l.getBackground().clear(floors);
+
+        DungeonGenerator dg = new DungeonGenerator();
+        dg.setROOM_MIN_DISTANCE(0);
+        dg.setROOM_MIN_SIZE(5);
+        dg.setRANDOM_PATHS(6);
+        int[][] bitmap = dg.generateMap();
+        for(int y=0;y<bitmap[0].length;y++){
+            for(int x=0;x<bitmap.length;x++){
+                int v = bitmap[y][x];
+                Tile t = voidWall;
+                if(v==0){
+                    t = voidWall;
+                }
+                else if(v==2){
+                    t = wall;
+                }
+                else if(v==3){
+                    t = t3;
+                }
+                else{
+                    continue;
+                }
+                l.getBackground().set(t,x,y);
+            }
+        }
+        return l;
+    }
+    private boolean spawn(Tile t){
+        Random rand = new Random();
+        Board back = ((Level)getTableTop()).getBackground();
+        Board board = ((Level)getTableTop()).getForeground();
+        Board floor = ((Level)getTableTop()).getFloor();
+        int x;
+        int y;
+        while(true){
+            x = rand.nextInt(floor.width());
+            y = rand.nextInt(floor.height());
+            if(!(back.get(x,y) instanceof Wall)) {
+                if (floor.get(x, y) == null) break;
+            }
+        }
+        if(t instanceof Item){
+            floor.place(t,x,y);
+        }
+        else if(t instanceof Creature){
+            board.place(t,x,y);
+        }
+        else {
+            System.out.println("You're in deep shit");
+        }
+        return true;
+    }
+
     private void setupDungeonView(){
         // window setup
         dungeonView = new DungeonView("dungeon", level);
@@ -373,86 +457,7 @@ public class Dungeon extends PuppetMaster {
         getWindow().setView("inventory");
         setTableTop(inventory);
     }
-    private Level generateFloor(int difficulty){
-        /*
-        Level l = new Level(8,8);
-        l.getFloor().place(new Item("coin"),2,2);
-        l.getFloor().place(new Item("coin"),6,3);
-        l.getFloor().place(new Item("coin"),3,6);
-        l.getFloor().place(new Equipable("hat",1,0), 3,3);
-        l.getFloor().place(new Equipable("bikini",1,1), 4,4);
-        Tile[] tiles = {new Tile("Floor3"),new Tile("Floor1"),new Tile("Floor4"),new Tile("Floor5"),new Tile("Floor6"),new Tile("Floor7"),new Tile("Floor8"),new Tile("Floor9"),};
-        l.getBackground().clear(tiles);
-        */
-        Level l = new Level(60,60);
-        Wall voidWall = new Wall("void");
-        Wall wall = new Wall("wall");
-        Tile t3 = new Tile("Floor");
 
-        Tile[] floors = new Tile[]{
-                new Tile("Floor1"),
-                new Tile("Floor2"),
-                new Tile("Floor3"),
-                new Tile("Floor4"),
-                new Tile("Floor5"),
-                new Tile("Floor6"),
-                new Tile("Floor7"),
-                new Tile("Floor8")};
-
-
-        l.getBackground().clear(floors);
-
-        DungeonGenerator dg = new DungeonGenerator();
-        dg.setROOM_MIN_DISTANCE(0);
-        dg.setROOM_MIN_SIZE(5);
-        dg.setRANDOM_PATHS(6);
-        int[][] bitmap = dg.generateMap();
-        for(int y=0;y<bitmap[0].length;y++){
-            for(int x=0;x<bitmap.length;x++){
-                int v = bitmap[y][x];
-                Tile t = voidWall;
-                if(v==0){
-                    t = voidWall;
-                }
-                else if(v==2){
-                    t = wall;
-                }
-                else if(v==3){
-                    t = t3;
-                }
-                else{
-                    continue;
-                }
-                l.getBackground().set(t,x,y);
-            }
-        }
-        return l;
-    }
-    private boolean spawn(Tile t){
-        Random rand = new Random();
-        Board back = ((Level)getTableTop()).getBackground();
-        Board board = ((Level)getTableTop()).getForeground();
-        Board floor = ((Level)getTableTop()).getFloor();
-        int x;
-        int y;
-        while(true){
-            x = rand.nextInt(floor.width());
-            y = rand.nextInt(floor.height());
-            if(!(back.get(x,y) instanceof Wall)) {
-                if (floor.get(x, y) == null) break;
-            }
-        }
-        if(t instanceof Item){
-            floor.place(t,x,y);
-        }
-        else if(t instanceof Creature){
-            board.place(t,x,y);
-        }
-        else {
-            System.out.println("You're in deep shit");
-        }
-        return true;
-    }
     private void updateVisibility(){
         TableTop tb = getTableTop();
         BinaryMask bm = dungeonView.getVisibilityMask();
@@ -505,5 +510,4 @@ public class Dungeon extends PuppetMaster {
             if (b.get(x,y) instanceof Wall) break;
         }
     }
-
 }

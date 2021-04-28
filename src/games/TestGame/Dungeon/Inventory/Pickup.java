@@ -1,16 +1,16 @@
 package games.TestGame.Dungeon.Inventory;
 
 import engine.*;
-import games.TestGame.Dungeon.Dungeon;
+import games.TestGame.Dungeon.DungeonMaster;
 import games.TestGame.Dungeon.World.Level;
 
 
 public class Pickup implements Interaction {
     @Override
     public boolean action(PuppetMaster p, TableTop tb, Entity obj1, int x, int y) {
-        Dungeon game = ((Dungeon)p);
-        Inventory inv = ((Dungeon)p).getInventory();
-        Level lvl = ((Dungeon)p).getLevel();
+        DungeonMaster game = ((DungeonMaster)p);
+        Inventory inv = ((DungeonMaster)p).getInventory();
+        Level lvl = ((DungeonMaster)p).getLevel();
 
         lvl.getFloor().pickup(x,y);
         Board invB = inv.getForeground();

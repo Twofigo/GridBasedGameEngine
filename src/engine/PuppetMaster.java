@@ -25,9 +25,6 @@ public abstract class PuppetMaster extends JFrame implements KeyListener, MouseI
         return i.action(this,this.tb,e,x,y);
     }
 
-    public TableTop getTableTop() {
-        return tb;
-    }
     public void setTableTop(TableTop tb) {
         this.tb = tb;
     }
@@ -41,4 +38,11 @@ public abstract class PuppetMaster extends JFrame implements KeyListener, MouseI
     @Override
     public void keyReleased(KeyEvent e){}
 
+    protected TableTop getTableTop() {
+        return tb;
+    }
+
+    public void end(){
+        
+    }
 }

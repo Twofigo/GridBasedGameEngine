@@ -1,5 +1,6 @@
 package games.TestGame.Dungeon;
 
+import games.TestGame.Dungeon.Inventory.Armor;
 import games.TestGame.Dungeon.Inventory.Equipable;
 import games.TestGame.Dungeon.Inventory.Weapon;
 
@@ -7,17 +8,23 @@ import java.awt.*;
 
 public class Player extends Creature {
 
+    public static final int WEAPON = 0;
+    public static final int HAT    = 1;
+    public static final int CHEST  = 2;
+    public static final int LEGS   = 3;
+    public static final int BOOTS  = 4;
+    public static final int CAPE   = 5;
+    public static final int SHIELD = 6;
+
     private int intelligence; // mana amount & spell damage - increased from casting spells
     private int endurance;   // health amount - increased from taking damage
     private int strength;    // weapon damage - increases from hacking monster scum to bits and pieces
 
     private Equipable[] equipment;
-    private Weapon weapon;
 
-    public Player(String name, int health,int intelligence, int endurance, int strength) {
-        super(name);
-        equipment           = new Equipable[6];
-        super.health        = health;
+    public Player(String name, int health, int intelligence, int endurance, int strength) {
+        super(name, health);
+        equipment           = new Equipable[7];
         this.endurance      =endurance;
         this.intelligence   =intelligence;
         this.strength       =strength;
@@ -33,9 +40,16 @@ public class Player extends Creature {
         super.render(g,x,y);
         for (Equipable eq:equipment) {
             if (eq==null) continue;
-            eq.renderEquiped(g,x,y);
+            eq.renderEquipped(g,x,y);
         }
+    }
 
+    @Override
+    public int getDamage() {
+        int d = getStrength();
+        Weapon w = getWeapon();
+        if (w!=null) d+=w.getDamage();
+        return d;
     }
 
     public int getIntelligence() {
@@ -50,18 +64,26 @@ public class Player extends Creature {
         return strength;
     }
 
-    public Equipable getEquipment(int slot) {
+    protected Equipable getEquipment(int slot) {
         return equipment[slot];
+    }
+    protected Armor getArmor(int slot){
+        return (Armor)equipment[slot];
     }
 
     public Weapon getWeapon() {
-        return weapon;
+        Equipable e = getEquipment(WEAPON);
+        if (e==null) return null;
+        return (Weapon)e;
     }
 
     public int getArmorRating() {
         int armor = 0;
-        for(int k=0;k<equipment.length;k++) {
-            armor+=getEquipment(k).getArmorRating();
+        Armor a;
+        for(int k=1;k<equipment.length;k++) {
+            a = getArmor(k);
+            if(a==null) continue;
+            armor+=a.getArmorRating();
         }
         return armor;
     }

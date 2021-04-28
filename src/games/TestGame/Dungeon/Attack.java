@@ -7,41 +7,45 @@ public class Attack implements Interaction{
 
     @Override
     public boolean action(PuppetMaster p, TableTop tb, Entity e, int x, int y) {
-        Dungeon game = ((Dungeon)p);
+        DungeonMaster game = ((DungeonMaster)p);
         Level world = ((Level)tb);
         Board board = world.getForeground();
         Board floor = world.getFloor();
 
         if(board.OutOfBounds(x,y)) return false;
         Tile t = board.get(x,y);
+
+        Creature a = (Creature)e;
+        Creature d = (Creature)t;
+
+        int playerDamage = d.getDamage() - ((Player)a).getArmorRating();
+
+        if(playerDamage < 1){
+            playerDamage= 1;
+        }
+
         if(t instanceof Creature) {
-            ((Creature) e).health -= ((Monster) t).getDamage();
-            ((Creature)t).health -= ((Player)e).getStrength();      //temp damage output from player
+            a.setHealth(a.getHealth() - playerDamage);
+            d.setHealth(d.getHealth() - a.getDamage());      //temp damage output from player
             //if (!((MoveInto)t).moveInto(game, e)) return false;   //weird shit why cast tile type to MoveInto? also it generates tons of errors
-            System.out.println(((Creature) e).health);
-            System.out.println(((Creature) t).health);
+            System.out.println(((Creature) e).getHealth());
+            System.out.println(((Creature) t).getHealth());
         }
         else if(t!=null) return false;
 
-        if(((Creature)t).health <= 0 && ((Creature)e).health <= 0)
+        if(a.getHealth() <= 0)
         {
-            return false;
+            board.pickup(a);
+            if(a instanceof Player){
+                game.end();
+            }
         }
-        if(((Creature)t).health<=0)
+        if(d.getHealth()<=0)
         {
-            board.pickup(e);
-            board.place(e,x,y);
-        }
-        else if(((Creature)e).health<=0) //Game over here
-        {
-            board.pickup((Entity) t);
-            board.place(t,e.getX(),e.getY());
-        }
-
-
-        t = floor.get(x,y);
-        if(t instanceof MoveInto) {
-            ((MoveInto)t).moveInto(game, e);
+            board.pickup(d);
+            if(d instanceof Player){
+                game.end();
+            }
         }
         return true;
     }
