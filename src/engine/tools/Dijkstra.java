@@ -119,7 +119,7 @@ public class Dijkstra implements Iterator<Point> {
         }
 
         findPath();
-        printMatrix(this.distMatrix);
+        //printMatrix(this.distMatrix);
     }
 
     @Override
@@ -279,7 +279,7 @@ public class Dijkstra implements Iterator<Point> {
         }
         return newM;
     }
-    private static void printMatrix(int[][] m){
+    public static void printMatrix(int[][] m){
         for(int row=0;row<m.length;row++){
             System.out.println(Arrays.toString(m[row]));
         }

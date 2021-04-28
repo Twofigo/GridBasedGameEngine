@@ -30,4 +30,20 @@ public class Level extends TableTop {
     public Board getOverlay(){
         return getBoard(3);
     }
+
+    public int[][] getMazeMatrix(){
+        int[][] mazeMatrix = new int[width()][height()];
+        Board bg = getBackground();
+        int v = 0;
+        for (int y=0;y<width();y++){
+            for (int x=0;x<height();x++){
+                v=1;
+                if (bg.get(x,y) instanceof Wall){
+                   v=-1;
+                }
+                mazeMatrix[y][x] = v;
+            }
+        }
+        return mazeMatrix;
+    }
 }

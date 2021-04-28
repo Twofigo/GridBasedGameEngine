@@ -23,12 +23,12 @@ public class Board implements Iterable{
         this(width, height);
         clear(defTile);
     }
-    public void update(){
+    public void update(PuppetMaster pm, TableTop tt){
         Iterator<Tile> itr = this.iterator();
         for(Tile t;itr.hasNext();){
             t = itr.next();
             if(t instanceof Entity){
-                ((Entity) t).update();
+                ((Entity) t).update(pm, tt);
             }
         }
     }

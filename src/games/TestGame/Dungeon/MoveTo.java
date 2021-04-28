@@ -15,6 +15,10 @@ public class MoveTo implements Interaction {
         if(back.OutOfBounds(x,y)) return false;
         Tile t = back.get(x,y);
         Tile c = board.get(x,y);
+        if (e.getX()==x && e.getY()==y){
+            return false;
+        }
+
         if(t instanceof MoveInto) {
             if (!((MoveInto)t).moveInto(game, e)) return false;
         }

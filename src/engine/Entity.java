@@ -1,5 +1,7 @@
 package engine;
 
+import games.TestGame.Dungeon.DungeonMaster;
+
 import java.awt.*;
 
 abstract public class Entity extends Tile{
@@ -21,5 +23,5 @@ abstract public class Entity extends Tile{
         this.x = x;
         this.y = y;
     }
-    public abstract void update();
+    public abstract void update(PuppetMaster dm, TableTop l);
 }

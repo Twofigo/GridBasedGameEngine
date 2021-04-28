@@ -45,27 +45,22 @@ public class DungeonMaster extends PuppetMaster {
 
         // player setup
         player = new Player("human",10,1,5,3);
-        monster1 = new Monster("zombie",10,5);
-        monster2 = new Monster("zombie",10,5);
-        monster3 = new Monster("zombie",10,5);
-        monster4 = new Monster("zombie",10,5);
-        monster5 = new Monster("zombie",10,5);
-        monster6 = new Monster("zombie",10,5);
 
-        // level setup
         level = generateFloor(1);
         this.setTableTop(level);
 
         spawn(player);
-        spawn(monster1);
-        spawn(monster2);
-        spawn(monster3);
-        spawn(monster4);
-        spawn(monster5);
-        spawn(monster6);
+
         spawn(new Item("coin"));
         spawn(new Item("coin"));
         spawn(new Item("coin"));
+        spawn(new Monster("zombie",10,5));
+        //spawn(new Monster("zombie",10,5));
+        //spawn(new Monster("zombie",10,5));
+        //spawn(new Monster("zombie",10,5));
+        //spawn(new Monster("zombie",10,5));
+        //spawn(new Monster("zombie",10,5));
+        // level setup
         spawn(new Armor("hat","hat_eq",1, Player.HAT));
         spawn(new Armor("bikini","bikini_eq",1, Player.CHEST));
         spawn(new Armor("chainmail","chainmail_eq",3,Player.CHEST));
@@ -99,8 +94,7 @@ public class DungeonMaster extends PuppetMaster {
 
     @Override
     public void update() {
-        ((Level)getTableTop()).getForeground().update();
-
+        ((Level)getTableTop()).getForeground().update(this, getLevel());
     }
 
     @Override
@@ -494,7 +488,7 @@ public class DungeonMaster extends PuppetMaster {
                 }
             }
         }
-
+        bm.clear(true);
         dungeonView.getDiscoveredMask().mergeOR(bm);
     }
     private void sightRay(BinaryMask bm, int fromX, int fromY, int toX, int toY){

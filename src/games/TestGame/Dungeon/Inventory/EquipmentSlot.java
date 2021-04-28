@@ -1,6 +1,8 @@
 package games.TestGame.Dungeon.Inventory;
 
 import engine.Entity;
+import engine.PuppetMaster;
+import engine.TableTop;
 import games.TestGame.Dungeon.DungeonMaster;
 
 public class EquipmentSlot extends Entity implements PlaceAt{
@@ -11,10 +13,6 @@ public class EquipmentSlot extends Entity implements PlaceAt{
         this.slot = slot;
     }
 
-    @Override
-    public void update() {
-
-    }
 
     @Override
     public boolean placeAt(DungeonMaster d, Item e) {
@@ -33,6 +31,11 @@ public class EquipmentSlot extends Entity implements PlaceAt{
         Equipable eq = (Equipable)e;
         d.getPlayer().unEquip(eq.getEquipmentSlot());
         return true;
+    }
+
+    @Override
+    public void update(PuppetMaster dm, TableTop l) {
+
     }
 }
 

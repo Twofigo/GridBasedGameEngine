@@ -1,6 +1,8 @@
 package games.TestGame.Sokoban;
 
 import engine.Entity;
+import engine.PuppetMaster;
+import engine.TableTop;
 
 import java.awt.*;
 
@@ -11,7 +13,7 @@ public class Player extends Entity {
     }
 
     @Override
-    public void update() {
+    public void update(PuppetMaster dm, TableTop l) {
 
     }
 }

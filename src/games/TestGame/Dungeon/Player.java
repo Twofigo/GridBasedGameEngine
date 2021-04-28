@@ -1,5 +1,7 @@
 package games.TestGame.Dungeon;
 
+import engine.PuppetMaster;
+import engine.TableTop;
 import games.TestGame.Dungeon.Inventory.Armor;
 import games.TestGame.Dungeon.Inventory.Equipable;
 import games.TestGame.Dungeon.Inventory.Weapon;
@@ -28,11 +30,6 @@ public class Player extends Creature {
         this.endurance      =endurance;
         this.intelligence   =intelligence;
         this.strength       =strength;
-    }
-
-    @Override
-    public void update() {
-
     }
 
     @Override
@@ -96,4 +93,8 @@ public class Player extends Creature {
     }
 
 
+    @Override
+    public void update(PuppetMaster dm, TableTop l) {
+
+    }
 }
