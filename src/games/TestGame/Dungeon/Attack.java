@@ -17,10 +17,12 @@ public class Attack implements Interaction{
         if(t instanceof Creature) {
             ((Creature) e).health -= ((Monster) t).getDamage();
             ((Creature)t).health -= ((Player)e).getStrength();      //temp damage output from player
-            if (!((MoveInto)t).moveInto(game, e)) return false;
+            //if (!((MoveInto)t).moveInto(game, e)) return false;   //weird shit why cast tile type to MoveInto? also it generates tons of errors
+            System.out.println(((Creature) e).health);
+            System.out.println(((Creature) t).health);
         }
         else if(t!=null) return false;
-        
+
         if(((Creature)t).health <= 0 && ((Creature)e).health <= 0)
         {
             return false;
@@ -30,7 +32,7 @@ public class Attack implements Interaction{
             board.pickup(e);
             board.place(e,x,y);
         }
-        else if(((Creature)e).health<=0)
+        else if(((Creature)e).health<=0) //Game over here
         {
             board.pickup((Entity) t);
             board.place(t,e.getX(),e.getY());

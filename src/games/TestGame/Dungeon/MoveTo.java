@@ -19,9 +19,10 @@ public class MoveTo implements Interaction {
             if (!((MoveInto)t).moveInto(game, e)) return false;
         }
 
-        if((c instanceof Entity)){
+        if((c instanceof Creature)){
             Attack a = new Attack();
             a.action(p,tb,e,x,y);
+            return false;
         }
         board.pickup(e);
         board.place(e,x,y);

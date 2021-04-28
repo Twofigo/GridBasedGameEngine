@@ -22,7 +22,12 @@ public class Dungeon extends PuppetMaster {
     }
 
     private Player player;
-    private Monster monster;
+    private Monster monster1;
+    private Monster monster2;
+    private Monster monster3;
+    private Monster monster4;
+    private Monster monster5;
+    private Monster monster6;
     private DungeonView dungeonView;
     private BoardView inventoryView;
     private Level level;
@@ -39,20 +44,25 @@ public class Dungeon extends PuppetMaster {
         loadTextures();
 
         // player setup
-        player = new Player("human",10,1,5,10);
-        monster = new Monster("zombie",2,10);
+        player = new Player("human",10,1,5,3);
+        monster1 = new Monster("zombie",1,10);
+        monster2 = new Monster("zombie",1,10);
+        monster3 = new Monster("zombie",1,10);
+        monster4 = new Monster("zombie",1,10);
+        monster5 = new Monster("zombie",1,10);
+        monster6 = new Monster("zombie",1,10);
 
         // level setup
         level = generateFloor(1);
         this.setTableTop(level);
 
         spawn(player);
-        spawn(monster);
-        spawn(monster);
-        spawn(monster);
-        spawn(monster);
-        spawn(monster);
-        spawn(monster);
+        spawn(monster1);
+        spawn(monster2);
+        spawn(monster3);
+        spawn(monster4);
+        spawn(monster5);
+        spawn(monster6);
         spawn(new Item("coin"));
         spawn(new Item("coin"));
         spawn(new Item("coin"));
