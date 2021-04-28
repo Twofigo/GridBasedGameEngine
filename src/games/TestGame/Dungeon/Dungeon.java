@@ -22,6 +22,7 @@ public class Dungeon extends PuppetMaster {
     }
 
     private Player player;
+    private Monster monster;
     private DungeonView dungeonView;
     private BoardView inventoryView;
     private Level level;
@@ -38,13 +39,20 @@ public class Dungeon extends PuppetMaster {
         loadTextures();
 
         // player setup
-        player = new Player("human",10);
+        player = new Player("human",10,1,5,10);
+        monster = new Monster("zombie",2,10);
 
         // level setup
         level = generateFloor(1);
         this.setTableTop(level);
 
         spawn(player);
+        spawn(monster);
+        spawn(monster);
+        spawn(monster);
+        spawn(monster);
+        spawn(monster);
+        spawn(monster);
         spawn(new Item("coin"));
         spawn(new Item("coin"));
         spawn(new Item("coin"));
@@ -212,6 +220,7 @@ public class Dungeon extends PuppetMaster {
         th.addTexture("src/Texture/dc-mon/deep_elf_mage.png", "Elf");
         th.addTexture("src/Texture/player/base/human_m.png", "human");
         th.addTexture("src/Texture/item/misc/gold_pile.png", "coin");
+        th.addTexture("src/Texture/dc-mon/undead/spectral_warrior.png","zombie");
 
         // equipment
         th.addTexture("src/Texture/item/armour/headgear/wizard_hat2.png", "hat");
@@ -281,6 +290,8 @@ public class Dungeon extends PuppetMaster {
         dungeonView.addButton("Attack", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Attack a = new Attack();
+                //a.action(this,level,player,);
                 return;
             }
         });

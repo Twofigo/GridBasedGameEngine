@@ -14,10 +14,13 @@ public class Player extends Creature {
     private Equipable[] equipment;
     private Weapon weapon;
 
-    public Player(String name, int health) {
+    public Player(String name, int health,int intelligence, int endurance, int strength) {
         super(name);
-        equipment = new Equipable[6];
-        super.health = health;
+        equipment           = new Equipable[6];
+        super.health        = health;
+        this.endurance      =endurance;
+        this.intelligence   =intelligence;
+        this.strength       =strength;
     }
 
     @Override
