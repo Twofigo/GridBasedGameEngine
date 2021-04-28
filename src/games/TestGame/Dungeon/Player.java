@@ -35,6 +35,7 @@ public class Player extends Creature {
             if (eq==null) continue;
             eq.renderEquiped(g,x,y);
         }
+
     }
 
     public int getIntelligence() {
