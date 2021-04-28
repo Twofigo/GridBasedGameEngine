@@ -28,6 +28,7 @@ public class Monster extends Creature {
         int x = this.getX();
         int y = this.getY();
 
+        if (x+y == 0) return;// probably dead
 
         // 0 = roam
         // 1 = track player
