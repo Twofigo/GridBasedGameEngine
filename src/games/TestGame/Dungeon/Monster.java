@@ -19,6 +19,7 @@ public class Monster extends Creature {
     public Monster(String name, int health, int dmg) {
         super(name, health);
         damage = dmg;
+        behaviour = 0;
     }
 
     public void update(DungeonMaster dm, Level l) {
@@ -92,9 +93,6 @@ public class Monster extends Creature {
         }
 }
 
-
-        //Dijkstra.printMatrix(Dijkstra.pathfinder(l.getMazeMatrix(),x,y,dm.getPlayer().getX(),dm.getPlayer().getY()));
-
     public int getDamage() {
         return damage;
     }
@@ -102,5 +100,20 @@ public class Monster extends Creature {
     @Override
     public void update(PuppetMaster dm, TableTop l) {
         update((DungeonMaster)dm, (Level)l);
+    }
+
+    public Monster clone(){
+        Monster m = new Monster("", this.maxHealth, this.damage);
+        m.x = this.x;
+        m.y = this.y;
+        m.texture = this.texture;
+
+        m.maxHealth = this.maxHealth;
+        m.health = this.health;
+
+        m.texturePath = this.texturePath;
+        m.name = this.name;
+        m.description = this.description;
+        return m;
     }
 }

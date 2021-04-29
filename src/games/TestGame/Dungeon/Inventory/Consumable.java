@@ -11,12 +11,12 @@ import java.awt.*;
 
 public class Consumable extends Item {
 
-    private final int duration;
-    private int durationRemaining;
-    private final int health;
-    private final int strength;
-    private final int intelligence;
-    private final int endurance;
+    protected int duration;
+    protected int durationRemaining;
+    protected int health;
+    protected int strength;
+    protected int intelligence;
+    protected int endurance;
 
     protected Image textureConsumed;
 
@@ -63,5 +63,15 @@ public class Consumable extends Item {
         this.durationRemaining = durationRemaining;
     }
 
-
+    public Consumable clone(){
+        Consumable c = (Consumable)super.clone();
+        c.duration = this.duration;
+        c.durationRemaining = this.durationRemaining;
+        c.health = this.health;
+        c.strength = this.strength;
+        c.intelligence = this.intelligence;
+        c.endurance = this.endurance;
+        c.textureConsumed = this.textureConsumed;
+        return c;
+    }
 }

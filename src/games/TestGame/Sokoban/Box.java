@@ -44,4 +44,9 @@ public class Box extends Entity implements MoveInto {
     public void update(PuppetMaster dm, TableTop l) {
 
     }
+
+    @Override
+    public Entity clone() {
+        return null;
+    }
 }

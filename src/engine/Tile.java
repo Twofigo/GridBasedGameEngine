@@ -4,7 +4,7 @@ import java.io.File;
 import java.awt.*;
 
 public class Tile {
-    private Image texture;
+    protected Image texture;
 
     public Tile(String textureName) {
         this.texture = TextureHandler.getInstance().getTexture(textureName);

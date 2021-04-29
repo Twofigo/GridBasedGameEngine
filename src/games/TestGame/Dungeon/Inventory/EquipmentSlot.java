@@ -37,5 +37,10 @@ public class EquipmentSlot extends Entity implements PlaceAt{
     public void update(PuppetMaster dm, TableTop l) {
 
     }
+
+    @Override
+    public Entity clone() {
+        return null;
+    }
 }
 

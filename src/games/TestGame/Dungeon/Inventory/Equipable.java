@@ -23,4 +23,11 @@ public class Equipable extends Item {
     public void renderEquipped(Graphics g, int x, int y){
         g.drawImage(textureEquiped, x,y,100,100,null);
     }
+
+    public Equipable clone(){
+        Equipable e = (Equipable)super.clone();
+        e.textureEquiped = this.textureEquiped;
+        e.equipmentSlot = this.equipmentSlot;
+        return e;
+    }
 }
