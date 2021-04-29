@@ -57,9 +57,7 @@ public class ShittyGame extends PuppetMaster{
         }
 
         bv = new BoardView("mainBoard", tb);
-        bv.setup();
         mv = new MenuView("mainMenu");
-        mv.setup();
 
         bv.addButton("Menu", new ActionListener() {
             @Override
@@ -96,8 +94,9 @@ public class ShittyGame extends PuppetMaster{
     }
     @Override
     public void mouseClicked(MouseEvent e) {
-        int x = bv.boardTransX(e.getX());
-        int y = bv.boardTransY(e.getY());
+        BoardRenderer br = bv.getBoardRenderer();
+        int x = br.boardTransX(e.getX());
+        int y = br.boardTransY(e.getY());
         System.out.println(x+" : "+y);
         x/=100;
         y/=100;
@@ -126,11 +125,12 @@ public class ShittyGame extends PuppetMaster{
     }
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
+        BoardRenderer br = bv.getBoardRenderer();
         int amount = e.getUnitsToScroll();
-        double zoom = bv.getZoom() - (bv.getZoom()/20)*amount;
+        double zoom = br.getZoom() - (br.getZoom()/20)*amount;
         if(zoom<0.1) return;
         if(zoom>50) return;
-        bv.setZoom(zoom);
+        br.setZoom(zoom);
         bv.draw();
     }
 }

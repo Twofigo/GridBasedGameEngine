@@ -88,4 +88,14 @@ public class BoardRenderer extends Renderer {
             //System.out.println("i:"+index+" x:"+tranX(w*100)+" y:"+tranY(h*100)+" w:"+(int)(100*scalar*zoom+0.5)+" h:"+(int)(100*scalar*zoom+0.5));
         }
     }
+    public int boardTransX(int x){
+        // translate between coordinate systems they said. will be fun they said.
+        // NO! THIS IS NOT FUN; THIS IS DEGRADING MY WILL TO LIVE FOR EACH SYMBOL I TYPE WRONG
+        int trX = (int)(((getZoom()*50)-getOffsetX()));
+        return (int)(transX(x)/(1000.0/(getZoom()*100))-trX);
+    }
+    public int boardTransY(int y){
+        int trY = (int)(((getZoom()*50)-getOffsetY()));
+        return (int)(transY(y)/(1000.0/(getZoom()*100))-trY);
+    }
 }

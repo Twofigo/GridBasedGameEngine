@@ -72,8 +72,9 @@ public class DungeonMaster extends PuppetMaster {
         setupDungeonView();
         setupInventoryView();
 
-        dungeonView.setZoom(15);
-        dungeonView.setOffset(player.getX()+0.5, player.getY()+0.5);
+        DungeonRenderer dr = dungeonView.getDungeonRenderer();
+        dr.setZoom(15);
+        dr.setOffset(player.getX()+0.5, player.getY()+0.5);
 
         updateVisibility();
         Window win = getWindow();
@@ -109,7 +110,8 @@ public class DungeonMaster extends PuppetMaster {
             else if(c=='s') y+=1;
             else if(c=='d') x+=1;
             interact(MOVETO,player, x, y);
-            dungeonView.setOffset(player.getX()+0.5, player.getY()+0.5);
+            DungeonRenderer dr = dungeonView.getDungeonRenderer();
+            dr.setOffset(player.getX()+0.5, player.getY()+0.5);
             getWindow().draw();
             updateVisibility();
         }
@@ -121,11 +123,12 @@ public class DungeonMaster extends PuppetMaster {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        BoardRenderer br = inventoryView.getBoardRenderer();
         if (this.getTableTop() instanceof Inventory){
             if (inventoryPickedUpItem == null){
                 Board b = inventory.getForeground();
-                int x = inventoryView.boardTransX(e.getX());
-                int y = inventoryView.boardTransY(e.getY());
+                int x = br.boardTransX(e.getX());
+                int y = br.boardTransY(e.getY());
                 x/=100;
                 y/=100;
                 Tile t = b.get(x,y);
@@ -139,11 +142,12 @@ public class DungeonMaster extends PuppetMaster {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        BoardRenderer br = inventoryView.getBoardRenderer();
         if (this.getTableTop() instanceof Inventory) {
             if (inventoryPickedUpItem != null){
                 Board b = inventory.getForeground();
-                int x = inventoryView.boardTransX(e.getX());
-                int y = inventoryView.boardTransY(e.getY());
+                int x = br.boardTransX(e.getX());
+                int y = br.boardTransY(e.getY());
                 x/=100;
                 y/=100;
 
@@ -169,11 +173,12 @@ public class DungeonMaster extends PuppetMaster {
     private boolean mouseDragged;
     @Override
     public void mouseDragged(MouseEvent e) {
+        BoardRenderer br = inventoryView.getBoardRenderer();
         if (this.getTableTop() instanceof Inventory) {
             if (inventoryPickedUpItem != null) {
                 Board b = inventory.getForeground();
-                int x = inventoryView.boardTransX(e.getX());
-                int y = inventoryView.boardTransY(e.getY());
+                int x = br.boardTransX(e.getX());
+                int y = br.boardTransY(e.getY());
                 x /= 100;
                 y /= 100;
                 if (x!=inventoryPickedUpItem.getX() || y !=inventoryPickedUpItem.getY()){
@@ -190,12 +195,13 @@ public class DungeonMaster extends PuppetMaster {
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
+        DungeonRenderer dr = dungeonView.getDungeonRenderer();
         if (getTableTop() instanceof Level) {
             double amount = (e.getUnitsToScroll()>1?1:-1)*0.5;
-            double zoom = dungeonView.getZoom() + amount;
+            double zoom = dr.getZoom() + amount;
             if (zoom < 1) return;
             if (zoom > 50) return;
-            dungeonView.setZoom(zoom);
+            dr.setZoom(zoom);
             dungeonView.draw();
         }
     }
@@ -365,7 +371,6 @@ public class DungeonMaster extends PuppetMaster {
     private void setupDungeonView(){
         // window setup
         dungeonView = new DungeonView("dungeon", level);
-        dungeonView.setup();
         dungeonView.addLabel("Navigation");
         dungeonView.addButton("Settings", new ActionListener() {
             @Override
@@ -428,11 +433,12 @@ public class DungeonMaster extends PuppetMaster {
             }
         });
 
-        dungeonView.getDiscoveredMask().clear(false);
+
+        DungeonRenderer dr = dungeonView.getDungeonRenderer();
+        dr.getDiscoveredMask().clear(false);
     }
     private void setupInventoryView(){
         inventoryView = new BoardView("inventory", inventory);
-        inventoryView.setup();
         inventoryView.addLabel("Navigation");
         inventoryView.addButton("Settings", new ActionListener() {
             @Override
@@ -464,8 +470,10 @@ public class DungeonMaster extends PuppetMaster {
     }
 
     private void updateVisibility(){
+
+        DungeonRenderer dr = dungeonView.getDungeonRenderer();
         TableTop tb = getTableTop();
-        BinaryMask bm = dungeonView.getVisibilityMask();
+        BinaryMask bm = dr.getVisibilityMask();
         bm.clear(false);
 
         int sightRange = 8;
@@ -500,7 +508,7 @@ public class DungeonMaster extends PuppetMaster {
             }
         }
         //bm.clear(true); // make everything visable
-        dungeonView.getDiscoveredMask().mergeOR(bm);
+        dr.getDiscoveredMask().mergeOR(bm);
     }
     private void sightRay(BinaryMask bm, int fromX, int fromY, int toX, int toY){
         // draw a ray from point to closes wall or endpoint
