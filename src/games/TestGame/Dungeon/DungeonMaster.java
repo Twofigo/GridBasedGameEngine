@@ -48,7 +48,6 @@ public class DungeonMaster extends PuppetMaster {
 
         level = generateFloor(1);
         this.setTableTop(level);
-
         spawn(player);
 
         spawn(new Item("coin"));
@@ -331,6 +330,11 @@ public class DungeonMaster extends PuppetMaster {
             }
         }
         return l;
+    }
+    public void goDeeper(){
+        Level nextLevel = generateFloor(1);
+        this.setTableTop(nextLevel);
+        spawn(this.player);
     }
     private boolean spawn(Tile t){
         Random rand = new Random();
