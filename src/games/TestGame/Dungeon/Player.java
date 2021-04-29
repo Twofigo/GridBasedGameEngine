@@ -3,6 +3,7 @@ package games.TestGame.Dungeon;
 import engine.PuppetMaster;
 import engine.TableTop;
 import games.TestGame.Dungeon.Inventory.Armor;
+import games.TestGame.Dungeon.Inventory.Consumable;
 import games.TestGame.Dungeon.Inventory.Equipable;
 import games.TestGame.Dungeon.Inventory.Weapon;
 
@@ -23,6 +24,7 @@ public class Player extends Creature {
     private int strength;    // weapon damage - increases from hacking monster scum to bits and pieces
 
     private Equipable[] equipment;
+    private Consumable consumable;
 
     public Player(String name, int health, int intelligence, int endurance, int strength) {
         super(name, health);
@@ -38,6 +40,9 @@ public class Player extends Creature {
         for (Equipable eq:equipment) {
             if (eq==null) continue;
             eq.renderEquipped(g,x,y);
+        }
+        if(consumable != null){
+            consumable.renderConsumed(g,x,y);
         }
     }
 
@@ -91,10 +96,44 @@ public class Player extends Creature {
     public void unEquip(int slot){
         equipment[slot] = null;
     }
+    public boolean consume(Consumable consumable){
+        if(this.consumable == null){
+            this.consumable = consumable;
+            return true;
+        }
+        return false;
+
+    }
 
 
     @Override
     public void update(PuppetMaster dm, TableTop l) {
+        if (consumable!=null)
+        {
+            int durationRemaining = consumable.getDurationRemaining();
 
+            if(durationRemaining == consumable.getDuration()){
+                this.strength       += consumable.getStrength();
+                this.intelligence   += consumable.getIntelligence();
+                this.endurance      += consumable.getEndurance();
+            }
+            if(durationRemaining > 0) {
+                if(this.health + consumable.getHealth() >= this.maxHealth) {
+                    this.health = this.maxHealth;
+                }
+                else{
+                    this.health += consumable.getHealth();
+                }
+
+            }
+            else{
+                this.strength       -= consumable.getStrength();
+                this.intelligence   -= consumable.getIntelligence();
+                this.endurance      -= consumable.getEndurance();
+                consumable = null;
+                return;
+            }
+            consumable.setDurationRemaining(durationRemaining-1);
+        }
     }
 }

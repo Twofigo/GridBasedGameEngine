@@ -60,6 +60,7 @@ public class DungeonMaster extends PuppetMaster {
         spawn(new Monster("zombie",10,1));
         spawn(new Monster("zombie",10,1));
         spawn(new Monster("zombie",10,1));
+        spawn(new Consumable("hp_Pot","hp_Effect",3,5,5,5,5));
         // level setup
         spawn(new Armor("hat","hat_eq",1, Player.HAT));
         spawn(new Armor("bikini","bikini_eq",1, Player.CHEST));
@@ -117,7 +118,22 @@ public class DungeonMaster extends PuppetMaster {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        /*
+        if (this.getTableTop() instanceof Inventory){
+            if (inventoryPickedUpItem == null){
+                Board b = inventory.getForeground();
+                int x = inventoryView.boardTransX(e.getX());
+                int y = inventoryView.boardTransY(e.getY());
+                x/=100;
+                y/=100;
+                Tile t = b.get(x,y);
+                if (t==null) return;
+                if (!(t instanceof Consumable)) return;
+                this.getPlayer().consume((Consumable) t);
+                PICKUP.action(this,this.getTableTop(), (Entity) t,x,y);
+            }
+        }
+        */
     }
 
     @Override
@@ -153,7 +169,12 @@ public class DungeonMaster extends PuppetMaster {
                     inventoryPickedUpItem = null;
                 }
                 else{
-                    // consume
+                    Tile t = b.get(x,y);
+                    if (!(t instanceof Consumable)) return;
+                    if(this.getPlayer().consume((Consumable)t)){
+                        b.pickup((Entity)t);
+                        inventoryView.draw();
+                    }
                 }
 
             }
@@ -200,6 +221,8 @@ public class DungeonMaster extends PuppetMaster {
         TextureHandler th = TextureHandler.getInstance();
         th.setRootPath("");
         // creatures
+        th.addTexture("src/Texture/item/potion/ruby.png", "hp_Pot");
+        th.addTexture("src/Texture/item/potion/i-heal.png","hp_Effect");
         th.setDefaultTexture("src/Texture/dc-misc/error.png");
         th.addTexture("src/Texture/dc-mon/deep_elf_mage.png", "Elf");
         th.addTexture("src/Texture/player/base/human_m.png", "human");
