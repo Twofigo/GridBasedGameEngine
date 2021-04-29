@@ -8,13 +8,38 @@ import games.TestGame.Dungeon.Inventory.Consumable;
 import games.TestGame.Dungeon.Inventory.Weapon;
 
 import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 public class StatsRenderer extends Renderer {
     private Tile t = null;
     private Font f;
     public StatsRenderer(){
         super();
-        f = new Font("TimesRoman",Font.PLAIN, 32);
+        String str="";
+        if (str.equals("")) str = findFont("moon");
+        if (str.equals("")) str = findFont("times");
+        if (str.equals("")) str = findFont("roman");
+        if (str.equals("")) str = findFont("serif");
+        if (str.equals("")) str = findFont("arial");
+        if (str.equals("")) System.out.println("There are literally no font's installed, it's impressive you can read this");
+        f = new Font(str,Font.PLAIN, 32);
+    }
+    public String findFont(String query){
+        GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        String s[] = g.getAvailableFontFamilyNames();
+        for (String str:s) {
+            System.out.println(str);
+            if(str.toLowerCase().contains(query.toLowerCase())){
+                // seaches for a font among avalable fonts, cause windows for cross compatability
+                // between linux and windows is a pain
+                return str;
+            }
+        }
+        return "";
     }
     @Override
     public void draw(Graphics g) {
