@@ -50,29 +50,10 @@ public class DungeonMaster extends PuppetMaster {
         player = new Player("human",50,1,5,3);
         player.setInfo("human","a lone explorer who\nentered a dungeon he\nshouldn't have.");
 
-        level = generateFloor(1);
+        level = generateFloor();
+        populateFloor(level,1);
+        level.spawn(player);
         this.setTableTop(level);
-        spawn(player);
-
-        spawn(new Exit("stairs"));
-        spawn(new Item("coin"));
-        spawn(new Item("coin"));
-        spawn(new Item("coin"));
-        Monster ghast = new Monster("zombie",10,1);
-        ghast.setInfo("Ghast","The reminant soul of\na previous explorer.");
-        spawn(ghast.clone());
-        spawn(ghast.clone());
-        spawn(ghast.clone());
-        spawn(ghast.clone());
-        spawn(ghast.clone());
-        spawn(ghast.clone());
-        spawn(new Consumable("hp_Pot","hp_Effect",3,5,5,5,5));
-        // level setup
-        spawn(new Armor("hat","hat_eq",1, Player.HAT));
-        spawn(new Armor("bikini","bikini_eq",1, Player.CHEST));
-        spawn(new Armor("chainmail","chainmail_eq",3,Player.CHEST));
-        spawn(new Armor("legs","legs_eq",3,Player.LEGS));
-        spawn(new Weapon("axe2","axe2_eq",3));
 
         setupInventory();
 
@@ -322,7 +303,7 @@ public class DungeonMaster extends PuppetMaster {
         bg.place(new EquipmentSlot("inventory",Player.WEAPON),7,1); // weapon
 
     }
-    private Level generateFloor(int difficulty){
+    private Level generateFloor(){
         /*
         Level l = new Level(8,8);
         l.getFloor().place(new Item("coin"),2,2);
@@ -377,37 +358,37 @@ public class DungeonMaster extends PuppetMaster {
         }
         return l;
     }
-    public void goDeeper(){
-        Level nextLevel = generateFloor(1);
-        this.setTableTop(nextLevel);
-        spawn(this.player);
-        dungeonView.getDungeonRenderer().setTableTop(nextLevel);
-        dungeonView.draw();
+    private void populateFloor(Level l, int difficulty){
+        l.spawn(new Exit("stairs"));
+        l.spawn(new Item("coin"));
+        l.spawn(new Item("coin"));
+        l.spawn(new Item("coin"));
+        Monster ghast = new Monster("zombie",10,1);
+        ghast.setInfo("Ghast","The reminant soul of\na previous explorer.");
+        l.spawn(ghast.clone());
+        l.spawn(ghast.clone());
+        l.spawn(ghast.clone());
+        l.spawn(ghast.clone());
+        l.spawn(ghast.clone());
+        l.spawn(ghast.clone());
+        l.spawn(new Consumable("hp_Pot","hp_Effect",3,5,5,5,5));
+        // level setup
+        l.spawn(new Armor("hat","hat_eq",1, Player.HAT));
+        l.spawn(new Armor("bikini","bikini_eq",1, Player.CHEST));
+        l.spawn(new Armor("chainmail","chainmail_eq",3,Player.CHEST));
+        l.spawn(new Armor("legs","legs_eq",3,Player.LEGS));
+        l.spawn(new Weapon("axe2","axe2_eq",3));
     }
-    private boolean spawn(Tile t){
-        Random rand = new Random();
-        Board back = ((Level)getTableTop()).getBackground();
-        Board board = ((Level)getTableTop()).getForeground();
-        Board floor = ((Level)getTableTop()).getFloor();
-        int x;
-        int y;
-        while(true){
-            x = rand.nextInt(floor.width());
-            y = rand.nextInt(floor.height());
-            if(!(back.get(x,y) instanceof Wall)) {
-                if (floor.get(x, y) == null) break;
-            }
-        }
-        if(t instanceof Item){
-            floor.place(t,x,y);
-        }
-        else if(t instanceof Creature){
-            board.place(t,x,y);
-        }
-        else {
-            System.out.println("You're in deep shit");
-        }
-        return true;
+    public void goDeeper(){
+        Level nextLevel = generateFloor();
+        populateFloor(nextLevel,1);
+        nextLevel.spawn(this.player);
+        this.level = nextLevel;
+        this.setTableTop(nextLevel);
+        dungeonView.getDungeonRenderer().setTableTop(nextLevel);
+        dungeonView.getDungeonRenderer().getDiscoveredMask().clear(false);
+        updateVisibility();
+        getWindow().draw();
     }
 
     private void setupDungeonView(){
@@ -511,6 +492,13 @@ public class DungeonMaster extends PuppetMaster {
     private void changeToInventoryView(){
         getWindow().setView("inventory");
         setTableTop(inventory);
+    }
+
+    private void createCreatureList(){
+
+    }
+    private void createItemList(){
+        
     }
 
     private void updateVisibility(){

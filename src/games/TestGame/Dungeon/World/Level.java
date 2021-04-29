@@ -1,7 +1,13 @@
 package games.TestGame.Dungeon.World;
 
 import engine.Board;
+import engine.Entity;
 import engine.TableTop;
+import engine.Tile;
+import games.TestGame.Dungeon.Creature;
+import games.TestGame.Dungeon.Inventory.Item;
+
+import java.util.Random;
 
 public class Level extends TableTop {
 
@@ -45,5 +51,30 @@ public class Level extends TableTop {
             }
         }
         return mazeMatrix;
+    }
+    public boolean spawn(Tile t){
+        Random rand = new Random();
+        Board back = getBackground();
+        Board board = getForeground();
+        Board floor = getFloor();
+        int x;
+        int y;
+        while(true){
+            x = rand.nextInt(floor.width());
+            y = rand.nextInt(floor.height());
+            if(!(back.get(x,y) instanceof Wall)) {
+                if (floor.get(x, y) == null) break;
+            }
+        }
+        if(t instanceof Item){
+            floor.place(t,x,y);
+        }
+        else if(t instanceof Entity){
+            board.place(t,x,y);
+        }
+        else {
+            back.place(t,x,y);
+        }
+        return true;
     }
 }
