@@ -14,7 +14,7 @@ public class StatsRenderer extends Renderer {
     private Font f;
     public StatsRenderer(){
         super();
-        f = new Font(Font.MONOSPACED,Font.PLAIN, 32);
+        f = new Font("TimesRoman",Font.PLAIN, 32);
     }
     @Override
     public void draw(Graphics g) {
