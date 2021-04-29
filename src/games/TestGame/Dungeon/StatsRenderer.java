@@ -28,14 +28,23 @@ public class StatsRenderer extends Renderer {
         if (str.equals("")) System.out.println("There are literally no font's installed, it's impressive you can read this");
         f = new Font(str,Font.PLAIN, 32);
     }
+
+    /**
+     * seaches for a keyword among avalable fonts.
+     * because cross compatability between linux and windows is a pain, and windows does not know what TimesRoman is
+     *
+     * @param query to seach for
+     * @return Font family name
+     *
+     * returns empty string if no font was found
+     */
     public String findFont(String query){
         GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String s[] = g.getAvailableFontFamilyNames();
         for (String str:s) {
             System.out.println(str);
             if(str.toLowerCase().contains(query.toLowerCase())){
-                // seaches for a font among avalable fonts, cause windows for cross compatability
-                // between linux and windows is a pain
+
                 return str;
             }
         }
