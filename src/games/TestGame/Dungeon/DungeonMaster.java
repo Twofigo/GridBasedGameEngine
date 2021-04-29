@@ -498,7 +498,7 @@ public class DungeonMaster extends PuppetMaster {
 
     }
     private void createItemList(){
-        
+
     }
 
     private void updateVisibility(){

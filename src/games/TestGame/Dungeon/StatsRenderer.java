@@ -3,6 +3,9 @@ package games.TestGame.Dungeon;
 import engine.Entity;
 import engine.Renderer;
 import engine.Tile;
+import games.TestGame.Dungeon.Inventory.Armor;
+import games.TestGame.Dungeon.Inventory.Consumable;
+import games.TestGame.Dungeon.Inventory.Weapon;
 
 import java.awt.*;
 
@@ -11,7 +14,7 @@ public class StatsRenderer extends Renderer {
     private Font f;
     public StatsRenderer(){
         super();
-        f = new Font(Font.MONOSPACED,Font.PLAIN, 35);
+        f = new Font(Font.MONOSPACED,Font.PLAIN, 32);
     }
     @Override
     public void draw(Graphics g) {
@@ -37,6 +40,27 @@ public class StatsRenderer extends Renderer {
             printLine(g,"Health: "+m.getHealth()+"/"+m.getMaxHealth(),row++);
             printLine(g,"Damage: "+m.getDamage(),row++);
         }
+        else if(t instanceof Armor){
+            Armor a = (Armor)t;
+            row+=printLine(g,"type: Armor",row);
+            row+=printLine(g,"Armor: "+a.getArmorRating(),row);
+            row+=printLine(g,"Eq slot: "+a.getEquipmentSlot(),row);
+        }
+        else if(t instanceof Weapon){
+            Weapon w = (Weapon)t;
+            row+=printLine(g,"type: Weapon",row);
+            row+=printLine(g,"Damage: "+w.getDamage(),row);
+        }
+        else if(t instanceof Consumable){
+            Consumable c = (Consumable)t;
+            row+=printLine(g,"type: Consumable",row);
+            row+=printLine(g,"Duration: "+c.getDuration(),row);
+            row++;
+            row+=printLine(g,"Health: "+c.getHealth(),row);
+            row+=printLine(g,"Intelligence: "+c.getIntelligence(),row);
+            row+=printLine(g,"Strength: "+c.getStrength(),row);
+            row+=printLine(g,"Endurance: "+c.getEndurance(),row);
+        }
     }
     private int printLine(Graphics g, String s, int row){
         g.setFont(f);
@@ -58,7 +82,7 @@ public class StatsRenderer extends Renderer {
                 s = "";
             }
             g.setColor(new Color(0,0,0,150));
-            g.fillRect(xOffset-10,yOffset+(row+rows)*rowHeight-35, st.length()*charWidth+30, rowHeight+10);
+            g.fillRect(xOffset-10,yOffset+(row+rows)*rowHeight-30, st.length()*charWidth+10, rowHeight);
             g.setColor(Color.WHITE);
             g.drawString(st,xOffset,yOffset+(row+rows)*rowHeight);
             rows++;
