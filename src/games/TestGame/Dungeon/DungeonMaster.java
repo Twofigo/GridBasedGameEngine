@@ -54,6 +54,7 @@ public class DungeonMaster extends PuppetMaster {
         this.setTableTop(level);
         spawn(player);
 
+        spawn(new Exit("stairs"));
         spawn(new Item("coin"));
         spawn(new Item("coin"));
         spawn(new Item("coin"));
@@ -248,6 +249,7 @@ public class DungeonMaster extends PuppetMaster {
         TextureHandler th = TextureHandler.getInstance();
         th.setRootPath("");
         // creatures
+        th.addTexture("src/Texture/dc-dngn/gateways/stone_stairs_down.png","stairs");
         th.addTexture("src/Texture/item/potion/ruby.png", "hp_Pot");
         th.addTexture("src/Texture/item/potion/i-heal.png","hp_Effect");
         th.setDefaultTexture("src/Texture/dc-misc/error.png");
@@ -379,6 +381,8 @@ public class DungeonMaster extends PuppetMaster {
         Level nextLevel = generateFloor(1);
         this.setTableTop(nextLevel);
         spawn(this.player);
+        dungeonView.getDungeonRenderer().setTableTop(nextLevel);
+        dungeonView.draw();
     }
     private boolean spawn(Tile t){
         Random rand = new Random();
