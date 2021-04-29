@@ -1,5 +1,6 @@
 package games.TestGame.Dungeon;
 
+import engine.Entity;
 import engine.PuppetMaster;
 import engine.TableTop;
 import games.TestGame.Dungeon.Inventory.Armor;
@@ -105,7 +106,6 @@ public class Player extends Creature {
 
     }
 
-
     @Override
     public void update(PuppetMaster dm, TableTop l) {
         if (consumable!=null)
@@ -135,5 +135,10 @@ public class Player extends Creature {
             }
             consumable.setDurationRemaining(durationRemaining-1);
         }
+    }
+
+    @Override
+    public Entity clone() {
+        return null;
     }
 }

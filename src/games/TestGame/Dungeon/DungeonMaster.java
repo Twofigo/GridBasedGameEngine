@@ -28,8 +28,11 @@ public class DungeonMaster extends PuppetMaster {
     private Monster monster4;
     private Monster monster5;
     private Monster monster6;
+
     private DungeonView dungeonView;
     private BoardView inventoryView;
+    private StatsRenderer statsRenderer;
+
     private Level level;
     private Inventory inventory;
 
@@ -45,6 +48,7 @@ public class DungeonMaster extends PuppetMaster {
 
         // player setup
         player = new Player("human",50,1,5,3);
+        player.setInfo("human","a lone explorer who\nentered a dungeon he\nshouldn't have.");
 
         level = generateFloor(1);
         this.setTableTop(level);
@@ -53,12 +57,14 @@ public class DungeonMaster extends PuppetMaster {
         spawn(new Item("coin"));
         spawn(new Item("coin"));
         spawn(new Item("coin"));
-        spawn(new Monster("zombie",10,1));
-        spawn(new Monster("zombie",10,1));
-        spawn(new Monster("zombie",10,1));
-        spawn(new Monster("zombie",10,1));
-        spawn(new Monster("zombie",10,1));
-        spawn(new Monster("zombie",10,1));
+        Monster ghast = new Monster("zombie",10,1);
+        ghast.setInfo("Ghast","The reminant soul of\na previous explorer.");
+        spawn(ghast.clone());
+        spawn(ghast.clone());
+        spawn(ghast.clone());
+        spawn(ghast.clone());
+        spawn(ghast.clone());
+        spawn(ghast.clone());
         spawn(new Consumable("hp_Pot","hp_Effect",3,5,5,5,5));
         // level setup
         spawn(new Armor("hat","hat_eq",1, Player.HAT));
@@ -69,6 +75,7 @@ public class DungeonMaster extends PuppetMaster {
 
         setupInventory();
 
+        statsRenderer = new StatsRenderer();
         setupDungeonView();
         setupInventoryView();
 
@@ -123,8 +130,9 @@ public class DungeonMaster extends PuppetMaster {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        BoardRenderer br = inventoryView.getBoardRenderer();
+
         if (this.getTableTop() instanceof Inventory){
+            BoardRenderer br = inventoryView.getBoardRenderer();
             if (inventoryPickedUpItem == null){
                 Board b = inventory.getForeground();
                 int x = br.boardTransX(e.getX());
@@ -160,7 +168,7 @@ public class DungeonMaster extends PuppetMaster {
                     if (!(t instanceof Consumable)) return;
                     if(this.getPlayer().consume((Consumable)t)){
                         b.pickup((Entity)t);
-                        inventoryView.draw();
+                        getWindow().draw();
                     }
                 }
 
@@ -190,7 +198,37 @@ public class DungeonMaster extends PuppetMaster {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        if (this.getTableTop() instanceof Inventory) {
+            BoardRenderer br = inventoryView.getBoardRenderer();
+            int x = br.boardTransX(e.getX());
+            int y = br.boardTransY(e.getY());
+            x/=100;
+            y/=100;
+            Tile t;
+            t = inventory.getForeground().get(x,y);
+            if(t==null){
+                t= inventory.getBackground().get(x,y);
+            }
+            statsRenderer.setFocusEntity(t);
+            getWindow().draw();
+        }
+        else if(this.getTableTop() instanceof Level){
+            DungeonRenderer br = dungeonView.getDungeonRenderer();
+            int x = br.boardTransX(e.getX());
+            int y = br.boardTransY(e.getY());
+            x/=100;
+            y/=100;
+            Tile t;
+            t = level.getForeground().get(x,y);
+            if(t==null){
+                t= level.getFloor().get(x,y);
+            }
+            if(t==null){
+                t= level.getBackground().get(x,y);
+            }
+            statsRenderer.setFocusEntity(t);
+            getWindow().draw();
+        }
     }
 
     @Override
@@ -371,6 +409,7 @@ public class DungeonMaster extends PuppetMaster {
     private void setupDungeonView(){
         // window setup
         dungeonView = new DungeonView("dungeon", level);
+        dungeonView.addRenderer(statsRenderer);
         dungeonView.addLabel("Navigation");
         dungeonView.addButton("Settings", new ActionListener() {
             @Override
@@ -439,6 +478,7 @@ public class DungeonMaster extends PuppetMaster {
     }
     private void setupInventoryView(){
         inventoryView = new BoardView("inventory", inventory);
+        inventoryView.addRenderer(statsRenderer);
         inventoryView.addLabel("Navigation");
         inventoryView.addButton("Settings", new ActionListener() {
             @Override

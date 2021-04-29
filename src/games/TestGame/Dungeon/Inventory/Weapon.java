@@ -17,4 +17,10 @@ public class Weapon extends Equipable {
         this.damage = damage;
     }
 
+    public Weapon clone(){
+        Weapon w = (Weapon)super.clone();
+        w.damage = this.damage;
+        return w;
+    }
+
 }

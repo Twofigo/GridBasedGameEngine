@@ -1,7 +1,7 @@
 package games.TestGame.Dungeon.Inventory;
 
 public class Armor extends Equipable{
-    private int armorRating;
+    protected int armorRating;
 
     public Armor(String textureName, String textureEquipedName, int armorRating, int equipmentSlot) {
         super(textureName, textureEquipedName, equipmentSlot);
@@ -10,5 +10,11 @@ public class Armor extends Equipable{
 
     public int getArmorRating() {
         return armorRating;
+    }
+
+    public Armor clone(){
+        Armor a = (Armor)super.clone();
+        a.armorRating = this.armorRating;
+        return a;
     }
 }

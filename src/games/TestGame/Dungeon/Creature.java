@@ -4,11 +4,15 @@ import engine.Entity;
 
 import java.awt.*;
 
-public abstract class Creature extends Entity {
+public abstract class Creature extends Entity implements Description{
 
     protected int maxHealth;
     protected int health;
-    private String texturePath;
+    protected String texturePath;
+
+    protected String name = "";
+    protected String description = "";
+
 
     public Creature(String name, int maxHealth) {
         super(name);
@@ -38,4 +42,20 @@ public abstract class Creature extends Entity {
     }
 
     public abstract int getDamage();
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+
+    @Override
+    public void setInfo(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }
