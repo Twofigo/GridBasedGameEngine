@@ -118,22 +118,6 @@ public class DungeonMaster extends PuppetMaster {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        /*
-        if (this.getTableTop() instanceof Inventory){
-            if (inventoryPickedUpItem == null){
-                Board b = inventory.getForeground();
-                int x = inventoryView.boardTransX(e.getX());
-                int y = inventoryView.boardTransY(e.getY());
-                x/=100;
-                y/=100;
-                Tile t = b.get(x,y);
-                if (t==null) return;
-                if (!(t instanceof Consumable)) return;
-                this.getPlayer().consume((Consumable) t);
-                PICKUP.action(this,this.getTableTop(), (Entity) t,x,y);
-            }
-        }
-        */
     }
 
     @Override

@@ -7,9 +7,6 @@ import java.awt.*;
 
 public class Weapon extends Equipable {
     private int damage;
-    private int equipmentSlot;
-
-    private Image textureEquiped;
 
     public int getDamage() {
         return damage;
@@ -20,7 +17,4 @@ public class Weapon extends Equipable {
         this.damage = damage;
     }
 
-    public void renderEquipped(Graphics g, int x, int y){
-        g.drawImage(textureEquiped, x,y,100,100,null);
-    }
 }
