@@ -53,7 +53,6 @@ public class Sokoban extends PuppetMaster {
 
         // window setup
         bv = new BoardView("mainBoard", levels.get(0));
-        bv.setup();
         Window win = getWindow();
         win.addView(bv);
 
@@ -193,6 +192,7 @@ public class Sokoban extends PuppetMaster {
         levels.add(l);
     }
     public void changeLevel(){
+        BoardRenderer br = bv.getBoardRenderer();
         if (currentLevelIndex+1>=levels.size()) return;
         Level l;
 
@@ -200,11 +200,11 @@ public class Sokoban extends PuppetMaster {
         l.getForeground().pickup(p);
         currentLevelIndex++;
         setTableTop(levels.get(currentLevelIndex));
-        bv.setTableTop(getTableTop());
+        br.setTableTop(getTableTop());
         l = ((Level)getTableTop());
         l.getForeground().place(p,l.getPlayerSpawnX(),l.getPlayerSpawnY());
-        bv.setOffset(l.width()*0.5, l.height()*0.5);
-        bv.setZoom(l.width());
+        br.setOffset(l.width()*0.5, l.height()*0.5);
+        br.setZoom(l.width());
 
     }
     public void updateVictoryProgress(int i){

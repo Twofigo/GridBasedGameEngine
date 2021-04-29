@@ -15,8 +15,6 @@ abstract public class View extends JPanel{
         this.name = name;
         this.buttonCount = 0;
     }
-
-    public abstract void setup();
     public String getName(){
         return name;
     }
@@ -29,7 +27,6 @@ abstract public class View extends JPanel{
         b.addActionListener(action);
         buttonCount++;
         buttonPanel.add(b);
-        this.draw();
     }
     public void addLabel(String name){
         JLabel l = new JLabel(name);
@@ -37,14 +34,12 @@ abstract public class View extends JPanel{
         l.setPreferredSize(new Dimension(0,0));
         buttonCount++;
         buttonPanel.add(l);
-        this.draw();
     }
     public boolean removeButton(String name){
         Button b = getButton(name);
         if(b==null) return false;
         buttonPanel.remove(b);
         buttonCount--;
-        this.draw();
         return true;
     }
     public boolean setButtonState(boolean enabled, boolean visible){
@@ -52,21 +47,18 @@ abstract public class View extends JPanel{
         if(b==null) return false;
         b.setEnabled(enabled);
         b.setVisible(visible);
-        this.draw();
         return true;
     }
     public boolean setButtonVisable(boolean visible){
         Button b = getButton(name);
         if(b==null) return false;
         b.setVisible(visible);
-        this.draw();
         return true;
     }
     public boolean setButtonEnabled(boolean enabled){
         Button b = getButton(name);
         if(b==null) return false;
         b.setEnabled(enabled);
-        this.draw();
         return true;
     }
     public Button getButton(String name){

@@ -7,13 +7,6 @@ import java.awt.event.ActionListener;
 public class MenuView extends View{
     public MenuView(String name) {
         super(name);
-    }
-    @Override
-    public void setup() {
-        setupMenuView();
-        draw();
-    }
-    protected void setupMenuView() {
         this.setLayout(new GridBagLayout());
 
         GridBagConstraints con = new GridBagConstraints();
@@ -25,6 +18,7 @@ public class MenuView extends View{
         //buttonPanel.setBackground(Color.GREEN);
         //buttonPanel.setForeground(Color.GREEN);
         this.add(buttonPanel, con);
+        draw();
     }
 
     @Override

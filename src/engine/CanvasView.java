@@ -13,15 +13,6 @@ public class CanvasView extends View {
 
     public CanvasView(String name) {
         super(name);
-    }
-
-    @Override
-    public void setup() {
-        setupCanvasView();
-        draw();
-    }
-
-    protected void setupCanvasView() {
         buttonPanel.setLayout(new GridLayout(12,1,0,0));
         canvasC = new CanvasComponent();
         this.setLayout(new GridBagLayout());
@@ -40,6 +31,7 @@ public class CanvasView extends View {
 
         canvasC.draw();
         setVisible(true);
+        draw();
     }
 
     @Override
@@ -52,15 +44,11 @@ public class CanvasView extends View {
         this.repaint();
         canvasC.draw();
     }
-
-    public int transX(int x){
-        return canvasC.transX(x);
-    }
-    public int transY(int y){
-        return canvasC.transY(y);
-    }
     public void addRenderer(Renderer renderer){
         canvasC.addRenderer(renderer);
+    }
+    public Renderer getRenderer(int i){
+        return canvasC.getRenderer(i);
     }
 }
 
@@ -68,7 +56,6 @@ class CanvasComponent extends JPanel{
     private ArrayList<Renderer> renderers;
     private BufferedImage offscreenImage;
     private Graphics offscreen;
-
 
     private final int innerWidth = 1000;
     private final int innerHeight = 1000;
@@ -83,12 +70,16 @@ class CanvasComponent extends JPanel{
     public void addRenderer(Renderer renderer){
         renderers.add(renderer);
     }
+    public Renderer getRenderer(int i){
+        return renderers.get(i);
+    }
     public void updateSize(int width, int height) {
         this.width = width;
         this.height = height;
-        draw();
+        for (Renderer r:renderers) {
+            r.updateSize(width,height);
+        }
     }
-
     public void draw(){
         repaint();
     }
@@ -99,13 +90,5 @@ class CanvasComponent extends JPanel{
             r.draw(offscreen);
         }
         g.drawImage(this.offscreenImage, 0, 0,width,height, null);
-    }
-    public int transX(int x){
-        double scalar = ((double)width)/innerWidth;
-        return (int)((x)/(scalar));
-    }
-    public int transY(int y){
-        double scalar = ((double)height)/innerHeight;
-        return (int)((y)/(scalar));
     }
 }
