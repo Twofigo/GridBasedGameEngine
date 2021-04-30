@@ -22,18 +22,12 @@ public class DungeonMaster extends PuppetMaster {
     }
 
     private Player player;
-    private Monster monster1;
-    private Monster monster2;
-    private Monster monster3;
-    private Monster monster4;
-    private Monster monster5;
-    private Monster monster6;
-
     private DungeonView dungeonView;
     private BoardView inventoryView;
     private StatsRenderer statsRenderer;
 
     private Level level;
+    private int difficulty = 1;
     private Inventory inventory;
 
     public static void main(String[] args) {
@@ -47,7 +41,7 @@ public class DungeonMaster extends PuppetMaster {
         loadTextures();
 
         // player setup
-        player = new Player("human",50,1,5,3);
+        player = new Player("human",100,1,2,3);
         player.setInfo("human","a lone explorer who\nentered a dungeon he\nshouldn't have.");
 
         level = generateFloor();
@@ -363,21 +357,11 @@ public class DungeonMaster extends PuppetMaster {
         l.spawn(new Item("coin"));
         l.spawn(new Item("coin"));
         l.spawn(new Item("coin"));
-        Monster ghast = new Monster("zombie",10,1);
-        ghast.setInfo("Ghast","The reminant soul of\na previous explorer.");
-        l.spawn(ghast.clone());
-        l.spawn(ghast.clone());
-        l.spawn(ghast.clone());
-        l.spawn(ghast.clone());
-        l.spawn(ghast.clone());
-        l.spawn(ghast.clone());
-        l.spawn(new Consumable("hp_Pot","hp_Effect",3,5,5,5,5));
+        Monster[] monster = createCreatureList();
+        for (Monster ghast:monster) {
+            l.spawn(ghast);
+        }
         // level setup
-        l.spawn(new Armor("hat","hat_eq",1, Player.HAT));
-        l.spawn(new Armor("bikini","bikini_eq",1, Player.CHEST));
-        l.spawn(new Armor("chainmail","chainmail_eq",3,Player.CHEST));
-        l.spawn(new Armor("legs","legs_eq",3,Player.LEGS));
-        l.spawn(new Weapon("axe2","axe2_eq",3));
     }
     public void goDeeper(){
         Level nextLevel = generateFloor();
@@ -494,11 +478,22 @@ public class DungeonMaster extends PuppetMaster {
         setTableTop(inventory);
     }
 
-    private void createCreatureList(){
-
+    private Monster[] createCreatureList(){
+        Monster ghast = new Monster("zombie",4+difficulty, (int)(3+(difficulty)*0.3));
+        ghast.setInfo("Ghast","The reminant soul of\na previous explorer.");
+        Monster[] ghasts = new Monster[difficulty*3];
+        for(int i = 0; i < difficulty*3; i++){
+            ghasts[i] = ghast.clone();
+        }
+        return ghasts;
     }
     private void createItemList(){
-
+        Consumable hp_potion = new Consumable("hp_Pot","hp_Effect",3,5,5,5,5);
+        Armor wizardhat = new Armor("hat","hat_eq",1, Player.HAT);
+        Armor bikini = new Armor("bikini","bikini_eq",1, Player.CHEST);
+        Armor chainmail = new Armor("chainmail","chainmail_eq",3,Player.CHEST);
+        Armor chainlegs = new Armor("legs","legs_eq",3,Player.LEGS);
+        Weapon axe2 = new Weapon("axe2","axe2_eq",3);
     }
 
     private void updateVisibility(){
@@ -566,5 +561,13 @@ public class DungeonMaster extends PuppetMaster {
             if (b.get(x,y) instanceof Wall) return false;
         }
         return true;
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 }

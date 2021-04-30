@@ -14,6 +14,7 @@ public class Exit extends Tile implements MoveInto {
     @Override
     public boolean moveInto(DungeonMaster p, Entity e) {
         if(e instanceof Player){
+            p.setDifficulty(p.getDifficulty()+1);
             p.goDeeper();
             return false;
         }
