@@ -21,8 +21,11 @@ public class Player extends Creature {
     public static final int SHIELD = 6;
 
     private int intelligence; // mana amount & spell damage - increased from casting spells
+    private int intelligenceProg;
     private int endurance;   // health amount - increased from taking damage
+    private int enduranceProg;
     private int strength;    // weapon damage - increases from hacking monster scum to bits and pieces
+    private int strengthProg;
 
     private Equipable[] equipment;
     private Consumable consumable;
@@ -54,25 +57,38 @@ public class Player extends Creature {
         if (w!=null) d+=w.getDamage();
         return d;
     }
-
     public int getIntelligence() {
         return intelligence;
     }
-
     public int getEndurance() {
         return endurance;
     }
-
     public int getStrength() {
         return strength;
     }
 
-    protected Equipable getEquipment(int slot) {
-        return equipment[slot];
+    public void progressIntelligence(int progress) {
+        intelligenceProg+=progress;
+        if(intelligenceProg>intelligence*2){
+            intelligence++;
+            intelligenceProg=0;
+        }
     }
-    protected Armor getArmor(int slot){
-        return (Armor)equipment[slot];
+    public void progressEndurance(int progress) {
+        enduranceProg+=progress;
+        if(enduranceProg==health*2){
+            endurance++;
+            strengthProg=0;
+        }
     }
+    public void progressStrength(int progress) {
+        strengthProg+=progress;
+        if (strengthProg>=(strength*10)){
+            strength++;
+            strengthProg=0;
+        }
+    }
+
 
     public Weapon getWeapon() {
         Equipable e = getEquipment(WEAPON);
@@ -141,4 +157,12 @@ public class Player extends Creature {
     public Entity clone() {
         return null;
     }
+
+    protected Equipable getEquipment(int slot) {
+        return equipment[slot];
+    }
+    protected Armor getArmor(int slot){
+        return (Armor)equipment[slot];
+    }
+
 }

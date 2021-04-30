@@ -150,10 +150,10 @@ public class DungeonMaster extends PuppetMaster {
                     if (!(t instanceof Consumable)) return;
                     if(this.getPlayer().consume((Consumable)t)){
                         b.pickup((Entity)t);
+                        inventoryPickedUpItem = null;
                         getWindow().draw();
                     }
                 }
-
             }
         }
     }

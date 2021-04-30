@@ -29,10 +29,12 @@ public class Attack implements Interaction{
             int damageD =0;
 
             if(a instanceof Player){
-                damageA = d.getDamage() - ((Player)a).getArmorRating();
+                damageA = d.getDamage() - ((Player)a).getArmorRating()-((Player)a).getEndurance();
                 if(damageA < 1) {
                     damageA = 1;
                 }
+                ((Player)a).progressEndurance(damageA);
+                ((Player)a).progressStrength(a.getDamage());
             }
             else if(a instanceof Monster){
                 damageA = d.getDamage();
@@ -42,13 +44,15 @@ public class Attack implements Interaction{
             }
 
             if(d instanceof Player){
-                damageD = a.getDamage() - ((Player)d).getArmorRating();
+                damageD = a.getDamage() - ((Player)d).getArmorRating()-((Player)d).getEndurance();
                 if(damageD < 1) {
                     damageD = 1;
                 }
+                ((Player)d).progressEndurance(damageD);
+                ((Player)d).progressStrength(d.getDamage());
             }
             else if(d instanceof Monster){
-                damageD = d.getDamage();
+                damageD = a.getDamage();
             }
             else {
                 return false;
@@ -57,8 +61,6 @@ public class Attack implements Interaction{
             a.setHealth(a.getHealth() - damageA);
             d.setHealth(d.getHealth() - damageD);      //temp damage output from player
             //if (!((MoveInto)t).moveInto(game, e)) return false;   //weird shit why cast tile type to MoveInto? also it generates tons of errors
-            System.out.println(((Creature) e).getHealth());
-            System.out.println(((Creature) t).getHealth());
 
             if(a.getHealth() <= 0)
             {

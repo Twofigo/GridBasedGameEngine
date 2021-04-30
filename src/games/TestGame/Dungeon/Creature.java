@@ -25,12 +25,17 @@ public abstract class Creature extends Entity implements Description{
     public int getHealth() {
         return health;
     }
+    public void punch(int damage){
+        setHealth(getHealth() - damage);
+    }
+
     protected void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
     }
     protected void setHealth(int health) {
         this.health = health;
     }
+
 
     @Override
     public void render(Graphics g, int x, int y){
