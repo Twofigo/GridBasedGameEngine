@@ -12,12 +12,11 @@ public class Pickup implements Interaction {
         Inventory inv = ((DungeonMaster)p).getInventory();
         Level lvl = ((DungeonMaster)p).getLevel();
 
-        lvl.getFloor().pickup(x,y);
         Board invB = inv.getForeground();
-
         for(int ky=0;ky<inv.height();ky++){
             for(int kx=0;kx<inv.width()-3;kx++){
                 if (invB.get(kx, ky)!=null)continue;
+                lvl.getFloor().pickup(x,y);
                 invB.place(obj1, kx,ky);
                 return true;
             }

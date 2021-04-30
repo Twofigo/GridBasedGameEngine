@@ -1,4 +1,4 @@
-package games.TestGame.Dungeon.Inventory;
+package games.TestGame.Dungeon.World;
 
 import engine.Entity;
 import engine.Tile;

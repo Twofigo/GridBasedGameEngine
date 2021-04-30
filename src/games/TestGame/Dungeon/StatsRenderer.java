@@ -42,10 +42,8 @@ public class StatsRenderer extends Renderer {
         GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String s[] = g.getAvailableFontFamilyNames();
         for (String str:s) {
-            System.out.println(str);
             if(str.toLowerCase().contains(query.toLowerCase())){
-
-                return str;
+                return str; // found font
             }
         }
         return "";

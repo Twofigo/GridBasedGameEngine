@@ -3,11 +3,11 @@ package games.TestGame.Dungeon;
 import engine.*;
 import games.TestGame.Dungeon.Inventory.*;
 import games.TestGame.Dungeon.World.DungeonGenerator;
+import games.TestGame.Dungeon.World.Exit;
 import games.TestGame.Dungeon.World.Level;
 import games.TestGame.Dungeon.World.Wall;
 
 import java.awt.event.*;
-import java.util.Random;
 
 public class DungeonMaster extends PuppetMaster {
     public final MoveTo MOVETO = new MoveTo();
@@ -299,8 +299,8 @@ public class DungeonMaster extends PuppetMaster {
         bg.place(new EquipmentSlot("inventory",Player.BOOTS),6,5);
         bg.place(new EquipmentSlot("inventory",Player.CAPE),6,6);
         bg.place(new EquipmentSlot("inventory",Player.SHIELD),6,7);
-
         bg.place(new EquipmentSlot("inventory",Player.WEAPON),7,1); // weapon
+        bg.place(new Trash("Trash"),4,7); // trashcan
 
     }
     private Level generateFloor(){
