@@ -8,6 +8,9 @@ import games.TestGame.Dungeon.World.Level;
 import games.TestGame.Dungeon.World.Wall;
 
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class DungeonMaster extends PuppetMaster {
     public final MoveTo MOVETO = new MoveTo();
@@ -225,15 +228,23 @@ public class DungeonMaster extends PuppetMaster {
         th.setRootPath("");
         // creatures
         th.addTexture("src/Texture/dc-dngn/gateways/stone_stairs_down.png","stairs");
-        th.addTexture("src/Texture/item/potion/ruby.png", "hp_Pot");
-        th.addTexture("src/Texture/item/potion/i-heal.png","hp_Effect");
         th.setDefaultTexture("src/Texture/dc-misc/error.png");
         th.addTexture("src/Texture/dc-mon/deep_elf_mage.png", "Elf");
         th.addTexture("src/Texture/player/base/human_m.png", "human");
         th.addTexture("src/Texture/item/misc/gold_pile.png", "coin");
         th.addTexture("src/Texture/dc-mon/undead/spectral_warrior.png","zombie");
 
+        //Consumables
+        th.addTexture("src/Texture/item/potion/ruby.png", "hp_Pot");
+        th.addTexture("src/Texture/item/potion/i-heal.png","hp_Effect");
+        th.addTexture("src/Texture/item/food/orange.png","orange");
+        th.addTexture("src/Texture/item/food/chunk.png","meat");
+        th.addTexture("src/Texture/item/potion/orange.png","str_Pot");
+        th.addTexture("src/Texture/item/potion/i-gain-strength.png","str_Effect");
+
         // equipment
+        th.addTexture("src/Texture/item/armour/headgear/elven_leather_helm.png","hat2");
+        th.addTexture("src/Texture/item/armour/elven_leather_armor.png","jacket");
         th.addTexture("src/Texture/item/armour/headgear/wizard_hat2.png", "hat");
         th.addTexture("src/Texture/item/armour/mottled_dragon_hide.png", "bikini");
         th.addTexture("src/Texture/item/armour/dwarven_ringmail.png", "chainmail");
@@ -241,6 +252,8 @@ public class DungeonMaster extends PuppetMaster {
         th.addTexture("src/Texture/item/weapon/battle_axe1.png", "axe");
         th.addTexture("src/Texture/item/weapon/executioner_axe1.png", "axe2");
 
+        th.addTexture("src/Texture/player/body/jacket2.png","jacket_eq");
+        th.addTexture("src/Texture/player/head/feather_green.png","hat2_eq");
         th.addTexture("src/Texture/player/head/wizard_purple.png", "hat_eq");
         th.addTexture("src/Texture/player/body/bikini_red.png", "bikini_eq");
         th.addTexture("src/Texture/player/body/chainmail3.png", "chainmail_eq");
@@ -487,13 +500,26 @@ public class DungeonMaster extends PuppetMaster {
         }
         return ghasts;
     }
-    private void createItemList(){
-        Consumable hp_potion = new Consumable("hp_Pot","hp_Effect",3,5,5,5,5);
+    private ArrayList<Item> createItemList(){
+        ArrayList<Item> Items = new ArrayList<Item>();
+        Consumable hp_potion = new Consumable("hp_Pot","hp_Effect",5,0,0,0,5);
+        Consumable orange = new Consumable("orange","hp_Effect",5,0,0,0,1);
+        Consumable meat = new Consumable("meat","hp_Effect",1,1,0,0,10);
+        Consumable str_potion = new Consumable("str_Pot","str_Effect",0,2,0,0,20);
         Armor wizardhat = new Armor("hat","hat_eq",1, Player.HAT);
         Armor bikini = new Armor("bikini","bikini_eq",1, Player.CHEST);
         Armor chainmail = new Armor("chainmail","chainmail_eq",3,Player.CHEST);
         Armor chainlegs = new Armor("legs","legs_eq",3,Player.LEGS);
+        Armor leatherJacket = new Armor("jacket","jacket_eq",1,Player.CHEST);
+        Armor hat2 = new Armor("hat2","hat2_eq",1,Player.HAT);
         Weapon axe2 = new Weapon("axe2","axe2_eq",3);
+        Items.add(hp_potion);
+        Items.add(wizardhat);
+        Items.add(bikini);
+        Items.add(chainmail);
+        Items.add(chainlegs);
+        Items.add(axe2);
+        return Items;
     }
 
     private void updateVisibility(){
