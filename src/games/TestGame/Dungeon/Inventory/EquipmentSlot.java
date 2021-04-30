@@ -42,5 +42,10 @@ public class EquipmentSlot extends Entity implements PlaceAt{
     public Entity clone() {
         return null;
     }
+
+    @Override
+    public Entity clone(Entity thing) {
+        return null;
+    }
 }
 

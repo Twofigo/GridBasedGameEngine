@@ -158,6 +158,11 @@ public class Player extends Creature {
         return null;
     }
 
+    @Override
+    public Entity clone(Entity e) {
+        return null;
+    }
+
     protected Equipable getEquipment(int slot) {
         return equipment[slot];
     }

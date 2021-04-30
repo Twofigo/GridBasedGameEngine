@@ -47,4 +47,19 @@ public class Item extends Entity implements MoveInto, Description {
         i.description = this.description;
         return i;
     }
+
+    @Override
+    public Entity clone(Entity thing) {
+        if(!(thing instanceof Item)) {
+            return null;
+        }
+        Item i = (Item)thing;
+        i.x = this.x;
+        i.y = this.y;
+        i.texture = this.texture;
+        i.name = this.name;
+        i.description = this.description;
+
+        return i;
+    }
 }

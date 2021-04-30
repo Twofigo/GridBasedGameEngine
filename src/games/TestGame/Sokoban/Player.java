@@ -21,4 +21,9 @@ public class Player extends Entity {
     public Entity clone() {
         return null;
     }
+
+    @Override
+    public Entity clone(Entity thing) {
+        return null;
+    }
 }

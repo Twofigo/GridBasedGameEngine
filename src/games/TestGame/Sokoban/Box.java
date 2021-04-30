@@ -49,4 +49,9 @@ public class Box extends Entity implements MoveInto {
     public Entity clone() {
         return null;
     }
+
+    @Override
+    public Entity clone(Entity thing) {
+        return null;
+    }
 }

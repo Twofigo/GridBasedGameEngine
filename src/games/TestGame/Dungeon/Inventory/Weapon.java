@@ -1,5 +1,6 @@
 package games.TestGame.Dungeon.Inventory;
 
+import engine.Entity;
 import engine.TextureHandler;
 import games.TestGame.Dungeon.Inventory.Item;
 
@@ -17,10 +18,14 @@ public class Weapon extends Equipable {
         this.damage = damage;
     }
 
-    public Weapon clone(){
-        Weapon w = (Weapon)super.clone();
+    public Weapon clone(Entity e){
+        Weapon w = (Weapon)super.clone(e);
         w.damage = this.damage;
         return w;
+    }
+
+    public Weapon clone(){
+        return clone(new Weapon("","",0));
     }
 
 }

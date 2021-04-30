@@ -26,4 +26,6 @@ abstract public class Entity extends Tile{
     public abstract void update(PuppetMaster dm, TableTop l);
 
     public abstract Entity clone();
+
+    public abstract Entity clone(Entity thing);
 }

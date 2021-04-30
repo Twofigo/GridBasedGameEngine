@@ -20,6 +20,11 @@ public class Trash extends Entity implements PlaceAt{
     }
 
     @Override
+    public Entity clone(Entity thing) {
+        return null;
+    }
+
+    @Override
     public boolean placeAt(DungeonMaster d, Item e) {
         d.getInventory().getForeground().pickup(getX(),getY());
         return true;

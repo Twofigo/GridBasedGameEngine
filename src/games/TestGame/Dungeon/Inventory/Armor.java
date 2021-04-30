@@ -1,5 +1,7 @@
 package games.TestGame.Dungeon.Inventory;
 
+import engine.Entity;
+
 public class Armor extends Equipable{
     protected int armorRating;
 
@@ -12,9 +14,13 @@ public class Armor extends Equipable{
         return armorRating;
     }
 
-    public Armor clone(){
-        Armor a = (Armor)super.clone();
+    public Armor clone(Entity e){
+        Armor a = (Armor)super.clone(e);
         a.armorRating = this.armorRating;
         return a;
+    }
+
+    public Armor clone(){
+        return clone(new Armor("","",0,0));
     }
 }

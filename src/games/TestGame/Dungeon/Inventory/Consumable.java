@@ -63,8 +63,8 @@ public class Consumable extends Item {
         this.durationRemaining = durationRemaining;
     }
 
-    public Consumable clone(){
-        Consumable c = (Consumable)super.clone();
+    public Consumable clone(Entity e){
+        Consumable c = (Consumable)super.clone(e);
         c.duration = this.duration;
         c.durationRemaining = this.durationRemaining;
         c.health = this.health;
@@ -73,5 +73,9 @@ public class Consumable extends Item {
         c.endurance = this.endurance;
         c.textureConsumed = this.textureConsumed;
         return c;
+    }
+
+    public Consumable clone(){
+        return clone(new Consumable("","",0,0,0,0,0));
     }
 }

@@ -243,6 +243,7 @@ public class DungeonMaster extends PuppetMaster {
         th.addTexture("src/Texture/item/potion/i-gain-strength.png","str_Effect");
 
         // equipment
+        //dropped
         th.addTexture("src/Texture/item/armour/headgear/elven_leather_helm.png","hat2");
         th.addTexture("src/Texture/item/armour/elven_leather_armor.png","jacket");
         th.addTexture("src/Texture/item/armour/headgear/wizard_hat2.png", "hat");
@@ -251,7 +252,24 @@ public class DungeonMaster extends PuppetMaster {
         th.addTexture("src/Texture/player/legs/leg_armor02.png", "legs");
         th.addTexture("src/Texture/item/weapon/battle_axe1.png", "axe");
         th.addTexture("src/Texture/item/weapon/executioner_axe1.png", "axe2");
+        th.addTexture("src/Texture/item/armour/shields/buckler1.png","shield");
+        th.addTexture("src/Texture/item/armour/shields/shield1_elven.png","shield2");
+        th.addTexture("src/Texture/item/weapon/quarterstaff.png","staff");
+        th.addTexture("src/Texture/item/weapon/spear2.png","spear");
+        th.addTexture("src/Texture/item/weapon/mace1.png","mace");
+        th.addTexture("src/Texture/item/weapon/morningstar2.png","morningstar");
+        th.addTexture("src/Texture/item/weapon/long_sword1.png","sword");
+        th.addTexture("src/Texture/player/hand1/artefact/sword_of_power.png","sword2");
 
+        //equipped
+        th.addTexture("src/Texture/player/hand1/blessed_blade.png","sword2_eq");
+        th.addTexture("src/Texture/player/hand1/sword3.png","sword_eq");
+        th.addTexture("src/Texture/player/hand1/morningstar2.png","morningstar_eq");
+        th.addTexture("src/Texture/player/hand1/mace.png","mace_eq");
+        th.addTexture("src/Texture/player/hand1/spear1.png","spear_eq");
+        th.addTexture("src/Texture/player/hand1/quarterstaff1.png","staff_eq");
+        th.addTexture("src/Texture/player/hand2/shield_knight_blue.png","shield2_eq");
+        th.addTexture("src/Texture/player/hand2/boromir.png","shield_eq");
         th.addTexture("src/Texture/player/body/jacket2.png","jacket_eq");
         th.addTexture("src/Texture/player/head/feather_green.png","hat2_eq");
         th.addTexture("src/Texture/player/head/wizard_purple.png", "hat_eq");
@@ -370,9 +388,13 @@ public class DungeonMaster extends PuppetMaster {
         l.spawn(new Item("coin"));
         l.spawn(new Item("coin"));
         l.spawn(new Item("coin"));
+        ArrayList<Item> items = createItemList();
         Monster[] monster = createCreatureList();
         for (Monster ghast:monster) {
-            l.spawn(ghast);
+            l.spawn(ghast.clone());
+        }
+        for (Item thing:items) {
+            l.spawn(thing.clone());
         }
         // level setup
     }
@@ -502,6 +524,8 @@ public class DungeonMaster extends PuppetMaster {
     }
     private ArrayList<Item> createItemList(){
         ArrayList<Item> Items = new ArrayList<Item>();
+        ArrayList<Item> Consumables = new ArrayList<>();
+        ArrayList<Item> Picked = new ArrayList<Item>();
         Consumable hp_potion = new Consumable("hp_Pot","hp_Effect",5,0,0,0,5);
         Consumable orange = new Consumable("orange","hp_Effect",5,0,0,0,1);
         Consumable meat = new Consumable("meat","hp_Effect",1,1,0,0,10);
@@ -512,14 +536,48 @@ public class DungeonMaster extends PuppetMaster {
         Armor chainlegs = new Armor("legs","legs_eq",3,Player.LEGS);
         Armor leatherJacket = new Armor("jacket","jacket_eq",1,Player.CHEST);
         Armor hat2 = new Armor("hat2","hat2_eq",1,Player.HAT);
-        Weapon axe2 = new Weapon("axe2","axe2_eq",3);
+        Armor shield1 = new Armor("shield","shield_eq",2,Player.SHIELD);
+        Armor shield2 = new Armor("shield2","shield2_eq",4,Player.SHIELD);
+        Weapon axe2 = new Weapon("axe2","axe2_eq",2);
+        Weapon staff = new Weapon("staff","staff_eq",1);
+        Weapon spear = new Weapon("spear","spear_eq",2);
+        Weapon mace = new Weapon("mace","mace_eq",2);
+        Weapon morningstar = new Weapon("morningstar","morningstar_eq",2);
+        Weapon sword = new Weapon("sword","sword_eq",2);
+        Weapon sword2 = new Weapon("sword2","sword2_eq",10);
+        Items.add(orange);
+        Items.add(meat);
+        Items.add(str_potion);
+        Items.add(leatherJacket);
+        Items.add(hat2);
+        Items.add(shield1);
+        Items.add(shield2);
+        Items.add(staff);
+        Items.add(spear);
+        Items.add(mace);
+        Items.add(morningstar);
+        Items.add(sword);
+        Items.add(sword2);
         Items.add(hp_potion);
         Items.add(wizardhat);
         Items.add(bikini);
         Items.add(chainmail);
         Items.add(chainlegs);
         Items.add(axe2);
-        return Items;
+
+        Consumables.add(orange);
+        Consumables.add(meat);
+        Consumables.add(str_potion);
+        Consumables.add(hp_potion);
+
+        for (int i = 0; i < difficulty+1; i++) {
+            Picked.add(Items.get(new Random().nextInt(Items.size())));
+        }
+        for (int i = 0; i < difficulty*2; i++) {
+            Picked.add(Consumables.get(new Random().nextInt(Consumables.size())));
+        }
+
+        return Picked;
     }
 
     private void updateVisibility(){

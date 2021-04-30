@@ -1,5 +1,6 @@
 package games.TestGame.Dungeon.Inventory;
 
+import engine.Entity;
 import engine.TextureHandler;
 import games.TestGame.Dungeon.Inventory.Item;
 
@@ -24,8 +25,8 @@ public class Equipable extends Item {
         g.drawImage(textureEquiped, x,y,100,100,null);
     }
 
-    public Equipable clone(){
-        Equipable e = (Equipable)super.clone();
+    public Equipable clone(Entity entity){
+        Equipable e = (Equipable)super.clone(entity);
         e.textureEquiped = this.textureEquiped;
         e.equipmentSlot = this.equipmentSlot;
         return e;

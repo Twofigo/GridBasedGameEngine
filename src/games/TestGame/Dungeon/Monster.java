@@ -116,4 +116,9 @@ public class Monster extends Creature {
         m.description = this.description;
         return m;
     }
+
+    @Override
+    public Entity clone(Entity thing) {
+        return null;
+    }
 }
