@@ -14,7 +14,6 @@ public class Trash extends Entity implements PlaceAt{
     public void update(PuppetMaster dm, TableTop l) {
 
     }
-
     @Override
     public Entity clone() {
         return null;
@@ -28,6 +27,6 @@ public class Trash extends Entity implements PlaceAt{
 
     @Override
     public boolean moveFrom(DungeonMaster d, Item e) {
-        return false;
+        return true;
     }
 }
