@@ -391,6 +391,7 @@ public class DungeonMaster extends PuppetMaster {
         ArrayList<Item> items = createItemList();
         Monster[] monster = createCreatureList();
         for (Monster ghast:monster) {
+            if(ghast == null){continue;}
             l.spawn(ghast.clone());
         }
         for (Item thing:items) {
@@ -514,10 +515,10 @@ public class DungeonMaster extends PuppetMaster {
     }
 
     private Monster[] createCreatureList(){
-        Monster ghast = new Monster("zombie",4+difficulty, (int)(3+(difficulty)*0.3));
+        Monster ghast = new Monster("zombie",10+difficulty*2, (int)(8+(difficulty)*0.5));
         ghast.setInfo("Ghast","The reminant soul of\na previous explorer.");
-        Monster[] ghasts = new Monster[difficulty*3];
-        for(int i = 0; i < difficulty*3; i++){
+        Monster[] ghasts = new Monster[18];
+        for(int i = 0; i < 15*Math.tanh(difficulty*0.15)+3; i++){
             ghasts[i] = ghast.clone();
         }
         return ghasts;
@@ -570,10 +571,10 @@ public class DungeonMaster extends PuppetMaster {
         Consumables.add(str_potion);
         Consumables.add(hp_potion);
 
-        for (int i = 0; i < difficulty+1; i++) {
+        for (int i = 0; i < 1.2*Math.tanh(difficulty*0.3)+1; i++) {
             Picked.add(Items.get(new Random().nextInt(Items.size())));
         }
-        for (int i = 0; i < difficulty*2; i++) {
+        for (int i = 0; i < 2.2*Math.tanh(difficulty*0.3); i++) {
             Picked.add(Consumables.get(new Random().nextInt(Consumables.size())));
         }
 
