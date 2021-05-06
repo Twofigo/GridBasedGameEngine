@@ -2,6 +2,8 @@ package engine;
 
 public class BasicTableTop extends TableTop{
 
+
+/**just a basic tabletop to make a quick game, like Sokoban*/
     public BasicTableTop(int width, int height){
         super();
         Board[] boards = new Board[3];

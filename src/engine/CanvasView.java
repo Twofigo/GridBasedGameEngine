@@ -7,10 +7,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.*;
 
+/**
+ *
+ */
 public class CanvasView extends View {
 
     protected CanvasComponent canvasC;
 
+    /**
+     * @param name
+     */
     public CanvasView(String name) {
         super(name);
         buttonPanel.setLayout(new GridLayout(12,1,0,0));
@@ -34,24 +40,44 @@ public class CanvasView extends View {
         draw();
     }
 
+    /**
+     * @param width
+     * @param height
+     */
     @Override
     public void updateSize(int width, int height) {
         canvasC.updateSize(height, height);
         draw();
     }
+
+    /**
+     *
+     */
     @Override
     public void draw() {
         this.repaint();
         canvasC.draw();
     }
+
+    /**
+     * @param renderer
+     */
     public void addRenderer(Renderer renderer){
         canvasC.addRenderer(renderer);
     }
+
+    /**
+     * @param i
+     * @return
+     */
     public Renderer getRenderer(int i){
         return canvasC.getRenderer(i);
     }
 }
 
+/**
+ *
+ */
 class CanvasComponent extends JPanel{
     private ArrayList<Renderer> renderers;
     private BufferedImage offscreenImage;
@@ -62,17 +88,34 @@ class CanvasComponent extends JPanel{
     private int width = 1000;
     private int height = 1000;
 
+    /**
+     *
+     */
     public CanvasComponent(){
         renderers = new ArrayList<Renderer>();
         this.offscreenImage = new BufferedImage(innerWidth, innerHeight, BufferedImage.TYPE_INT_ARGB);
         this.offscreen = this.offscreenImage.getGraphics();
     }
+
+    /**
+     * @param renderer
+     */
     public void addRenderer(Renderer renderer){
         renderers.add(renderer);
     }
+
+    /**
+     * @param i
+     * @return
+     */
     public Renderer getRenderer(int i){
         return renderers.get(i);
     }
+
+    /**
+     * @param width
+     * @param height
+     */
     public void updateSize(int width, int height) {
         this.width = width;
         this.height = height;
@@ -80,9 +123,17 @@ class CanvasComponent extends JPanel{
             r.updateSize(width,height);
         }
     }
+
+    /**
+     *
+     */
     public void draw(){
         repaint();
     }
+
+    /**
+     * @param g
+     */
     @Override
     public void paint(Graphics g){
         offscreen.clearRect(0,0,innerWidth,innerHeight);
