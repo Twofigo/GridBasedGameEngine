@@ -1,0 +1,582 @@
+@startuml
+
+title __GRIDBASEDGAMEENGINE's Class Diagram__\n
+
+  namespace engine {
+    class engine.BasicTableTop {
+    }
+  }
+  
+
+  namespace engine {
+    class engine.BinaryMask {
+    }
+  }
+  
+
+  namespace engine {
+    class engine.Board {
+    }
+  }
+  
+
+  namespace engine {
+    class engine.BoardRenderer {
+    }
+  }
+  
+
+  namespace engine {
+    class engine.BoardView {
+    }
+  }
+  
+
+  namespace engine {
+    class engine.CanvasComponent {
+    }
+  }
+  
+
+  namespace engine {
+    class engine.CanvasView {
+    }
+  }
+  
+
+  namespace engine {
+    abstract class engine.Entity {
+    }
+  }
+  
+
+  namespace engine {
+    interface engine.Interaction {
+    }
+  }
+  
+
+  namespace engine {
+    class engine.MenuView {
+    }
+  }
+  
+
+  namespace engine {
+    abstract class engine.PuppetMaster {
+    }
+  }
+  
+
+  namespace engine {
+    abstract class engine.Renderer {
+    }
+  }
+  
+
+  namespace engine {
+    class engine.TableTop {
+    }
+  }
+  
+
+  namespace engine {
+    class engine.TextureHandler {
+    }
+  }
+  
+
+  namespace engine {
+    class engine.TextureNode {
+    }
+  }
+  
+
+  namespace engine {
+    class engine.Tile {
+    }
+  }
+  
+
+  namespace engine {
+    abstract class engine.View {
+    }
+  }
+  
+
+  namespace engine {
+    class engine.Window {
+    }
+  }
+  
+
+  namespace engine {
+    class engine.boardIterator {
+    }
+  }
+  
+
+  namespace engine {
+    namespace tools {
+      class engine.tools.Dijkstra {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      class games.TestGame.Dungeon.Attack {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      abstract class games.TestGame.Dungeon.Creature {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      interface games.TestGame.Dungeon.Description {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      class games.TestGame.Dungeon.DungeonMaster {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      class games.TestGame.Dungeon.DungeonRenderer {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      class games.TestGame.Dungeon.DungeonView {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Armor {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Consumable {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.EmptySpace {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Equipable {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.EquipmentSlot {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Inventory {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Item {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.MoveItem {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Pickup {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        interface games.TestGame.Dungeon.Inventory.PlaceAt {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Trash {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Weapon {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      class games.TestGame.Dungeon.Monster {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      interface games.TestGame.Dungeon.MoveInto {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      class games.TestGame.Dungeon.MoveTo {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      class games.TestGame.Dungeon.Player {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      class games.TestGame.Dungeon.StatsRenderer {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace World {
+        class games.TestGame.Dungeon.World.DungeonGenerator {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace World {
+        class games.TestGame.Dungeon.World.Exit {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace World {
+        class games.TestGame.Dungeon.World.Level {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace World {
+        class games.TestGame.Dungeon.World.Wall {
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    class games.TestGame.GridBagLayoutDemo {
+    }
+  }
+  
+
+  namespace games.TestGame {
+    class games.TestGame.GridBagLayoutExample {
+    }
+  }
+  
+
+  namespace games.TestGame {
+    class games.TestGame.ProceduralGeneration {
+    }
+  }
+  
+
+  namespace games.TestGame {
+    class games.TestGame.ShittyGame {
+    }
+  }
+  
+
+  namespace games.TestGame {
+    class games.TestGame.SimpleAudioPlayer {
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Sokoban {
+      class games.TestGame.Sokoban.Actuate {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Sokoban {
+      class games.TestGame.Sokoban.Box {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Sokoban {
+      class games.TestGame.Sokoban.Level {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Sokoban {
+      interface games.TestGame.Sokoban.MoveInto {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Sokoban {
+      class games.TestGame.Sokoban.MoveTo {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Sokoban {
+      class games.TestGame.Sokoban.Plate {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Sokoban {
+      class games.TestGame.Sokoban.Player {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Sokoban {
+      class games.TestGame.Sokoban.Sokoban {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Sokoban {
+      class games.TestGame.Sokoban.Wall {
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    class games.TestGame.map {
+    }
+  }
+  
+
+  engine.BasicTableTop -up-|> engine.TableTop
+  engine.Board .up.|> java.lang.Iterable
+  engine.BoardRenderer -up-|> engine.Renderer
+  engine.BoardRenderer o-- engine.TableTop : tb
+  engine.BoardView -up-|> engine.CanvasView
+  engine.CanvasComponent -up-|> javax.swing.JPanel
+  engine.CanvasView -up-|> engine.View
+  engine.CanvasView o-- engine.CanvasComponent : canvasC
+  engine.Entity -up-|> engine.Tile
+  engine.MenuView -up-|> engine.View
+  engine.PuppetMaster .up.|> java.awt.event.KeyListener
+  engine.PuppetMaster .up.|> java.awt.event.MouseWheelListener
+  engine.PuppetMaster .up.|> javax.swing.event.MouseInputListener
+  engine.PuppetMaster -up-|> javax.swing.JFrame
+  engine.PuppetMaster o-- engine.TableTop : tb
+  engine.PuppetMaster o-- engine.Window : window
+  engine.View -up-|> javax.swing.JPanel
+  engine.Window -up-|> javax.swing.JFrame
+  engine.Window o-- engine.View : currentView
+  engine.boardIterator .up.|> java.util.Iterator
+  engine.boardIterator o-- engine.Board : b
+  engine.tools.Dijkstra .up.|> java.util.Iterator
+  games.TestGame.Dungeon.Attack .up.|> engine.Interaction
+  games.TestGame.Dungeon.Creature .up.|> games.TestGame.Dungeon.Description
+  games.TestGame.Dungeon.Creature -up-|> engine.Entity
+  games.TestGame.Dungeon.DungeonMaster -up-|> engine.PuppetMaster
+  games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.Inventory.MoveItem : MOVEITEM
+  games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.MoveTo : MOVETO
+  games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.Inventory.Pickup : PICKUP
+  games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.DungeonView : dungeonView
+  games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.Inventory.Inventory : inventory
+  games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.Inventory.Item : inventoryPickedUpItem
+  games.TestGame.Dungeon.DungeonMaster o-- engine.BoardView : inventoryView
+  games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.World.Level : level
+  games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.Player : player
+  games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.StatsRenderer : statsRenderer
+  games.TestGame.Dungeon.DungeonRenderer -up-|> engine.BoardRenderer
+  games.TestGame.Dungeon.DungeonRenderer o-- engine.BinaryMask : discovered
+  games.TestGame.Dungeon.DungeonRenderer o-- engine.BinaryMask : visibility
+  games.TestGame.Dungeon.DungeonView -up-|> engine.CanvasView
+  games.TestGame.Dungeon.Inventory.Armor -up-|> games.TestGame.Dungeon.Inventory.Equipable
+  games.TestGame.Dungeon.Inventory.Consumable -up-|> games.TestGame.Dungeon.Inventory.Item
+  games.TestGame.Dungeon.Inventory.EmptySpace .up.|> games.TestGame.Dungeon.Inventory.PlaceAt
+  games.TestGame.Dungeon.Inventory.EmptySpace -up-|> engine.Tile
+  games.TestGame.Dungeon.Inventory.Equipable -up-|> games.TestGame.Dungeon.Inventory.Item
+  games.TestGame.Dungeon.Inventory.EquipmentSlot .up.|> games.TestGame.Dungeon.Inventory.PlaceAt
+  games.TestGame.Dungeon.Inventory.EquipmentSlot -up-|> engine.Entity
+  games.TestGame.Dungeon.Inventory.Inventory -up-|> engine.TableTop
+  games.TestGame.Dungeon.Inventory.Item .up.|> games.TestGame.Dungeon.Description
+  games.TestGame.Dungeon.Inventory.Item .up.|> games.TestGame.Dungeon.MoveInto
+  games.TestGame.Dungeon.Inventory.Item -up-|> engine.Entity
+  games.TestGame.Dungeon.Inventory.MoveItem .up.|> engine.Interaction
+  games.TestGame.Dungeon.Inventory.Pickup .up.|> engine.Interaction
+  games.TestGame.Dungeon.Inventory.Trash .up.|> games.TestGame.Dungeon.Inventory.PlaceAt
+  games.TestGame.Dungeon.Inventory.Trash -up-|> engine.Entity
+  games.TestGame.Dungeon.Inventory.Weapon -up-|> games.TestGame.Dungeon.Inventory.Equipable
+  games.TestGame.Dungeon.Monster -up-|> games.TestGame.Dungeon.Creature
+  games.TestGame.Dungeon.Monster o-- engine.tools.Dijkstra : path
+  games.TestGame.Dungeon.MoveTo .up.|> engine.Interaction
+  games.TestGame.Dungeon.Player -up-|> games.TestGame.Dungeon.Creature
+  games.TestGame.Dungeon.Player o-- games.TestGame.Dungeon.Inventory.Consumable : consumable
+  games.TestGame.Dungeon.StatsRenderer -up-|> engine.Renderer
+  games.TestGame.Dungeon.StatsRenderer o-- engine.Tile : t
+  games.TestGame.Dungeon.World.Exit .up.|> games.TestGame.Dungeon.MoveInto
+  games.TestGame.Dungeon.World.Exit -up-|> engine.Tile
+  games.TestGame.Dungeon.World.Level -up-|> engine.TableTop
+  games.TestGame.Dungeon.World.Wall .up.|> games.TestGame.Dungeon.MoveInto
+  games.TestGame.Dungeon.World.Wall -up-|> engine.Tile
+  games.TestGame.GridBagLayoutExample -up-|> javax.swing.JFrame
+  games.TestGame.ShittyGame -up-|> engine.PuppetMaster
+  games.TestGame.ShittyGame o-- engine.Tile : click
+  games.TestGame.ShittyGame o-- engine.TableTop : tb
+  games.TestGame.ShittyGame o-- engine.BoardView : bv
+  games.TestGame.ShittyGame o-- engine.MenuView : mv
+  games.TestGame.Sokoban.Actuate .up.|> engine.Interaction
+  games.TestGame.Sokoban.Box .up.|> games.TestGame.Sokoban.MoveInto
+  games.TestGame.Sokoban.Box -up-|> engine.Entity
+  games.TestGame.Sokoban.Level -up-|> engine.BasicTableTop
+  games.TestGame.Sokoban.MoveTo .up.|> engine.Interaction
+  games.TestGame.Sokoban.Plate .up.|> games.TestGame.Sokoban.MoveInto
+  games.TestGame.Sokoban.Plate -up-|> engine.Tile
+  games.TestGame.Sokoban.Player -up-|> engine.Entity
+  games.TestGame.Sokoban.Sokoban -up-|> engine.PuppetMaster
+  games.TestGame.Sokoban.Sokoban o-- games.TestGame.Sokoban.Actuate : ACTUATE
+  games.TestGame.Sokoban.Sokoban o-- games.TestGame.Sokoban.MoveTo : MOVETO
+  games.TestGame.Sokoban.Sokoban o-- engine.BoardView : bv
+  games.TestGame.Sokoban.Sokoban o-- games.TestGame.Sokoban.Player : p
+  games.TestGame.Sokoban.Wall .up.|> games.TestGame.Sokoban.MoveInto
+  games.TestGame.Sokoban.Wall -up-|> engine.Tile
+  games.TestGame.map o-- engine.TextureHandler : th
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

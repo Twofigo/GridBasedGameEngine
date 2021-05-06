@@ -1,0 +1,217 @@
+@startuml
+
+title __INVENTORY's Class Diagram__\n
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Armor {
+            # armorRating : int
+            + Armor()
+            + clone()
+            + clone()
+            + getArmorRating()
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Consumable {
+            # duration : int
+            # durationRemaining : int
+            # endurance : int
+            # health : int
+            # intelligence : int
+            # strength : int
+            # textureConsumed : Image
+            + Consumable()
+            + clone()
+            + clone()
+            + getDuration()
+            + getDurationRemaining()
+            + getEndurance()
+            + getHealth()
+            + getIntelligence()
+            + getStrength()
+            + renderConsumed()
+            + setDurationRemaining()
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.EmptySpace {
+            + EmptySpace()
+            + moveFrom()
+            + placeAt()
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Equipable {
+            # textureEquiped : Image
+            - equipmentSlot : int
+            + Equipable()
+            + clone()
+            + getEquipmentSlot()
+            + renderEquipped()
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.EquipmentSlot {
+            - slot : int
+            + EquipmentSlot()
+            + clone()
+            + clone()
+            + moveFrom()
+            + placeAt()
+            + update()
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Inventory {
+            + Inventory()
+            + getBackground()
+            + getForeground()
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Item {
+            - description : String
+            - name : String
+            + Item()
+            + clone()
+            + clone()
+            + getDescription()
+            + getName()
+            + moveInto()
+            + setInfo()
+            + update()
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.MoveItem {
+            + action()
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Pickup {
+            + action()
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        interface games.TestGame.Dungeon.Inventory.PlaceAt {
+            {abstract} + moveFrom()
+            {abstract} + placeAt()
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Trash {
+            + Trash()
+            + clone()
+            + clone()
+            + moveFrom()
+            + placeAt()
+            + update()
+        }
+      }
+    }
+  }
+  
+
+  namespace games.TestGame {
+    namespace Dungeon {
+      namespace Inventory {
+        class games.TestGame.Dungeon.Inventory.Weapon {
+            - damage : int
+            + Weapon()
+            + clone()
+            + clone()
+            + getDamage()
+        }
+      }
+    }
+  }
+  
+
+  games.TestGame.Dungeon.Inventory.Armor -up-|> games.TestGame.Dungeon.Inventory.Equipable
+  games.TestGame.Dungeon.Inventory.Consumable -up-|> games.TestGame.Dungeon.Inventory.Item
+  games.TestGame.Dungeon.Inventory.EmptySpace .up.|> games.TestGame.Dungeon.Inventory.PlaceAt
+  games.TestGame.Dungeon.Inventory.EmptySpace -up-|> engine.Tile
+  games.TestGame.Dungeon.Inventory.Equipable -up-|> games.TestGame.Dungeon.Inventory.Item
+  games.TestGame.Dungeon.Inventory.EquipmentSlot .up.|> games.TestGame.Dungeon.Inventory.PlaceAt
+  games.TestGame.Dungeon.Inventory.EquipmentSlot -up-|> engine.Entity
+  games.TestGame.Dungeon.Inventory.Inventory -up-|> engine.TableTop
+  games.TestGame.Dungeon.Inventory.Item .up.|> games.TestGame.Dungeon.Description
+  games.TestGame.Dungeon.Inventory.Item .up.|> games.TestGame.Dungeon.MoveInto
+  games.TestGame.Dungeon.Inventory.Item -up-|> engine.Entity
+  games.TestGame.Dungeon.Inventory.MoveItem .up.|> engine.Interaction
+  games.TestGame.Dungeon.Inventory.Pickup .up.|> engine.Interaction
+  games.TestGame.Dungeon.Inventory.Trash .up.|> games.TestGame.Dungeon.Inventory.PlaceAt
+  games.TestGame.Dungeon.Inventory.Trash -up-|> engine.Entity
+  games.TestGame.Dungeon.Inventory.Weapon -up-|> games.TestGame.Dungeon.Inventory.Equipable
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

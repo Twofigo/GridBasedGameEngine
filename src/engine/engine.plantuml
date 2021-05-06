@@ -1,0 +1,310 @@
+@startuml
+
+title __ENGINE's Class Diagram__\n
+
+  namespace engine {
+    class engine.BasicTableTop {
+        + BasicTableTop()
+        + getBackground()
+        + getForeground()
+        + getMiddleground()
+    }
+  }
+  
+
+  namespace engine {
+    class engine.BinaryMask {
+        - height : int
+        - mask : boolean[][]
+        - width : int
+        + BinaryMask()
+        + clear()
+        + clearRect()
+        + get()
+        + height()
+        + invert()
+        + mergeAND()
+        + mergeOR()
+        + outOfBounds()
+        + set()
+        + width()
+    }
+  }
+  
+
+  namespace engine {
+    class engine.Board {
+        - entities : ArrayList<Entity>
+        - height : int
+        - tiles : Tile[][]
+        - width : int
+        + Board()
+        + Board()
+        + Board()
+        + OutOfBounds()
+        + clear()
+        + clear()
+        + get()
+        + height()
+        + iterator()
+        + pickup()
+        + pickup()
+        + place()
+        + set()
+        + update()
+        + width()
+        - gaussian()
+    }
+  }
+  
+
+  namespace engine {
+    class engine.BoardRenderer {
+        # offscreen : Graphics
+        # offscreenImage : BufferedImage
+        # offsetX : int
+        # offsetY : int
+        # zoom : double
+        + BoardRenderer()
+        + boardTransX()
+        + boardTransY()
+        + draw()
+        + drawBoard()
+        + drawBoard()
+        + getOffsetX()
+        + getOffsetY()
+        + getVisable()
+        + getZoom()
+        + setOffset()
+        + setTableTop()
+        + setZoom()
+    }
+  }
+  
+
+  namespace engine {
+    class engine.BoardView {
+        + BoardView()
+        + getBoardRenderer()
+    }
+  }
+  
+
+  namespace engine {
+    class engine.CanvasComponent {
+        - height : int
+        - innerHeight : int
+        - innerWidth : int
+        - offscreen : Graphics
+        - offscreenImage : BufferedImage
+        - renderers : ArrayList<Renderer>
+        - width : int
+        + CanvasComponent()
+        + addRenderer()
+        + draw()
+        + getRenderer()
+        + paint()
+        + updateSize()
+    }
+  }
+  
+
+  namespace engine {
+    class engine.CanvasView {
+        + CanvasView()
+        + addRenderer()
+        + draw()
+        + getRenderer()
+        + updateSize()
+    }
+  }
+  
+
+  namespace engine {
+    abstract class engine.Entity {
+        # x : int
+        # y : int
+        + Entity()
+        {abstract} + clone()
+        {abstract} + clone()
+        + getX()
+        + getY()
+        + setPosition()
+        {abstract} + update()
+    }
+  }
+  
+
+  namespace engine {
+    interface engine.Interaction {
+        {abstract} + action()
+    }
+  }
+  
+
+  namespace engine {
+    class engine.MenuView {
+        + MenuView()
+        + draw()
+        + updateSize()
+    }
+  }
+  
+
+  namespace engine {
+    abstract class engine.PuppetMaster {
+        + PuppetMaster()
+        + end()
+        + getWindow()
+        + interact()
+        + keyReleased()
+        + keyTyped()
+        + mouseEntered()
+        + mouseExited()
+        + setTableTop()
+        {abstract} + update()
+        # getTableTop()
+    }
+  }
+  
+
+  namespace engine {
+    abstract class engine.Renderer {
+        - height : int
+        - innerHeight : int
+        - innerWidth : int
+        - width : int
+        {abstract} + draw()
+        + transX()
+        + transY()
+        + updateSize()
+    }
+  }
+  
+
+  namespace engine {
+    class engine.TableTop {
+        - boards : Board[]
+        - height : int
+        - width : int
+        + TableTop()
+        + TableTop()
+        + getBoard()
+        + getBoards()
+        + height()
+        + setBoards()
+        + width()
+        # TableTop()
+    }
+  }
+  
+
+  namespace engine {
+    class engine.TextureHandler {
+        {static} - TH : TextureHandler
+        - list : ArrayList<TextureNode>
+        - rootPath : String
+        + addTexture()
+        {static} + getInstance()
+        + getTexture()
+        + setDefaultTexture()
+        + setRootPath()
+        - ImgFromPath()
+        - TextureHandler()
+    }
+  }
+  
+
+  namespace engine {
+    class engine.TextureNode {
+        + image : Image
+        + name : String
+        + TextureNode()
+    }
+  }
+  
+
+  namespace engine {
+    class engine.Tile {
+        # texture : Image
+        + Tile()
+        + getTexture()
+        + render()
+        + setTexture()
+    }
+  }
+  
+
+  namespace engine {
+    abstract class engine.View {
+        # buttonPanel : JPanel
+        - buttonCount : int
+        - name : String
+        + View()
+        + addButton()
+        + addLabel()
+        {abstract} + draw()
+        + getButton()
+        + getButtonCount()
+        + getName()
+        + removeButton()
+        + setButtonEnabled()
+        + setButtonState()
+        + setButtonVisable()
+        {abstract} + updateSize()
+    }
+  }
+  
+
+  namespace engine {
+    class engine.Window {
+        - aspectX : int
+        - aspectY : int
+        - cardLayout : CardLayout
+        - cardPanel : JPanel
+        - views : ArrayList<View>
+        + Window()
+        + addMouseListener()
+        + addMouseMotionListener()
+        + addView()
+        + draw()
+        + lockResize()
+        + setAspect()
+        + setView()
+        + updateSize()
+    }
+  }
+  
+
+  namespace engine {
+    class engine.boardIterator {
+        ~ current : int
+        + boardIterator()
+        + hasNext()
+        + next()
+    }
+  }
+  
+
+  engine.BasicTableTop -up-|> engine.TableTop
+  engine.BoardRenderer -up-|> engine.Renderer
+  engine.BoardRenderer o-- engine.TableTop : tb
+  engine.BoardView -up-|> engine.CanvasView
+  engine.CanvasView -up-|> engine.View
+  engine.CanvasView o-- engine.CanvasComponent : canvasC
+  engine.Entity -up-|> engine.Tile
+  engine.MenuView -up-|> engine.View
+  engine.PuppetMaster o-- engine.TableTop : tb
+  engine.PuppetMaster o-- engine.Window : window
+  engine.Window o-- engine.View : currentView
+  engine.boardIterator o-- engine.Board : b
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
