@@ -32,7 +32,7 @@ public class TableTop {
     }
 
     /**
-     * Makes sure all boards are the same size before adding them
+     * Set boards by making sure they are all the same size
      * @param boards
      * @throws Exception
      */

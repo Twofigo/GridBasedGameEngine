@@ -15,6 +15,7 @@ public class CanvasView extends View {
     protected CanvasComponent canvasC;
 
     /**
+     * sets up a button panel and canvas area.
      * @param name
      */
     public CanvasView(String name) {
@@ -41,6 +42,7 @@ public class CanvasView extends View {
     }
 
     /**
+     * updates the size of the canvas
      * @param width
      * @param height
      */
@@ -51,7 +53,7 @@ public class CanvasView extends View {
     }
 
     /**
-     *
+     *redraws the canvas
      */
     @Override
     public void draw() {
@@ -76,7 +78,7 @@ public class CanvasView extends View {
 }
 
 /**
- *
+ * The canvas part of the canvas view with a width and height
  */
 class CanvasComponent extends JPanel{
     private ArrayList<Renderer> renderers;
@@ -89,7 +91,7 @@ class CanvasComponent extends JPanel{
     private int height = 1000;
 
     /**
-     *
+     * Constructor initiates the CanvasComponent
      */
     public CanvasComponent(){
         renderers = new ArrayList<Renderer>();
@@ -98,6 +100,7 @@ class CanvasComponent extends JPanel{
     }
 
     /**
+     * Adds renderer incase we want to add a specific graphic to a part of the canvas.
      * @param renderer
      */
     public void addRenderer(Renderer renderer){
@@ -105,6 +108,7 @@ class CanvasComponent extends JPanel{
     }
 
     /**
+     * returns a specific renderer of the canvas
      * @param i
      * @return
      */
@@ -113,6 +117,7 @@ class CanvasComponent extends JPanel{
     }
 
     /**
+     * changes the width and height of the canvas and also updates the renderers
      * @param width
      * @param height
      */
@@ -125,13 +130,14 @@ class CanvasComponent extends JPanel{
     }
 
     /**
-     *
+     * repaint
      */
     public void draw(){
         repaint();
     }
 
     /**
+     *
      * @param g
      */
     @Override

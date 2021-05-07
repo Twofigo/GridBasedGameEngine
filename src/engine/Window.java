@@ -19,6 +19,10 @@ public class Window extends JFrame{
     private int aspectX;
     private int aspectY;
 
+    /**
+     * @param aspectX
+     * @param aspectY
+     */
     public Window(int aspectX, int aspectY) {
         this.setAspect(aspectX,aspectY);
         this.setSize(600,600);
@@ -36,12 +40,19 @@ public class Window extends JFrame{
         repaint();
     }
 
+    /**
+     * @param x
+     * @param y
+     */
     public void setAspect(int x,int y){
         aspectX=x;
         aspectY=y;
         repaint();
     }
 
+    /**
+     *
+     */
     public void draw(){
         for (View v:views) {
             v.draw();
@@ -49,6 +60,11 @@ public class Window extends JFrame{
         this.repaint();
 
     }
+
+    /**
+     * @param width
+     * @param height
+     */
     public void updateSize(int width, int height){
         int innerWidth = width;
         int innerHeight = height-40;
@@ -65,15 +81,26 @@ public class Window extends JFrame{
         }
         draw();
     }
+
+    /**
+     * @param lock
+     */
     public void lockResize(boolean lock){
         this.setResizable(!lock);
     }
 
+    /**
+     * @param view
+     */
     public void addView(View view){
         views.add(view);
         //cardLayout.addLayoutComponent(view, view.getName());
         cardPanel.add(view.getName(), view);
     }
+
+    /**
+     * @param name
+     */
     public void setView(String name){
         for (View v:views) {
             if(v.getName().equals(name)){
@@ -86,11 +113,18 @@ public class Window extends JFrame{
 
     }
 
+    /**
+     * @param l
+     */
     // overwriting these is probably a horrible idea, but horrible ideas are more fun when the bugs arrive, so this stays for now.
     @Override
     public void addMouseListener(MouseListener l){
         cardPanel.addMouseListener(l);
     }
+
+    /**
+     * @param l
+     */
     @Override
     public void addMouseMotionListener(MouseMotionListener l){
         cardPanel.addMouseMotionListener(l);
