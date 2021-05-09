@@ -1,7 +1,6 @@
 package engine.Graphics;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public abstract class Renderer{
     protected TransformContext transC;
@@ -10,10 +9,13 @@ public abstract class Renderer{
         this.transC = new TransformContext(innerWidth, innerHeight);
     }
     public abstract void render(Graphics g);
-
     public void draw(Graphics g){
         Graphics g2 = transC.getContext();
         this.render(g2);
+        transC.drawTo(g);
+    }
+    public void redraw(Graphics g){
+        Graphics g2 = transC.getRawContext();
         transC.drawTo(g);
     }
     public TransformContext getTransformContext() {

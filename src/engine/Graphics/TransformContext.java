@@ -47,6 +47,13 @@ public class TransformContext {
         offscreen.translate(trX, trY);
         return offscreen;
     }
+    Graphics getRawContext(){
+        offscreen = this.offscreenImage.getGraphics();
+        int trX = (int)((innerWidth/2-focusX-1));
+        int trY = (int)((innerHeight/2-focusY-1));
+        offscreen.translate(trX, trY);
+        return offscreen;
+    }
     void drawTo(Graphics g){
         g.drawImage(this.offscreenImage, 0, 0,outerWidth,outerHeight, null);
         offscreen.dispose();

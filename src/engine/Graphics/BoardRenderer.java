@@ -3,7 +3,6 @@ package engine.Graphics;
 import engine.*;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.Iterator;
 
 public class BoardRenderer extends Renderer {

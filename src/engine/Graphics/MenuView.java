@@ -27,9 +27,15 @@ public class MenuView extends View {
         buttonPanel.setLayout(new GridLayout(getButtonCount(),1,0,0));
         repaint();
     }
+
+    @Override
+    public void draw(long timeStamp) {
+
+    }
+
     @Override
     public void updateSize(int width, int height) {
-        //this.setSize(new Dimension(width,height));
+        //this.setSize(new Dimension(width,height));aa
         buttonPanel.setPreferredSize(new Dimension(500, (height/12)*getButtonCount()));
         buttonPanel.setMinimumSize(new Dimension(1, (height/12)*getButtonCount()));
         //buttonPanel.setMinimumSize();

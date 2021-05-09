@@ -74,6 +74,8 @@ public class DungeonMaster extends PuppetMaster {
         win.lockResize(true);
         win.updateSize(800, 600+40);
         win.draw();
+
+        win.start(25);
     }
 
     public Player getPlayer() {

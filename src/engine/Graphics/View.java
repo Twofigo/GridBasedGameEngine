@@ -43,6 +43,8 @@ abstract public class View extends JPanel{
      */
     public abstract void draw();
 
+    public abstract void draw(long timeStamp);
+
     /**
      * @param name
      * @param action

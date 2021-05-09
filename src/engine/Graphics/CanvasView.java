@@ -59,6 +59,11 @@ public class CanvasView extends View {
         canvasC.draw();
     }
 
+    @Override
+    public void draw(long timeStamp) {
+        canvasC.draw(timeStamp);
+    }
+
     /**
      * @param renderer
      */
@@ -80,14 +85,16 @@ public class CanvasView extends View {
  */
 class CanvasComponent extends JPanel{
     private ArrayList<engine.Graphics.Renderer> renderers;
-    int width = 10;
-    int height = 10;
+    private int width = 10;
+    private int height = 10;
+    private long timeStamp;
 
     /**
      * Constructor initiates the CanvasComponent
      */
     public CanvasComponent(){
         renderers = new ArrayList<engine.Graphics.Renderer>();
+        timeStamp = 0;
     }
 
     /**
@@ -126,6 +133,10 @@ class CanvasComponent extends JPanel{
     public void draw(){
         repaint();
     }
+    public void draw(long timeStamp){
+        this.timeStamp = timeStamp;
+        repaint();
+    }
 
     /**
      *
@@ -136,8 +147,21 @@ class CanvasComponent extends JPanel{
         g.setColor(Color.black);
         g.fillRect(0,0,width, height);
 
-        for (engine.Graphics.Renderer r: renderers) {
-            r.draw(g);
+        if(this.timeStamp!=0) {
+            for (engine.Graphics.Renderer r : renderers) {
+                if(r instanceof RealTimeRenderer)
+                    ((RealTimeRenderer)r).draw(g,this.timeStamp);
+                else{
+                    r.redraw(g);
+                }
+            }
+
+            this.timeStamp = 0;
+        }
+        else {
+            for (engine.Graphics.Renderer r : renderers) {
+                r.draw(g);
+            }
         }
     }
 }

@@ -2,14 +2,13 @@ package engine.Graphics;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
-/**
- * A window is a container for view (a card layout)
- */
-public class Window extends JFrame{
+public class Window extends JFrame implements ActionListener {
 
     private View currentView;
     private ArrayList<View> views;
@@ -18,6 +17,8 @@ public class Window extends JFrame{
 
     private int aspectX;
     private int aspectY;
+
+    private javax.swing.Timer timer;
 
     /**
      * sets up the window from a given aspect ratio
@@ -60,7 +61,13 @@ public class Window extends JFrame{
             v.draw();
         }
         this.repaint();
-
+    }
+    public void start(int timeMS){
+        this.timer = new javax.swing.Timer(timeMS,this);
+        this.timer.start();
+    }
+    public void stop(int timeMS){
+        this.timer.stop();
     }
 
     /**
@@ -134,5 +141,13 @@ public class Window extends JFrame{
     @Override
     public void addMouseMotionListener(MouseMotionListener l){
         cardPanel.addMouseMotionListener(l);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        long timestamp = System.currentTimeMillis()+1;
+        for (View v:views) {
+            v.draw(timestamp);
+        }
     }
 }
