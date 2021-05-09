@@ -1,10 +1,10 @@
-package engine;
+package engine.Graphics;
 
-import javax.swing.*;
+import engine.Graphics.View;
+
 import java.awt.*;
-import java.awt.event.ActionListener;
 
-public class MenuView extends View{
+public class MenuView extends View {
     public MenuView(String name) {
         super(name);
         this.setLayout(new GridBagLayout());

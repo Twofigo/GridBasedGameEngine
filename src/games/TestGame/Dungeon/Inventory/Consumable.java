@@ -1,11 +1,7 @@
 package games.TestGame.Dungeon.Inventory;
 
 import engine.Entity;
-import engine.PuppetMaster;
-import engine.TableTop;
-import engine.TextureHandler;
-import games.TestGame.Dungeon.DungeonMaster;
-import games.TestGame.Dungeon.MoveInto;
+import engine.tools.TextureHandler;
 
 import java.awt.*;
 

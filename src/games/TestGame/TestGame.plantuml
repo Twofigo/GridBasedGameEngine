@@ -86,9 +86,9 @@ title __TESTGAME's Class Diagram__\n
   games.TestGame.ShittyGame -up-|> engine.PuppetMaster
   games.TestGame.ShittyGame o-- engine.Tile : click
   games.TestGame.ShittyGame o-- engine.TableTop : tb
-  games.TestGame.ShittyGame o-- engine.BoardView : bv
-  games.TestGame.ShittyGame o-- engine.MenuView : mv
-  games.TestGame.map o-- engine.TextureHandler : th
+  games.TestGame.ShittyGame o-- engine.Graphics.BoardView : bv
+  games.TestGame.ShittyGame o-- engine.Graphics.MenuView : mv
+  games.TestGame.map o-- engine.tools.TextureHandler : th
 
 
 right footer

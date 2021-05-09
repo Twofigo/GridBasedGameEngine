@@ -1,10 +1,6 @@
 package games.TestGame.Dungeon.Inventory;
 
 import engine.Entity;
-import engine.TextureHandler;
-import games.TestGame.Dungeon.Inventory.Item;
-
-import java.awt.*;
 
 public class Weapon extends Equipable {
     private int damage;

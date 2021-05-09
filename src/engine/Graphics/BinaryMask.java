@@ -1,4 +1,4 @@
-package engine;
+package engine.Graphics;
 
 public class BinaryMask {
     private int width;

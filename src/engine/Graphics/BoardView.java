@@ -1,14 +1,11 @@
-package engine;
+package engine.Graphics;
 
-import engine.*;
-import games.TestGame.Dungeon.World.Level;
-
-import java.awt.*;
+import engine.TableTop;
 
 /**
  *
  */
-public class BoardView extends CanvasView{
+public class BoardView extends CanvasView {
     /**
      * Canvas view with a Board renderer, quick way to create a game, similar to BasicTableTop
      * @param name

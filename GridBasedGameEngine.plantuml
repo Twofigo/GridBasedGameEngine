@@ -9,7 +9,7 @@ title __GRIDBASEDGAMEENGINE's Class Diagram__\n
   
 
   namespace engine {
-    class engine.BinaryMask {
+    class engine.Graphics.BinaryMask {
     }
   }
   
@@ -21,25 +21,25 @@ title __GRIDBASEDGAMEENGINE's Class Diagram__\n
   
 
   namespace engine {
-    class engine.BoardRenderer {
+    class engine.Graphics.BoardRenderer {
     }
   }
   
 
   namespace engine {
-    class engine.BoardView {
+    class engine.Graphics.BoardView {
     }
   }
   
 
   namespace engine {
-    class engine.CanvasComponent {
+    class engine.Graphics.CanvasComponent {
     }
   }
   
 
   namespace engine {
-    class engine.CanvasView {
+    class engine.Graphics.CanvasView {
     }
   }
   
@@ -57,7 +57,7 @@ title __GRIDBASEDGAMEENGINE's Class Diagram__\n
   
 
   namespace engine {
-    class engine.MenuView {
+    class engine.Graphics.MenuView {
     }
   }
   
@@ -69,7 +69,7 @@ title __GRIDBASEDGAMEENGINE's Class Diagram__\n
   
 
   namespace engine {
-    abstract class engine.Renderer {
+    abstract class engine.Graphics.Renderer {
     }
   }
   
@@ -81,13 +81,13 @@ title __GRIDBASEDGAMEENGINE's Class Diagram__\n
   
 
   namespace engine {
-    class engine.TextureHandler {
+    class engine.tools.TextureHandler {
     }
   }
   
 
   namespace engine {
-    class engine.TextureNode {
+    class engine.tools.TextureNode {
     }
   }
   
@@ -99,13 +99,13 @@ title __GRIDBASEDGAMEENGINE's Class Diagram__\n
   
 
   namespace engine {
-    abstract class engine.View {
+    abstract class engine.Graphics.View {
     }
   }
   
 
   namespace engine {
-    class engine.Window {
+    class engine.Graphics.Window {
     }
   }
   
@@ -482,23 +482,23 @@ title __GRIDBASEDGAMEENGINE's Class Diagram__\n
 
   engine.BasicTableTop -up-|> engine.TableTop
   engine.Board .up.|> java.lang.Iterable
-  engine.BoardRenderer -up-|> engine.Renderer
-  engine.BoardRenderer o-- engine.TableTop : tb
-  engine.BoardView -up-|> engine.CanvasView
-  engine.CanvasComponent -up-|> javax.swing.JPanel
-  engine.CanvasView -up-|> engine.View
-  engine.CanvasView o-- engine.CanvasComponent : canvasC
+  engine.Graphics.BoardRenderer -up-|> engine.Graphics.Renderer
+  engine.Graphics.BoardRenderer o-- engine.TableTop : tb
+  engine.Graphics.BoardView -up-|> engine.Graphics.CanvasView
+  engine.Graphics.CanvasComponent -up-|> javax.swing.JPanel
+  engine.Graphics.CanvasView -up-|> engine.Graphics.View
+  engine.Graphics.CanvasView o-- engine.Graphics.CanvasComponent : canvasC
   engine.Entity -up-|> engine.Tile
-  engine.MenuView -up-|> engine.View
+  engine.Graphics.MenuView -up-|> engine.Graphics.View
   engine.PuppetMaster .up.|> java.awt.event.KeyListener
   engine.PuppetMaster .up.|> java.awt.event.MouseWheelListener
   engine.PuppetMaster .up.|> javax.swing.event.MouseInputListener
   engine.PuppetMaster -up-|> javax.swing.JFrame
   engine.PuppetMaster o-- engine.TableTop : tb
-  engine.PuppetMaster o-- engine.Window : window
-  engine.View -up-|> javax.swing.JPanel
-  engine.Window -up-|> javax.swing.JFrame
-  engine.Window o-- engine.View : currentView
+  engine.PuppetMaster o-- engine.Graphics.Window : window
+  engine.Graphics.View -up-|> javax.swing.JPanel
+  engine.Graphics.Window -up-|> javax.swing.JFrame
+  engine.Graphics.Window o-- engine.Graphics.View : currentView
   engine.boardIterator .up.|> java.util.Iterator
   engine.boardIterator o-- engine.Board : b
   engine.tools.Dijkstra .up.|> java.util.Iterator
@@ -512,14 +512,14 @@ title __GRIDBASEDGAMEENGINE's Class Diagram__\n
   games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.DungeonView : dungeonView
   games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.Inventory.Inventory : inventory
   games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.Inventory.Item : inventoryPickedUpItem
-  games.TestGame.Dungeon.DungeonMaster o-- engine.BoardView : inventoryView
+  games.TestGame.Dungeon.DungeonMaster o-- engine.Graphics.BoardView : inventoryView
   games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.World.Level : level
   games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.Player : player
   games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.StatsRenderer : statsRenderer
-  games.TestGame.Dungeon.DungeonRenderer -up-|> engine.BoardRenderer
-  games.TestGame.Dungeon.DungeonRenderer o-- engine.BinaryMask : discovered
-  games.TestGame.Dungeon.DungeonRenderer o-- engine.BinaryMask : visibility
-  games.TestGame.Dungeon.DungeonView -up-|> engine.CanvasView
+  games.TestGame.Dungeon.DungeonRenderer -up-|> engine.Graphics.BoardRenderer
+  games.TestGame.Dungeon.DungeonRenderer o-- engine.Graphics.BinaryMask : discovered
+  games.TestGame.Dungeon.DungeonRenderer o-- engine.Graphics.BinaryMask : visibility
+  games.TestGame.Dungeon.DungeonView -up-|> engine.Graphics.CanvasView
   games.TestGame.Dungeon.Inventory.Armor -up-|> games.TestGame.Dungeon.Inventory.Equipable
   games.TestGame.Dungeon.Inventory.Consumable -up-|> games.TestGame.Dungeon.Inventory.Item
   games.TestGame.Dungeon.Inventory.EmptySpace .up.|> games.TestGame.Dungeon.Inventory.PlaceAt
@@ -541,7 +541,7 @@ title __GRIDBASEDGAMEENGINE's Class Diagram__\n
   games.TestGame.Dungeon.MoveTo .up.|> engine.Interaction
   games.TestGame.Dungeon.Player -up-|> games.TestGame.Dungeon.Creature
   games.TestGame.Dungeon.Player o-- games.TestGame.Dungeon.Inventory.Consumable : consumable
-  games.TestGame.Dungeon.StatsRenderer -up-|> engine.Renderer
+  games.TestGame.Dungeon.StatsRenderer -up-|> engine.Graphics.Renderer
   games.TestGame.Dungeon.StatsRenderer o-- engine.Tile : t
   games.TestGame.Dungeon.World.Exit .up.|> games.TestGame.Dungeon.MoveInto
   games.TestGame.Dungeon.World.Exit -up-|> engine.Tile
@@ -552,8 +552,8 @@ title __GRIDBASEDGAMEENGINE's Class Diagram__\n
   games.TestGame.ShittyGame -up-|> engine.PuppetMaster
   games.TestGame.ShittyGame o-- engine.Tile : click
   games.TestGame.ShittyGame o-- engine.TableTop : tb
-  games.TestGame.ShittyGame o-- engine.BoardView : bv
-  games.TestGame.ShittyGame o-- engine.MenuView : mv
+  games.TestGame.ShittyGame o-- engine.Graphics.BoardView : bv
+  games.TestGame.ShittyGame o-- engine.Graphics.MenuView : mv
   games.TestGame.Sokoban.Actuate .up.|> engine.Interaction
   games.TestGame.Sokoban.Box .up.|> games.TestGame.Sokoban.MoveInto
   games.TestGame.Sokoban.Box -up-|> engine.Entity
@@ -565,11 +565,11 @@ title __GRIDBASEDGAMEENGINE's Class Diagram__\n
   games.TestGame.Sokoban.Sokoban -up-|> engine.PuppetMaster
   games.TestGame.Sokoban.Sokoban o-- games.TestGame.Sokoban.Actuate : ACTUATE
   games.TestGame.Sokoban.Sokoban o-- games.TestGame.Sokoban.MoveTo : MOVETO
-  games.TestGame.Sokoban.Sokoban o-- engine.BoardView : bv
+  games.TestGame.Sokoban.Sokoban o-- engine.Graphics.BoardView : bv
   games.TestGame.Sokoban.Sokoban o-- games.TestGame.Sokoban.Player : p
   games.TestGame.Sokoban.Wall .up.|> games.TestGame.Sokoban.MoveInto
   games.TestGame.Sokoban.Wall -up-|> engine.Tile
-  games.TestGame.map o-- engine.TextureHandler : th
+  games.TestGame.map o-- engine.tools.TextureHandler : th
 
 
 right footer

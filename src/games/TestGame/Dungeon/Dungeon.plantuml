@@ -206,20 +206,20 @@ title __DUNGEON's Class Diagram__\n
   games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.DungeonView : dungeonView
   games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.Inventory.Inventory : inventory
   games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.Inventory.Item : inventoryPickedUpItem
-  games.TestGame.Dungeon.DungeonMaster o-- engine.BoardView : inventoryView
+  games.TestGame.Dungeon.DungeonMaster o-- engine.Graphics.BoardView : inventoryView
   games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.World.Level : level
   games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.Player : player
   games.TestGame.Dungeon.DungeonMaster o-- games.TestGame.Dungeon.StatsRenderer : statsRenderer
-  games.TestGame.Dungeon.DungeonRenderer -up-|> engine.BoardRenderer
-  games.TestGame.Dungeon.DungeonRenderer o-- engine.BinaryMask : discovered
-  games.TestGame.Dungeon.DungeonRenderer o-- engine.BinaryMask : visibility
-  games.TestGame.Dungeon.DungeonView -up-|> engine.CanvasView
+  games.TestGame.Dungeon.DungeonRenderer -up-|> engine.Graphics.BoardRenderer
+  games.TestGame.Dungeon.DungeonRenderer o-- engine.Graphics.BinaryMask : discovered
+  games.TestGame.Dungeon.DungeonRenderer o-- engine.Graphics.BinaryMask : visibility
+  games.TestGame.Dungeon.DungeonView -up-|> engine.Graphics.CanvasView
   games.TestGame.Dungeon.Monster -up-|> games.TestGame.Dungeon.Creature
   games.TestGame.Dungeon.Monster o-- engine.tools.Dijkstra : path
   games.TestGame.Dungeon.MoveTo .up.|> engine.Interaction
   games.TestGame.Dungeon.Player -up-|> games.TestGame.Dungeon.Creature
   games.TestGame.Dungeon.Player o-- games.TestGame.Dungeon.Inventory.Consumable : consumable
-  games.TestGame.Dungeon.StatsRenderer -up-|> engine.Renderer
+  games.TestGame.Dungeon.StatsRenderer -up-|> engine.Graphics.Renderer
   games.TestGame.Dungeon.StatsRenderer o-- engine.Tile : t
 
 

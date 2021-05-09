@@ -1,10 +1,8 @@
-package engine;
+package engine.Graphics;
 
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.Iterator;
 import javax.swing.*;
 
 /**
@@ -64,7 +62,7 @@ public class CanvasView extends View {
     /**
      * @param renderer
      */
-    public void addRenderer(Renderer renderer){
+    public void addRenderer(engine.Graphics.Renderer renderer){
         canvasC.addRenderer(renderer);
     }
 
@@ -81,7 +79,7 @@ public class CanvasView extends View {
  * The canvas part of the canvas view with a width and height
  */
 class CanvasComponent extends JPanel{
-    private ArrayList<Renderer> renderers;
+    private ArrayList<engine.Graphics.Renderer> renderers;
     private BufferedImage offscreenImage;
     private Graphics offscreen;
 
@@ -94,7 +92,7 @@ class CanvasComponent extends JPanel{
      * Constructor initiates the CanvasComponent
      */
     public CanvasComponent(){
-        renderers = new ArrayList<Renderer>();
+        renderers = new ArrayList<engine.Graphics.Renderer>();
         this.offscreenImage = new BufferedImage(innerWidth, innerHeight, BufferedImage.TYPE_INT_ARGB);
         this.offscreen = this.offscreenImage.getGraphics();
     }
@@ -103,7 +101,7 @@ class CanvasComponent extends JPanel{
      * Adds renderer in case we want to add a specific graphic to a part of the canvas.
      * @param renderer
      */
-    public void addRenderer(Renderer renderer){
+    public void addRenderer(engine.Graphics.Renderer renderer){
         renderers.add(renderer);
     }
 
@@ -112,7 +110,7 @@ class CanvasComponent extends JPanel{
      * @param i
      * @return
      */
-    public Renderer getRenderer(int i){
+    public engine.Graphics.Renderer getRenderer(int i){
         return renderers.get(i);
     }
 
@@ -124,8 +122,8 @@ class CanvasComponent extends JPanel{
     public void updateSize(int width, int height) {
         this.width = width;
         this.height = height;
-        for (Renderer r:renderers) {
-            r.updateSize(width,height);
+        for (engine.Graphics.Renderer r:renderers) {
+            r.setOuterSize(width,height);
         }
     }
 
@@ -143,7 +141,7 @@ class CanvasComponent extends JPanel{
     @Override
     public void paint(Graphics g){
         offscreen.clearRect(0,0,innerWidth,innerHeight);
-        for (Renderer r: renderers) {
+        for (engine.Graphics.Renderer r: renderers) {
             r.draw(offscreen);
         }
         g.drawImage(this.offscreenImage, 0, 0,width,height, null);

@@ -1,7 +1,7 @@
 package games.TestGame.Dungeon;
 
-import engine.BinaryMask;
-import engine.BoardRenderer;
+import engine.Graphics.BinaryMask;
+import engine.Graphics.BoardRenderer;
 import engine.TableTop;
 import games.TestGame.Dungeon.World.Level;
 
@@ -26,30 +26,18 @@ public class DungeonRenderer extends BoardRenderer {
     }
 
     @Override
-    public void draw(Graphics g) {
-
+    public void render(Graphics g) {
         if(tb==null) return;
-
-        int trX = (int)((zoom*50-offsetX-1));;
-        int trY = (int)((zoom*50-offsetY-1));
-
-        //int trX = 0;
-        //int trY = 0;
-        offscreen.clearRect(0,0,(int)(100*zoom),(int)(100*zoom));
-        offscreen.translate(trX, trY);
 
         Level l = (Level)tb;
         BinaryMask bm = getVisable();
         bm.mergeAND(this.getDiscoveredMask());
-        drawBoard(offscreen,l.getBackground(),bm);
-        ((Graphics2D)offscreen).setPaint(new Color(0,9,20,(int)(256*(3.0/5))));
-        ((Graphics2D)offscreen).fillRect(-trX,-trY,(int)(100*zoom),(int)(100*zoom));
+        drawBoard(g,l.getBackground(),bm);
+        ((Graphics2D)g).setPaint(new Color(0,9,20,(int)(256*(3.0/5))));
+        ((Graphics2D)g).fillRect(-transC.getFocusX(),-transC.getFocusY(),transC.getInnerWidth(),transC.getInnerHeight());
         bm.mergeAND(this.getVisibilityMask());
-        drawBoard(offscreen,l.getBackground(),bm);
-        drawBoard(offscreen,l.getFloor(),bm);
-        drawBoard(offscreen,l.getForeground(),bm);
-
-        offscreen.translate(-trX, -trY);
-        g.drawImage(this.offscreenImage, 0, 0,1000,1000, null);
+        drawBoard(g,l.getBackground(),bm);
+        drawBoard(g,l.getFloor(),bm);
+        drawBoard(g,l.getForeground(),bm);
     }
 }

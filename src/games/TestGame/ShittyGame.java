@@ -1,6 +1,8 @@
 package games.TestGame;
 import engine.*;
-import engine.Window;
+import engine.Graphics.*;
+import engine.Graphics.Window;
+import engine.tools.TextureHandler;
 import games.TestGame.Dungeon.World.DungeonGenerator;
 
 import java.awt.*;
@@ -95,8 +97,8 @@ public class ShittyGame extends PuppetMaster{
     @Override
     public void mouseClicked(MouseEvent e) {
         BoardRenderer br = bv.getBoardRenderer();
-        int x = br.boardTransX(e.getX());
-        int y = br.boardTransY(e.getY());
+        int x = br.transY(e.getX());
+        int y = br.transX(e.getY());
         System.out.println(x+" : "+y);
         x/=100;
         y/=100;

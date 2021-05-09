@@ -1,6 +1,8 @@
 package games.TestGame.Dungeon;
 
 import engine.*;
+import engine.Graphics.*;
+import engine.tools.TextureHandler;
 import games.TestGame.Dungeon.Inventory.*;
 import games.TestGame.Dungeon.World.DungeonGenerator;
 import games.TestGame.Dungeon.World.Exit;
@@ -9,7 +11,6 @@ import games.TestGame.Dungeon.World.Wall;
 
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class DungeonMaster extends PuppetMaster {
@@ -114,8 +115,8 @@ public class DungeonMaster extends PuppetMaster {
             BoardRenderer br = inventoryView.getBoardRenderer();
             if (inventoryPickedUpItem == null){
                 Board b = inventory.getForeground();
-                int x = br.boardTransX(e.getX());
-                int y = br.boardTransY(e.getY());
+                int x = br.transX(e.getX());
+                int y = br.transY(e.getY());
                 x/=100;
                 y/=100;
                 Tile t = b.get(x,y);
@@ -133,8 +134,8 @@ public class DungeonMaster extends PuppetMaster {
         if (this.getTableTop() instanceof Inventory) {
             if (inventoryPickedUpItem != null){
                 Board b = inventory.getForeground();
-                int x = br.boardTransX(e.getX());
-                int y = br.boardTransY(e.getY());
+                int x = br.transX(e.getX());
+                int y = br.transY(e.getY());
                 x/=100;
                 y/=100;
 
@@ -164,8 +165,8 @@ public class DungeonMaster extends PuppetMaster {
         if (this.getTableTop() instanceof Inventory) {
             if (inventoryPickedUpItem != null) {
                 Board b = inventory.getForeground();
-                int x = br.boardTransX(e.getX());
-                int y = br.boardTransY(e.getY());
+                int x = br.transX(e.getX());
+                int y = br.transY(e.getY());
                 x /= 100;
                 y /= 100;
                 if (x!=inventoryPickedUpItem.getX() || y !=inventoryPickedUpItem.getY()){
@@ -179,8 +180,8 @@ public class DungeonMaster extends PuppetMaster {
     public void mouseMoved(MouseEvent e) {
         if (this.getTableTop() instanceof Inventory) {
             BoardRenderer br = inventoryView.getBoardRenderer();
-            int x = br.boardTransX(e.getX());
-            int y = br.boardTransY(e.getY());
+            int x = br.transX(e.getX());
+            int y = br.transY(e.getY());
             x/=100;
             y/=100;
             Tile t;
@@ -193,8 +194,8 @@ public class DungeonMaster extends PuppetMaster {
         }
         else if(this.getTableTop() instanceof Level){
             DungeonRenderer br = dungeonView.getDungeonRenderer();
-            int x = br.boardTransX(e.getX());
-            int y = br.boardTransY(e.getY());
+            int x = br.transX(e.getX());
+            int y = br.transY(e.getY());
             x/=100;
             y/=100;
             Tile t;

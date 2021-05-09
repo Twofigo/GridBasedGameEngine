@@ -1,11 +1,9 @@
 package games.TestGame.Dungeon;
 
 import engine.*;
-import games.TestGame.Dungeon.World.Level;
+import engine.Graphics.CanvasView;
 
-import java.awt.*;
-
-public class DungeonView extends CanvasView{
+public class DungeonView extends CanvasView {
     public DungeonView(String name, TableTop tb) {
         super(name);
         DungeonRenderer dr = new DungeonRenderer(tb);

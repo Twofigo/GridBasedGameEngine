@@ -13,7 +13,7 @@ title __ENGINE's Class Diagram__\n
   
 
   namespace engine {
-    class engine.BinaryMask {
+    class engine.Graphics.BinaryMask {
         - height : int
         - mask : boolean[][]
         - width : int
@@ -59,7 +59,7 @@ title __ENGINE's Class Diagram__\n
   
 
   namespace engine {
-    class engine.BoardRenderer {
+    class engine.Graphics.BoardRenderer {
         # offscreen : Graphics
         # offscreenImage : BufferedImage
         # offsetX : int
@@ -83,7 +83,7 @@ title __ENGINE's Class Diagram__\n
   
 
   namespace engine {
-    class engine.BoardView {
+    class engine.Graphics.BoardView {
         + BoardView()
         + getBoardRenderer()
     }
@@ -91,7 +91,7 @@ title __ENGINE's Class Diagram__\n
   
 
   namespace engine {
-    class engine.CanvasComponent {
+    class engine.Graphics.CanvasComponent {
         - height : int
         - innerHeight : int
         - innerWidth : int
@@ -110,7 +110,7 @@ title __ENGINE's Class Diagram__\n
   
 
   namespace engine {
-    class engine.CanvasView {
+    class engine.Graphics.CanvasView {
         + CanvasView()
         + addRenderer()
         + draw()
@@ -143,7 +143,7 @@ title __ENGINE's Class Diagram__\n
   
 
   namespace engine {
-    class engine.MenuView {
+    class engine.Graphics.MenuView {
         + MenuView()
         + draw()
         + updateSize()
@@ -169,7 +169,7 @@ title __ENGINE's Class Diagram__\n
   
 
   namespace engine {
-    abstract class engine.Renderer {
+    abstract class engine.Graphics.Renderer {
         - height : int
         - innerHeight : int
         - innerWidth : int
@@ -200,7 +200,7 @@ title __ENGINE's Class Diagram__\n
   
 
   namespace engine {
-    class engine.TextureHandler {
+    class engine.tools.TextureHandler {
         {static} - TH : TextureHandler
         - list : ArrayList<TextureNode>
         - rootPath : String
@@ -216,7 +216,7 @@ title __ENGINE's Class Diagram__\n
   
 
   namespace engine {
-    class engine.TextureNode {
+    class engine.tools.TextureNode {
         + image : Image
         + name : String
         + TextureNode()
@@ -236,7 +236,7 @@ title __ENGINE's Class Diagram__\n
   
 
   namespace engine {
-    abstract class engine.View {
+    abstract class engine.Graphics.View {
         # buttonPanel : JPanel
         - buttonCount : int
         - name : String
@@ -257,7 +257,7 @@ title __ENGINE's Class Diagram__\n
   
 
   namespace engine {
-    class engine.Window {
+    class engine.Graphics.Window {
         - aspectX : int
         - aspectY : int
         - cardLayout : CardLayout
@@ -287,16 +287,16 @@ title __ENGINE's Class Diagram__\n
   
 
   engine.BasicTableTop -up-|> engine.TableTop
-  engine.BoardRenderer -up-|> engine.Renderer
-  engine.BoardRenderer o-- engine.TableTop : tb
-  engine.BoardView -up-|> engine.CanvasView
-  engine.CanvasView -up-|> engine.View
-  engine.CanvasView o-- engine.CanvasComponent : canvasC
+  engine.Graphics.BoardRenderer -up-|> engine.Graphics.Renderer
+  engine.Graphics.BoardRenderer o-- engine.TableTop : tb
+  engine.Graphics.BoardView -up-|> engine.Graphics.CanvasView
+  engine.Graphics.CanvasView -up-|> engine.Graphics.View
+  engine.Graphics.CanvasView o-- engine.Graphics.CanvasComponent : canvasC
   engine.Entity -up-|> engine.Tile
-  engine.MenuView -up-|> engine.View
+  engine.Graphics.MenuView -up-|> engine.Graphics.View
   engine.PuppetMaster o-- engine.TableTop : tb
-  engine.PuppetMaster o-- engine.Window : window
-  engine.Window o-- engine.View : currentView
+  engine.PuppetMaster o-- engine.Graphics.Window : window
+  engine.Graphics.Window o-- engine.Graphics.View : currentView
   engine.boardIterator o-- engine.Board : b
 
 

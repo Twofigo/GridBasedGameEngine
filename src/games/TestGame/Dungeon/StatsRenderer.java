@@ -1,24 +1,18 @@
 package games.TestGame.Dungeon;
 
-import engine.Entity;
-import engine.Renderer;
+import engine.Graphics.Renderer;
 import engine.Tile;
 import games.TestGame.Dungeon.Inventory.Armor;
 import games.TestGame.Dungeon.Inventory.Consumable;
 import games.TestGame.Dungeon.Inventory.Weapon;
 
 import java.awt.*;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
 
 public class StatsRenderer extends Renderer {
     private Tile t = null;
     private Font f;
     public StatsRenderer(){
-        super();
+        super(1000,1000);
         String str="";
         if (str.equals("")) str = findFont("moon");
         if (str.equals("")) str = findFont("times");
@@ -48,8 +42,9 @@ public class StatsRenderer extends Renderer {
         }
         return "";
     }
+
     @Override
-    public void draw(Graphics g) {
+    public void render(Graphics g) {
         int row =0;
         if(t instanceof Description){
             Description d = (Description)t;
@@ -94,6 +89,7 @@ public class StatsRenderer extends Renderer {
             row+=printLine(g,"Endurance: "+c.getEndurance(),row);
         }
     }
+
     private int printLine(Graphics g, String s, int row){
         g.setFont(f);
         int rowHeight=40;

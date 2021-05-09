@@ -1,9 +1,11 @@
 package games.TestGame.Sokoban;
 
 import engine.*;
-import engine.Window;
+import engine.Graphics.BoardRenderer;
+import engine.Graphics.BoardView;
+import engine.tools.TextureHandler;
+import engine.Graphics.Window;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;

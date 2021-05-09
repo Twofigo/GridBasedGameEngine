@@ -132,7 +132,7 @@ title __SOKOBAN's Class Diagram__\n
   games.TestGame.Sokoban.Sokoban -up-|> engine.PuppetMaster
   games.TestGame.Sokoban.Sokoban o-- games.TestGame.Sokoban.Actuate : ACTUATE
   games.TestGame.Sokoban.Sokoban o-- games.TestGame.Sokoban.MoveTo : MOVETO
-  games.TestGame.Sokoban.Sokoban o-- engine.BoardView : bv
+  games.TestGame.Sokoban.Sokoban o-- engine.Graphics.BoardView : bv
   games.TestGame.Sokoban.Sokoban o-- games.TestGame.Sokoban.Player : p
   games.TestGame.Sokoban.Wall .up.|> games.TestGame.Sokoban.MoveInto
   games.TestGame.Sokoban.Wall -up-|> engine.Tile

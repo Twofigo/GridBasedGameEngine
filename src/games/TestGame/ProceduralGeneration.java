@@ -1,11 +1,9 @@
 package games.TestGame;
 
 import engine.Board;
-import engine.TextureHandler;
+import engine.tools.TextureHandler;
 import engine.Tile;
 
-import javax.swing.*;
-import java.io.File;
 import java.util.*;
 
 public class ProceduralGeneration {

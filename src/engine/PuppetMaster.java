@@ -1,5 +1,7 @@
 package engine;
 
+import engine.Graphics.Window;
+
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.event.*;

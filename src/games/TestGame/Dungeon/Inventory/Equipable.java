@@ -1,8 +1,7 @@
 package games.TestGame.Dungeon.Inventory;
 
 import engine.Entity;
-import engine.TextureHandler;
-import games.TestGame.Dungeon.Inventory.Item;
+import engine.tools.TextureHandler;
 
 import java.awt.*;
 

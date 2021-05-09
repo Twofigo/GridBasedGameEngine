@@ -3,7 +3,7 @@ package games.TestGame.Sokoban;
 import engine.Entity;
 import engine.PuppetMaster;
 import engine.TableTop;
-import engine.TextureHandler;
+import engine.tools.TextureHandler;
 import java.awt.*;
 
 public class Box extends Entity implements MoveInto {
