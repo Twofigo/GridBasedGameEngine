@@ -100,7 +100,7 @@ class CanvasComponent extends JPanel{
     }
 
     /**
-     * Adds renderer incase we want to add a specific graphic to a part of the canvas.
+     * Adds renderer in case we want to add a specific graphic to a part of the canvas.
      * @param renderer
      */
     public void addRenderer(Renderer renderer){

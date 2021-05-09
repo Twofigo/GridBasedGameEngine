@@ -6,14 +6,24 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Ease the use of handling multiple textures for tiles.
+ */
 public class TextureHandler {
     private static TextureHandler TH = new TextureHandler();
     private ArrayList<TextureNode> list;
     private String rootPath;
 
+    /**
+     * @return TextureHandler
+     */
     public static TextureHandler getInstance(){
         return TH;
     }
+
+    /**
+     * initiates the texture handler
+     */
     private TextureHandler() { // TextureHandler is a singleton
         list = new ArrayList<TextureNode>();
         rootPath = "";
@@ -21,6 +31,11 @@ public class TextureHandler {
         list.add(new TextureNode(null, "void"));
     }
 
+    /**
+     * returns a image from your list of image names
+     * @param name
+     * @return
+     */
     public Image getTexture(String name){
         for (TextureNode n: list) {
             if(n.name.equals(name)){
@@ -33,9 +48,20 @@ public class TextureHandler {
         }
         return list.get(0).image;
     }
+
+    /**
+     * set the rootpath for your images
+     * @param path
+     */
     public void setRootPath(String path){
         rootPath=path;
     }
+
+    /**
+     * sets a default texture to be used if a texture can't be found
+     * @param path
+     * @return
+     */
     public boolean setDefaultTexture(String path){
         Image img = ImgFromPath(path);
         if (img!=null){
@@ -44,6 +70,13 @@ public class TextureHandler {
         }
         return false;
     }
+
+    /**
+     * adds texture to your list of textures
+     * @param path
+     * @param name
+     * @return
+     */
     public boolean addTexture(String path, String name){
         for (TextureNode n: list) {
             if(n.name.equals(name)) return false;
@@ -55,6 +88,12 @@ public class TextureHandler {
         }
         return false;
     }
+
+    /**
+     * returns image from a path
+     * @param path
+     * @return
+     */
     private Image ImgFromPath(String path){
         Image img;
         try {
@@ -66,10 +105,19 @@ public class TextureHandler {
         return img;
     }
 }
+
+/**
+ * a class with a image and a name for that image
+ */
 class TextureNode{
     public String name;
     public Image image;
 
+    /**
+     * initiates a TextureNode
+     * @param image
+     * @param name
+     */
     public TextureNode(Image image,String name) {
         this.name = name;
         this.image = image;

@@ -9,6 +9,9 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+/**
+ * A window is a container for view (a card layout)
+ */
 public class Window extends JFrame{
 
     private View currentView;
@@ -20,6 +23,7 @@ public class Window extends JFrame{
     private int aspectY;
 
     /**
+     * sets up the window from a given aspect ratio
      * @param aspectX
      * @param aspectY
      */
@@ -41,6 +45,7 @@ public class Window extends JFrame{
     }
 
     /**
+     * sets aspect ratio of window
      * @param x
      * @param y
      */
@@ -51,7 +56,7 @@ public class Window extends JFrame{
     }
 
     /**
-     *
+     * Redraws the View
      */
     public void draw(){
         for (View v:views) {
@@ -62,6 +67,7 @@ public class Window extends JFrame{
     }
 
     /**
+     * updates the size of the whole window and view
      * @param width
      * @param height
      */
@@ -83,6 +89,7 @@ public class Window extends JFrame{
     }
 
     /**
+     * disable the updateSize
      * @param lock
      */
     public void lockResize(boolean lock){
@@ -90,6 +97,7 @@ public class Window extends JFrame{
     }
 
     /**
+     * Adds a new view for our window
      * @param view
      */
     public void addView(View view){
@@ -99,6 +107,7 @@ public class Window extends JFrame{
     }
 
     /**
+     * updates the view if it exists in the list of views
      * @param name
      */
     public void setView(String name){

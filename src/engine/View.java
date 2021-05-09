@@ -6,7 +6,7 @@ import java.awt.event.ComponentEvent;
 import javax.swing.*;
 
 /**
- *
+ * A view is much like it sounds, a view for the window to display
  */
 abstract public class View extends JPanel{
     protected JPanel buttonPanel;
@@ -14,6 +14,7 @@ abstract public class View extends JPanel{
     private final String name;
 
     /**
+     * sets up a view that you get to name, fancy stuff
      * @param name
      */
     public View(String name) {
@@ -23,6 +24,7 @@ abstract public class View extends JPanel{
     }
 
     /**
+     * returns name of view
      * @return
      */
     public String getName(){
@@ -30,13 +32,14 @@ abstract public class View extends JPanel{
     }
 
     /**
+     * resize the view
      * @param width
      * @param height
      */
     public abstract void updateSize(int width, int height);
 
     /**
-     *
+     * User defined draw
      */
     public abstract void draw();
 
