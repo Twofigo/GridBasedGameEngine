@@ -35,28 +35,34 @@ public class TransformContext {
     }
     Graphics getContext(){
         offscreen = this.offscreenImage.getGraphics();
-        offscreen.clearRect(0,0,innerWidth,innerHeight);
+        //offscreen.clearRect(0,0,innerWidth,innerHeight);
+        //clear
+        ((Graphics2D)offscreen).setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR));
+        ((Graphics2D)offscreen).setPaint(new Color(0,0,0,0));
+        ((Graphics2D)offscreen).fillRect(0,0,innerWidth,innerHeight);
+        ((Graphics2D)offscreen).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+
         int trX = (int)((innerWidth/2-focusX-1));
         int trY = (int)((innerHeight/2-focusY-1));
         offscreen.translate(trX, trY);
         return offscreen;
     }
     void drawTo(Graphics g){
-        g.drawImage(this.offscreenImage, 0, 0,1000,1000, null);
+        g.drawImage(this.offscreenImage, 0, 0,outerWidth,outerHeight, null);
         offscreen.dispose();
         offscreen = null;
     }
     public void setFocus(int focusX, int focusY){
         this.focusX=focusX;
-        this.focusX=focusY;
+        this.focusY=focusY;
     }
     public int transX(int x){
         int trX = (int)((innerWidth/2-focusX-1));
-        return (int)(x/(outerWidth/(innerWidth-trX)));
+        return (int)(x/((double)outerWidth/innerWidth)-trX);
     }
     public int transY(int y){
         int trY = (int)((innerHeight/2-focusY-1));
-        return (int)(y/(outerHeight/(innerHeight-trY)));
+        return (int)(y/((double)outerHeight/innerHeight)-trY);
     }
     public int getFocusX() {
         return focusX;

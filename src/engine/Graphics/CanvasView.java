@@ -80,21 +80,14 @@ public class CanvasView extends View {
  */
 class CanvasComponent extends JPanel{
     private ArrayList<engine.Graphics.Renderer> renderers;
-    private BufferedImage offscreenImage;
-    private Graphics offscreen;
-
-    private final int innerWidth = 1000;
-    private final int innerHeight = 1000;
-    private int width = 1000;
-    private int height = 1000;
+    int width = 10;
+    int height = 10;
 
     /**
      * Constructor initiates the CanvasComponent
      */
     public CanvasComponent(){
         renderers = new ArrayList<engine.Graphics.Renderer>();
-        this.offscreenImage = new BufferedImage(innerWidth, innerHeight, BufferedImage.TYPE_INT_ARGB);
-        this.offscreen = this.offscreenImage.getGraphics();
     }
 
     /**
@@ -122,8 +115,8 @@ class CanvasComponent extends JPanel{
     public void updateSize(int width, int height) {
         this.width = width;
         this.height = height;
-        for (engine.Graphics.Renderer r:renderers) {
-            r.setOuterSize(width,height);
+        for (engine.Graphics.Renderer r: renderers) {
+            r.setOuterSize(width, height);
         }
     }
 
@@ -140,10 +133,11 @@ class CanvasComponent extends JPanel{
      */
     @Override
     public void paint(Graphics g){
-        offscreen.clearRect(0,0,innerWidth,innerHeight);
+        g.setColor(Color.black);
+        g.fillRect(0,0,width, height);
+
         for (engine.Graphics.Renderer r: renderers) {
-            r.draw(offscreen);
+            r.draw(g);
         }
-        g.drawImage(this.offscreenImage, 0, 0,width,height, null);
     }
 }

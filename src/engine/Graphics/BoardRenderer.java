@@ -8,9 +8,11 @@ import java.util.Iterator;
 
 public class BoardRenderer extends Renderer {
     protected TableTop tb;
+    protected double zoom = 1;
 
     public BoardRenderer(TableTop tb) {
         super((int)(tb.width()*100), (int)(tb.width()*100));
+        this.zoom = tb.width();
         setTableTop(tb);
     }
     public void setTableTop(TableTop tb) {
@@ -29,16 +31,7 @@ public class BoardRenderer extends Renderer {
     public void drawBoard(Graphics g, Board b) {
         drawBoard(g,b,null);
     }
-    public BinaryMask getVisable(){
-        BinaryMask bm = new BinaryMask(tb.width(),tb.height());
-        bm.clear(false);
-        bm.clearRect(true
-                , (int)((transC.getFocusX()-transC.getInnerWidth()*0.5)/100-0.5)
-                , (int)((transC.getFocusY()-transC.getInnerHeight())/100-0.5)
-                , (int)(transC.getInnerWidth()/100+2)
-                , (int)(transC.getInnerHeight()/100+2));
-        return bm;
-    }
+
     public void drawBoard(Graphics g, Board b, BinaryMask mask) {
         int index=0;
         int w;
@@ -58,13 +51,25 @@ public class BoardRenderer extends Renderer {
             //System.out.println("i:"+index+" x:"+tranX(w*100)+" y:"+tranY(h*100)+" w:"+(int)(100*scalar*zoom+0.5)+" h:"+(int)(100*scalar*zoom+0.5));
         }
     }
+    public BinaryMask getVisable(){
+        BinaryMask bm = new BinaryMask(tb.width(),tb.height());
+        bm.clear(false);
+        bm.clearRect(true
+                , (int)((transC.getFocusX()-transC.getInnerWidth()*0.5)/100-0.5)
+                , (int)((transC.getFocusY()-transC.getInnerHeight())/100-0.5)
+                , (int)(transC.getInnerWidth()/100+2)
+                , (int)(transC.getInnerHeight()/100+2));
+        bm.clear(true);
+        return bm;
+    }
     public void setZoom(double zoom){
-       transC.setInnerSize((int)(zoom*100), (int)(zoom*100));
+        this.zoom = zoom;
+        transC.setInnerSize((int)(zoom*100), (int)(zoom*100));
     }
     public double getZoom(){
-        return transC.getInnerWidth()/100;
+        return this.zoom;
     }
     public void setOffset(double x, double y){
-        transC.setFocus((int)(x*100),(int)(y*100));
+        this.setFocus((int)(x*100),(int)(y*100));
     }
 }
