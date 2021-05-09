@@ -3,7 +3,9 @@ import engine.*;
 import engine.Graphics.*;
 import engine.Graphics.Window;
 import engine.tools.TextureHandler;
+import games.TestGame.Dungeon.DungeonRenderer;
 import games.TestGame.Dungeon.World.DungeonGenerator;
+import games.TestGame.Dungeon.World.Level;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -12,6 +14,7 @@ public class ShittyGame extends PuppetMaster{
     private static PuppetMaster p;
     private BoardView bv;
     private MenuView mv;
+    private SpriteRenderer sr;
     Tile click;
     TableTop tb;
     public static void main(String[] args) {
@@ -20,10 +23,7 @@ public class ShittyGame extends PuppetMaster{
 
     public ShittyGame() {
         super();
-        ProceduralGeneration p = new ProceduralGeneration();
-        int[][] arr = p.createArray(1,30,30);
-        arr = p.createRooms(arr);
-        new DungeonGenerator();
+
         Image img1;
         Image img2;
         Image img3;
@@ -40,20 +40,18 @@ public class ShittyGame extends PuppetMaster{
         Tile t3 = new Tile("Elf");
         click = new Tile("Pow!");
 
-        map m = new map(arr,"src/Texture/dc-dngn/wall/tree1_lightred.png", th);
 
-        Board b3 = m.getBoard();
 
-        Board b1 = new Board(30, 30, t1);
+        Board b1 = new Board(10, 10, t1);
         b1.set(t2, 0, 0);
 
-        Board b2 = new Board(30, 30);
+        Board b2 = new Board(10, 10);
         b2.set(t3, 1, 1);
         b2.set(t3, 2, 2);
         b2.set(t3, 3, 3);
 
         try {
-             tb = new TableTop(new Board[]{b1,b2,b3});
+             tb = new TableTop(new Board[]{b1,b2});
         } catch (Exception e) {
             return;
         }
@@ -72,6 +70,11 @@ public class ShittyGame extends PuppetMaster{
                 changeToBoardView();
             }});
 
+        this.sr = new SpriteRenderer(10,10);
+        this.sr.setTransformContext(bv.getBoardRenderer().getTransformContext());
+        // makes the board and the sprite renderer act with the same transformation
+        bv.addRenderer(this.sr);
+
         Window win = getWindow();
         win.addView(bv);
         win.addView(mv);
@@ -83,6 +86,7 @@ public class ShittyGame extends PuppetMaster{
         win.repaint();
         //bv.setOffset(3.5,5);
         //bv.setZoom(0.8);
+        win.start(25);
     }
     private void changeToBoardView(){
         getWindow().setView("mainBoard");
@@ -96,9 +100,15 @@ public class ShittyGame extends PuppetMaster{
     }
     @Override
     public void mouseClicked(MouseEvent e) {
+
         BoardRenderer br = bv.getBoardRenderer();
         int x = br.transY(e.getX());
         int y = br.transX(e.getY());
+
+        FadeSprite sprite = new FadeSprite("Pow!",x,y,300,System.currentTimeMillis());
+        sprite.setSize(200,200);
+        this.sr.addSprite(sprite);
+
         System.out.println(x+" : "+y);
         x/=100;
         y/=100;
@@ -107,7 +117,13 @@ public class ShittyGame extends PuppetMaster{
     }
     @Override
     public void mousePressed(MouseEvent e) {
+        BoardRenderer br = bv.getBoardRenderer();
+        int x = br.transY(e.getX());
+        int y = br.transX(e.getY());
 
+        FadeSprite sprite = new FadeSprite("Pow!",x,y,300,System.currentTimeMillis());
+        sprite.setSize(200,200);
+        this.sr.addSprite(sprite);
     }
     @Override
     public void mouseReleased(MouseEvent e) {
@@ -128,10 +144,10 @@ public class ShittyGame extends PuppetMaster{
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         BoardRenderer br = bv.getBoardRenderer();
-        int amount = e.getUnitsToScroll();
-        double zoom = br.getZoom() - (br.getZoom()/20)*amount;
-        if(zoom<0.1) return;
-        if(zoom>50) return;
+        double amount = (e.getUnitsToScroll()>1?1:-1)*0.5;
+        double zoom = br.getZoom() + amount;
+        if (zoom < 1) return;
+        if (zoom > 50) return;
         br.setZoom(zoom);
         bv.draw();
     }

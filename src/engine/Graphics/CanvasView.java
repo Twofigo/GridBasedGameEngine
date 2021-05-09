@@ -88,6 +88,7 @@ class CanvasComponent extends JPanel{
     private int width = 10;
     private int height = 10;
     private long timeStamp;
+    private boolean redraw = false;
 
     /**
      * Constructor initiates the CanvasComponent
@@ -131,6 +132,7 @@ class CanvasComponent extends JPanel{
      * repaint
      */
     public void draw(){
+        this.redraw = true;
         repaint();
     }
     public void draw(long timeStamp){
@@ -147,6 +149,13 @@ class CanvasComponent extends JPanel{
         g.setColor(Color.black);
         g.fillRect(0,0,width, height);
 
+
+        if(redraw){
+            for (engine.Graphics.Renderer r : renderers) {
+                r.draw(g);
+            }
+            redraw = false;
+        }
         if(this.timeStamp!=0) {
             for (engine.Graphics.Renderer r : renderers) {
                 if(r instanceof RealTimeRenderer)
@@ -157,11 +166,6 @@ class CanvasComponent extends JPanel{
             }
 
             this.timeStamp = 0;
-        }
-        else {
-            for (engine.Graphics.Renderer r : renderers) {
-                r.draw(g);
-            }
         }
     }
 }

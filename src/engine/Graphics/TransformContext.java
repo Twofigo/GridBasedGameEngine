@@ -7,9 +7,6 @@ public class TransformContext {
     private int focusX;
     private int focusY;
 
-    private BufferedImage offscreenImage;
-    private Graphics offscreen;
-
     private int outerWidth;
     private int outerHeight;
 
@@ -21,43 +18,14 @@ public class TransformContext {
         this.innerHeight = this.outerHeight = innerWidth;
         this.focusX = innerWidth/2;
         this.focusY = innerHeight/2;
-        this.offscreenImage = new BufferedImage((int)(innerWidth), (int)(innerHeight), BufferedImage.TYPE_INT_ARGB);
-        this.offscreen = null;
     }
     public void setInnerSize(int width, int height){
         innerWidth = width;
         innerHeight = height;
-        this.offscreenImage = new BufferedImage((int)(innerWidth), (int)(innerHeight), BufferedImage.TYPE_INT_ARGB);
     }
     public void setOuterSize(int width, int height){
         outerWidth = width;
         outerHeight = height;
-    }
-    Graphics getContext(){
-        offscreen = this.offscreenImage.getGraphics();
-        //offscreen.clearRect(0,0,innerWidth,innerHeight);
-        //clear
-        ((Graphics2D)offscreen).setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR));
-        ((Graphics2D)offscreen).setPaint(new Color(0,0,0,0));
-        ((Graphics2D)offscreen).fillRect(0,0,innerWidth,innerHeight);
-        ((Graphics2D)offscreen).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
-
-        int trX = (int)((innerWidth/2-focusX-1));
-        int trY = (int)((innerHeight/2-focusY-1));
-        offscreen.translate(trX, trY);
-        return offscreen;
-    }
-    Graphics getRawContext(){
-        offscreen = this.offscreenImage.getGraphics();
-        int trX = (int)((innerWidth/2-focusX-1));
-        int trY = (int)((innerHeight/2-focusY-1));
-        offscreen.translate(trX, trY);
-        return offscreen;
-    }
-    void drawTo(Graphics g){
-        g.drawImage(this.offscreenImage, 0, 0,outerWidth,outerHeight, null);
-        offscreen.dispose();
-        offscreen = null;
     }
     public void setFocus(int focusX, int focusY){
         this.focusX=focusX;
@@ -93,5 +61,12 @@ public class TransformContext {
 
     public int getInnerHeight() {
         return innerHeight;
+    }
+
+    public BufferedImage updateBufferedImage(BufferedImage bf){
+        if (bf.getWidth()!=innerWidth || bf.getHeight()!=innerHeight){
+            return new BufferedImage((int)(innerWidth), (int)(innerHeight), BufferedImage.TYPE_INT_ARGB);
+        }
+        return bf;
     }
 }
