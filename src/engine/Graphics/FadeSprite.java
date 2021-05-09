@@ -25,17 +25,28 @@ public class FadeSprite extends Sprite {
         this.alphaEnd = alphaEnd;
     }
 
+    /**
+     * The only way to change opacity in java is with a AlphaComposite object.
+     * But despite restoring the composite after changing it, there is still some graphic
+     * glitching on the other effects when a new one is added.
+     *
+     * This can be solved, by drawing every effect on a new separate graphics context. but that would be too inefficient.
+     * So the bug remains. It's only visible when the lifetime of the effect is set quite high
+     *
+     * @param g
+     * @param timeStamp
+     */
     @Override
     public void render(Graphics g, long timeStamp) {
         long dt = timeStamp-this.timeStamp;
 
         float alpha = alphaStart + ((alphaEnd - alphaStart) / lifespan)*dt;
-        System.out.println(alpha);
 
-        Composite c = ((Graphics2D) g).getComposite();
+        //Composite c = ((Graphics2D) g).getComposite();
         ((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
         g.drawImage(texture, posX-width/2, posY-height/2, width, height, null);
-        ((Graphics2D) g).setComposite(c);
+        ((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+        //((Graphics2D) g).setComposite(c);
     }
 
     @Override

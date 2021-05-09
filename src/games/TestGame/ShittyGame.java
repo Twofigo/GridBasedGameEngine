@@ -105,7 +105,7 @@ public class ShittyGame extends PuppetMaster{
         int x = br.transY(e.getX());
         int y = br.transX(e.getY());
 
-        FadeSprite sprite = new FadeSprite("Pow!",x,y,300,System.currentTimeMillis());
+        FadeSprite sprite = new FadeSprite("Pow!",x,y,1000,System.currentTimeMillis());
         sprite.setSize(200,200);
         this.sr.addSprite(sprite);
 
@@ -117,13 +117,7 @@ public class ShittyGame extends PuppetMaster{
     }
     @Override
     public void mousePressed(MouseEvent e) {
-        BoardRenderer br = bv.getBoardRenderer();
-        int x = br.transY(e.getX());
-        int y = br.transX(e.getY());
 
-        FadeSprite sprite = new FadeSprite("Pow!",x,y,300,System.currentTimeMillis());
-        sprite.setSize(200,200);
-        this.sr.addSprite(sprite);
     }
     @Override
     public void mouseReleased(MouseEvent e) {
