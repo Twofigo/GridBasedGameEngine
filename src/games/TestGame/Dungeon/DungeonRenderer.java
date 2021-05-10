@@ -34,7 +34,12 @@ public class DungeonRenderer extends BoardRenderer {
         bm.mergeAND(this.getDiscoveredMask());
         drawBoard(g,l.getBackground(),bm);
         ((Graphics2D)g).setPaint(new Color(0,9,20,(int)(256*(3.0/5))));
-        ((Graphics2D)g).fillRect(-transC.getFocusX(),-transC.getFocusY(),transC.getInnerWidth(),transC.getInnerHeight());
+
+
+        int trX = (int)((transC.getInnerWidth()/2-transC.getFocusX()-1));
+        int trY = (int)((transC.getInnerHeight()/2-transC.getFocusY()-1));
+
+        g.fillRect(-trX,-trY,transC.getInnerWidth(),transC.getInnerHeight());
         bm.mergeAND(this.getVisibilityMask());
         drawBoard(g,l.getBackground(),bm);
         drawBoard(g,l.getFloor(),bm);

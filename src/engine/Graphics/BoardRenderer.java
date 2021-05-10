@@ -55,10 +55,9 @@ public class BoardRenderer extends Renderer {
         bm.clear(false);
         bm.clearRect(true
                 , (int)((transC.getFocusX()-transC.getInnerWidth()*0.5)/100-0.5)
-                , (int)((transC.getFocusY()-transC.getInnerHeight())/100-0.5)
+                , (int)((transC.getFocusY()-transC.getInnerHeight()*0.5)/100-0.5)
                 , (int)(transC.getInnerWidth()/100+2)
                 , (int)(transC.getInnerHeight()/100+2));
-        bm.clear(true);
         return bm;
     }
     public void setZoom(double zoom){
