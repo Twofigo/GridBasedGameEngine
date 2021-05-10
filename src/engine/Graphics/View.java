@@ -46,6 +46,7 @@ abstract public class View extends JPanel{
     public abstract void draw(long timeStamp);
 
     /**
+     * Adds a button
      * @param name
      * @param action
      */
@@ -58,6 +59,8 @@ abstract public class View extends JPanel{
     }
 
     /**
+     * Adds a label that takes up a spot that a button would take.
+     * useful for simple sub-sections.
      * @param name
      */
     public void addLabel(String name){

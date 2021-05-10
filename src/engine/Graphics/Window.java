@@ -8,6 +8,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
+
+/**
+ * The window class describes the window.
+ * it contains multiple views than can be changed by their name
+ */
 public class Window extends JFrame implements ActionListener {
 
     private View currentView;
@@ -62,12 +67,25 @@ public class Window extends JFrame implements ActionListener {
         }
         this.repaint();
     }
+
+    /**
+     * starts the real-time renderer loop with a given time interval
+     *
+     * @param timeMS interval in milliseconds
+     */
     public void start(int timeMS){
         this.timer = new javax.swing.Timer(timeMS,this);
         this.timer.start();
     }
+    /**
+     * stops the realtime renderer loop, if it's running
+     *
+     * @param timeMS interval in milliseconds
+     */
     public void stop(int timeMS){
+        if(this.timer==null) return;
         this.timer.stop();
+        this.timer = null;
     }
 
     /**
@@ -93,7 +111,7 @@ public class Window extends JFrame implements ActionListener {
     }
 
     /**
-     * disable the updateSize
+     * disable the dynamic resizing
      * @param lock
      */
     public void lockResize(boolean lock){
@@ -101,7 +119,7 @@ public class Window extends JFrame implements ActionListener {
     }
 
     /**
-     * Adds a new view for our window
+     * Adds a new view to the window
      * @param view
      */
     public void addView(View view){
@@ -111,8 +129,8 @@ public class Window extends JFrame implements ActionListener {
     }
 
     /**
-     * updates the view if it exists in the list of views
-     * @param name
+     * Changes focus to view by given name, if such a view had been added.
+     * @param name name of view
      */
     public void setView(String name){
         for (View v:views) {
@@ -121,12 +139,15 @@ public class Window extends JFrame implements ActionListener {
                 cardLayout.show(cardPanel, name);
                 this.requestFocusInWindow();
                 draw();
+                return;
             }
         }
 
     }
 
     /**
+     * Adds a MouseListener to the window
+     * See ActionListener Interface from java awt.
      * @param l
      */
     // overwriting these is probably a horrible idea, but horrible ideas are more fun when the bugs arrive, so this stays for now.
@@ -136,6 +157,8 @@ public class Window extends JFrame implements ActionListener {
     }
 
     /**
+     * Adds a MouseMotionListener to the window
+     * See ActionListener Interface from java awt.
      * @param l
      */
     @Override
@@ -143,6 +166,11 @@ public class Window extends JFrame implements ActionListener {
         cardPanel.addMouseMotionListener(l);
     }
 
+    /**
+     * Called by the realtime render loop.
+     * Please ignore
+     * @param e ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         long timestamp = System.currentTimeMillis()+1;

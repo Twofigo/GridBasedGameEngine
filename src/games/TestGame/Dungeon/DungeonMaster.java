@@ -419,64 +419,10 @@ public class DungeonMaster extends PuppetMaster {
         dungeonView = new DungeonView("dungeon", level);
         dungeonView.addRenderer(statsRenderer);
         dungeonView.addLabel("Navigation");
-        dungeonView.addButton("Settings", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                return;
-            }
-        });
         dungeonView.addButton("Inventory", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeToInventoryView();
-            }
-        });
-        dungeonView.addButton("Stats", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                return;
-            }
-        });
-        dungeonView.addLabel("Actions");
-        dungeonView.addButton("Attack", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Attack a = new Attack();
-                //a.action(this,level,player,);
-                return;
-            }
-        });
-        dungeonView.addButton("Investigate", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                return;
-            }
-        });
-        dungeonView.addButton("Wait", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                return;
-            }
-        });
-        dungeonView.addLabel("Spells");
-        dungeonView.addButton("Spell slot 1", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                return;
-            }
-        });
-
-        dungeonView.addButton("Spell slot 2", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                return;
-            }
-        });
-
-        dungeonView.addButton("Spell slot 3", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                return;
             }
         });
 
@@ -488,22 +434,10 @@ public class DungeonMaster extends PuppetMaster {
         inventoryView = new BoardView("inventory", inventory);
         inventoryView.addRenderer(statsRenderer);
         inventoryView.addLabel("Navigation");
-        inventoryView.addButton("Settings", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                return;
-            }
-        });
         inventoryView.addButton("Return", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 changeToDungeonView();
-            }
-        });
-        inventoryView.addButton("Stats", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                return;
             }
         });
     }
