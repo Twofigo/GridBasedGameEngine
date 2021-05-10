@@ -35,6 +35,10 @@ import java.util.Iterator;
 
 // i wrote this code ages ago, and it is practically impossible for me to decode what it's doing.
 // it works tho....
+
+/**
+ * Djikstras path finding algorithm.
+ */
 public class Dijkstra implements Iterator<Point> {
 
     private int[][] distMatrix;

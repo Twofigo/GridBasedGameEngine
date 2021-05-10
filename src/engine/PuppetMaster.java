@@ -22,15 +22,14 @@ public abstract class PuppetMaster extends JFrame implements KeyListener, MouseI
     }
 
     /**
-     *
-     * @return
+     * @return Window
      */
     public Window getWindow() {
         return window;
     }
 
     /**
-     *
+     * Generally used to call a full board update
      */
     public abstract void update();
 
