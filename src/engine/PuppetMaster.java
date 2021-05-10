@@ -22,24 +22,24 @@ public abstract class PuppetMaster extends JFrame implements KeyListener, MouseI
     }
 
     /**
-     *
-     * @return
+     * @return Window
      */
     public Window getWindow() {
         return window;
     }
 
     /**
-     *
+     * Generally used to call a full board update
      */
     public abstract void update();
 
     /**
+     * Controls all interactions in the game
      * @param i
      * @param e
      * @param x
      * @param y
-     * @return
+     * @return boolean
      */
     public boolean interact(Interaction i, Entity e, int x, int y){
         return i.action(this,this.tb,e,x,y);
@@ -78,12 +78,15 @@ public abstract class PuppetMaster extends JFrame implements KeyListener, MouseI
     public void keyReleased(KeyEvent e){}
 
     /**
-     * @return
+     * @return TableTop
      */
     protected TableTop getTableTop() {
         return tb;
     }
 
+    /**
+     *
+     */
     public void end(){
         
     }
