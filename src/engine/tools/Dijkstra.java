@@ -54,8 +54,7 @@ public class Dijkstra implements Iterator<Point> {
     private int toY;
 
     public static void main(String[] args){
-        int[][] matrix =
-                {{4, 3, 8, 7, 2, 7},
+        int[][] matrix = {{4, 3, 8, 7, 2, 7},
                         {2, 8, 8, 9, 3, 5},
                         {1, 4, 1, 9, 4, 2},
                         {2, 8, 3, 9, 5, 9},
@@ -64,17 +63,28 @@ public class Dijkstra implements Iterator<Point> {
                         {9, 2, 2, 5, 6, 3},
                         {1, 3, 3, 8, 3, 1},
                         {8, 4, 6, 8, 2, 5}};
+        int[][] expected = {{0, 0, 0, 0, 0, 0},
+                        {1, 0, 0, 0, 0, 0},
+                        {1, 1, 1, 0, 0, 0},
+                        {0, 0, 1, 0, 0, 0},
+                        {0, 0, 1, 0, 0, 0},
+                        {0, 0, 1, 1, 1, 1},
+                        {0, 0, 0, 0, 0, 1},
+                        {0, 0, 0, 0, 0, 1},
+                        {0, 0, 0, 0, 0, 1}};
         try{
             System.out.println("mazeMatrix");
             printMatrix(matrix);
             System.out.println("pathMatrix");
-            printMatrix(pathfinder(matrix, 0,0,5,8));
+            int[][] result = pathfinder(matrix, 0,0,5,8);
+            printMatrix(result);
+            System.out.println("correct solution: "+compareMatrix(result, expected));
+            System.out.println("");
         } catch(Exception e){
             System.out.println(e);
         }
 
-        int[][] matrix2 =
-                {{4, -1, 8, 7, 2, 7},
+        int[][] matrix2 = {{4, -1, 8, 7, 2, 7},
                         {2, -1, 8, 9, 3, 5},
                         {1, -1, 1, 9, 4, 2},
                         {2, -1, 3, -1, 5, 9},
@@ -83,12 +93,24 @@ public class Dijkstra implements Iterator<Point> {
                         {9, 2, 2, 5, 6, 3},
                         {1, 3, 3, -1, -1, -1},
                         {8, 4, 6, 8, 2, 5}};
+        int[][] expected2 = {{0, 0, 0, 0, 0, 0},
+                        {1, 0, 0, 0, 0, 0},
+                        {1, 0, 1, 1, 1, 0},
+                        {1, 0, 1, 0, 1, 0},
+                        {1, 1, 1, 0, 1, 0},
+                        {0, 0, 0, 0, 1, 0},
+                        {0, 0, 1, 1, 1, 0},
+                        {0, 0, 1, 0, 0, 0},
+                        {0, 0, 1, 1, 1, 1}};
         try{
 
             System.out.println("mazeMatrix");
             printMatrix(matrix2);
             System.out.println("pathMatrix");
-            printMatrix(pathfinder(matrix2, 0,0,5,8));
+            int[][] result = pathfinder(matrix2, 0,0,5,8);
+            printMatrix(result);
+            System.out.println("correct solution: "+compareMatrix(result, expected));
+            System.out.println("");
         } catch(Exception e){
             System.out.println(e);
         }
@@ -97,6 +119,7 @@ public class Dijkstra implements Iterator<Point> {
         int height = mazeMatrix.length;
         int width = mazeMatrix[0].length;
         Dijkstra dj= new Dijkstra(mazeMatrix, fromX, fromY, toX, toY);
+        dj.findPath();
         int[][] pathMatrix = Dijkstra.createMatrix(height, width, 0);
 
         while (dj.hasNext()) {
@@ -281,6 +304,15 @@ public class Dijkstra implements Iterator<Point> {
             }
         }
         return newM;
+    }
+    private static boolean compareMatrix(int[][] m1, int[][] m2){
+        if(m1.length!=m2.length || m1[0].length!= m2[0].length)
+        for(int row=0;row<m1.length;row++){
+            for(int col=0;col<m1[0].length;col++){
+                if(m2[row][col]!=m1[row][col]) return false;
+            }
+        }
+        return true;
     }
     public static void printMatrix(int[][] m){
         for(int row=0;row<m.length;row++){
