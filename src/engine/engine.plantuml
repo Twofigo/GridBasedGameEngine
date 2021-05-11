@@ -166,7 +166,15 @@ title __ENGINE's Class Diagram__\n
         # getTableTop()
     }
   }
-  
+
+
+  namespace engine {
+    abstract class engine.Graphics.RealTimeRenderer{
+        + draw()
+        {abstract} + render()
+    }
+  }
+
 
   namespace engine {
     abstract class engine.Graphics.Renderer {
@@ -222,6 +230,30 @@ title __ENGINE's Class Diagram__\n
         + TextureNode()
     }
   }
+
+
+  namespace engine {
+    class engine.tools.Dijkstra {
+        - distMatrix : int[][]
+        - mazeMatrix : int[][]
+        - walker : Point
+        - width : int
+        - height : int
+        - fromX : int
+        - fromY : int
+        - toX : int
+        - toY : int
+        + main()
+        + pathfinder()
+        + hasNext()
+        + next()
+        + findPath()
+        + distanceCloud()
+        + createMatrix()
+        + copyMatrix()
+        + printMatrix()
+    }
+  }
   
 
   namespace engine {
@@ -254,6 +286,42 @@ title __ENGINE's Class Diagram__\n
         {abstract} + updateSize()
     }
   }
+
+  namespace engine{
+    abstract class engine.Graphics.Sprite{
+        - width : int
+        - height : int
+        - posX : int
+        - posY : int
+        + getLifespan()
+        + getTimeStamp()
+        + setSize()
+        + setPosition()
+        {abstract} + render()
+        {abstract} + clone()
+        + clone()
+    }
+  }
+
+  namespace engine{
+    class engine.Graphics.SpriteRenderer{
+        - sprites : PriorityQueue<Sprite>
+        + main()
+        + test_SpriteRenderer()
+        + addSprite()
+        + render()
+    }
+  }
+
+  namespace engine {
+    class engine.Graphics.FadeSprite{
+        - alphaStart : float
+        - alphaEnd : float
+        + setFade()
+        + render()
+        + clone()
+    }
+  }
   
 
   namespace engine {
@@ -274,6 +342,29 @@ title __ENGINE's Class Diagram__\n
         + updateSize()
     }
   }
+
+  namespace engine{
+    class engine.Graphics.TransformContext{
+        - focusX : int
+        - focusY : int
+        - outerWidth : int
+        - outerHeight : int
+        - innerWidth : int
+        - innerHeight : int
+        + setInnerSize()
+        + setOuterSize()
+        + setFocus()
+        + transX()
+        + transY()
+        + getFocusX()
+        + getFocusY()
+        + getOuterWidth()
+        + getOuterHeight()
+        + getInnerWidth()
+        + getInnerHeight()
+        + updateBufferedImage()
+    }
+  }
   
 
   namespace engine {
@@ -285,8 +376,10 @@ title __ENGINE's Class Diagram__\n
     }
   }
   
-
+  engine.Graphics.FadeSprite -up-|> engine.Graphics.Sprite
+  engine.Graphics.SpriteRenderer -up-|> engine.Graphics.RealTimeRenderer
   engine.BasicTableTop -up-|> engine.TableTop
+  engine.Graphics.RealTimeRenderer -up-|> engine.Graphics.Renderer
   engine.Graphics.BoardRenderer -up-|> engine.Graphics.Renderer
   engine.Graphics.BoardRenderer o-- engine.TableTop : tb
   engine.Graphics.BoardView -up-|> engine.Graphics.CanvasView
