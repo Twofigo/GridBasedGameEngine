@@ -72,6 +72,7 @@ abstract public class View extends JPanel{
     }
 
     /**
+     * removes a button with given text
      * @param name
      * @return
      */
@@ -84,11 +85,12 @@ abstract public class View extends JPanel{
     }
 
     /**
+     * enables 
      * @param enabled
      * @param visible
      * @return
      */
-    public boolean setButtonState(boolean enabled, boolean visible){
+    public boolean setButtonState(String name, boolean enabled, boolean visible){
         Button b = getButton(name);
         if(b==null) return false;
         b.setEnabled(enabled);
@@ -100,7 +102,7 @@ abstract public class View extends JPanel{
      * @param visible
      * @return
      */
-    public boolean setButtonVisable(boolean visible){
+    public boolean setButtonVisable(String name, boolean visible){
         Button b = getButton(name);
         if(b==null) return false;
         b.setVisible(visible);
@@ -111,7 +113,7 @@ abstract public class View extends JPanel{
      * @param enabled
      * @return
      */
-    public boolean setButtonEnabled(boolean enabled){
+    public boolean setButtonEnabled(String name, boolean enabled){
         Button b = getButton(name);
         if(b==null) return false;
         b.setEnabled(enabled);

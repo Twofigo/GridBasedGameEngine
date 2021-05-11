@@ -46,6 +46,7 @@ public class Sokoban extends PuppetMaster {
         createLevel1();
         createLevel2();
         createLevel3();
+        assert(levels.size()==3);
 
         p = new Player("Elf");
         victoryProgress = 0;

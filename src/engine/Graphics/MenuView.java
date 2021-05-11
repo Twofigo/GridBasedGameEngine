@@ -4,6 +4,10 @@ import engine.Graphics.View;
 
 import java.awt.*;
 
+/**
+ *  a view with nothing but buttons, centered on the screen
+ *  see view
+ */
 public class MenuView extends View {
     public MenuView(String name) {
         super(name);

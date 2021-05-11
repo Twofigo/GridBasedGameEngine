@@ -27,12 +27,17 @@ public class TextureHandler {
     private TextureHandler() { // TextureHandler is a singleton
         list = new ArrayList<TextureNode>();
         rootPath = "";
-        list.add(new TextureNode(null, "default"));
-        list.add(new TextureNode(null, "void"));
+        boolean b = false;
+        b = list.add(new TextureNode(null, "default"));
+        assert(b);
+        b = list.add(new TextureNode(null, "void"));
+        assert(b);
     }
 
     /**
-     * returns a image from your list of image names
+     * returns a image by nickname
+     *
+     * returns default texture if nickname not found
      * @param name
      * @return
      */
@@ -72,9 +77,9 @@ public class TextureHandler {
     }
 
     /**
-     * adds texture to your list of textures
-     * @param path
-     * @param name
+     * adds texture to your list of textures, with nickname
+     * @param path image path
+     * @param name nickname
      * @return
      */
     public boolean addTexture(String path, String name){

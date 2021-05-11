@@ -2,6 +2,12 @@ package engine.Graphics;
 
 import java.awt.*;
 
+/**
+ *
+ *
+ *
+ *
+ */
 public abstract class RealTimeRenderer extends Renderer{
     public RealTimeRenderer(int innerWidth, int innerHeight) {
         super(innerWidth, innerHeight);
