@@ -1,5 +1,6 @@
 package engine;
 
+import games.TestGame.Dungeon.Inventory.Pickup;
 import org.w3c.dom.Node;
 
 import java.util.ArrayList;
@@ -192,9 +193,10 @@ public class Board implements Iterable{
      * Removes a specified tile from the board
      * @param e
      */
-    public void pickup(Entity e){
-        pickup(e.getX(), e.getY());
+    public Tile pickup(Entity e){
+        Tile t = pickup(e.getX(), e.getY());
         e.setPosition(0,0);
+        return t;
     }
 
     /**
@@ -205,7 +207,8 @@ public class Board implements Iterable{
      * @return
      */
     public boolean place(Tile tile, int x, int y){
-        if(!set(tile, x, y)) return false;
+        if(get(x,y)!=null) return false; // tile is occupied
+        if(!set(tile, x, y)) return false; // tile is out of bounds
         if(tile instanceof Entity){
             ((Entity)tile).setPosition(x,y);
             entities.add((Entity)tile);

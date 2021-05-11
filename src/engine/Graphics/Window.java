@@ -132,16 +132,17 @@ public class Window extends JFrame implements ActionListener {
      * Changes focus to view by given name, if such a view had been added.
      * @param name name of view
      */
-    public void setView(String name){
+    public boolean setView(String name){
         for (View v:views) {
             if(v.getName().equals(name)){
                 currentView = v;
                 cardLayout.show(cardPanel, name);
                 this.requestFocusInWindow();
                 draw();
-                return;
+                return true;
             }
         }
+        return false;
 
     }
 

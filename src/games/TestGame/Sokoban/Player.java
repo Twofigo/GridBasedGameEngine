@@ -13,9 +13,7 @@ public class Player extends Entity {
     }
 
     @Override
-    public void update(PuppetMaster dm, TableTop l) {
-
-    }
+    public void update(PuppetMaster dm, TableTop l) {}
 
     @Override
     public Entity clone() {

@@ -3,14 +3,11 @@ import engine.*;
 import engine.Graphics.*;
 import engine.Graphics.Window;
 import engine.tools.TextureHandler;
-import games.TestGame.Dungeon.DungeonRenderer;
-import games.TestGame.Dungeon.World.DungeonGenerator;
-import games.TestGame.Dungeon.World.Level;
 
 import java.awt.*;
 import java.awt.event.*;
 
-public class ShittyGame extends PuppetMaster{
+public class SimpleGame extends PuppetMaster{
     private static PuppetMaster p;
     private BoardView bv;
     private MenuView mv;
@@ -18,10 +15,10 @@ public class ShittyGame extends PuppetMaster{
     Tile click;
     TableTop tb;
     public static void main(String[] args) {
-        new ShittyGame();
+        new SimpleGame();
     }
 
-    public ShittyGame() {
+    public SimpleGame() {
         super();
 
         Image img1;
