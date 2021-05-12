@@ -207,7 +207,7 @@ public class Board implements Iterable{
      * @return
      */
     public boolean place(Tile tile, int x, int y){
-        if(get(x,y)!=null) return false; // tile is occupied
+        //if(get(x,y)!=null) return false; // tile is occupied
         if(!set(tile, x, y)) return false; // tile is out of bounds
         if(tile instanceof Entity){
             ((Entity)tile).setPosition(x,y);
