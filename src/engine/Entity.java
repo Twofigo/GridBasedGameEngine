@@ -1,9 +1,5 @@
 package engine;
 
-import games.TestGame.Dungeon.DungeonMaster;
-
-import java.awt.*;
-
 /**
  *  An abstract class for tiles that move
  */

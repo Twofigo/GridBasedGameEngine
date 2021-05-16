@@ -73,13 +73,13 @@ public class Dijkstra implements Iterator<Point> {
                         {0, 0, 0, 0, 0, 1},
                         {0, 0, 0, 0, 0, 1}};
         try{
-            System.out.println("mazeMatrix");
+            ;
             printMatrix(matrix);
-            System.out.println("pathMatrix");
+            ;
             int[][] result = pathfinder(matrix, 0,0,5,8);
             printMatrix(result);
             System.out.println("correct solution: "+compareMatrix(result, expected));
-            System.out.println("");
+            ;
         } catch(Exception e){
             System.out.println(e);
         }
@@ -104,13 +104,13 @@ public class Dijkstra implements Iterator<Point> {
                         {0, 0, 1, 1, 1, 1}};
         try{
 
-            System.out.println("mazeMatrix");
+            ;
             printMatrix(matrix2);
-            System.out.println("pathMatrix");
+            ;
             int[][] result = pathfinder(matrix2, 0,0,5,8);
             printMatrix(result);
             System.out.println("correct solution: "+compareMatrix(result, expected));
-            System.out.println("");
+            ;
         } catch(Exception e){
             System.out.println(e);
         }

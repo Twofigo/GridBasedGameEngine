@@ -69,7 +69,7 @@ public class SpriteRenderer extends RealTimeRenderer{
     @Override
     public void render(Graphics g){
 
-        System.out.println("");
+        ;
     }
 
 }

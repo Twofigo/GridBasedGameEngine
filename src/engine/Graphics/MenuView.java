@@ -27,7 +27,7 @@ public class MenuView extends View {
 
     @Override
     public void draw() {
-        System.out.println("MenuView");
+        ;
         buttonPanel.setLayout(new GridLayout(getButtonCount(),1,0,0));
         repaint();
     }
