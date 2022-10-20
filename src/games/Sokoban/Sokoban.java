@@ -36,7 +36,7 @@ public class Sokoban extends PuppetMaster {
         boolean b;
         TextureHandler th = TextureHandler.getInstance();
         assert (th!=null);
-        th.setRootPath("src/Texture/");
+        th.setRootPath("Texture/");
         b=th.setDefaultTexture("effect/sling_bullet0.png");
         assert(b);
         b=th.addTexture("dc-dngn/floor/bog_green0.png", "Floor1");

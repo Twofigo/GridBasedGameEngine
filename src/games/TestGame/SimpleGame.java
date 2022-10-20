@@ -26,11 +26,11 @@ public class SimpleGame extends PuppetMaster{
         Image img3;
         TextureHandler th = TextureHandler.getInstance();
         th.setRootPath("");
-        th.setDefaultTexture("src/Texture/effect/arrow2.png");
-        th.addTexture("src/Texture/dc-dngn/floor/bog_green0.png", "Floor1");
-        th.addTexture("src/Texture/dc-dngn/floor/cobble_blood1.png", "Floor2");
-        th.addTexture("src/Texture/dc-mon/deep_elf_mage.png", "Elf");
-        th.addTexture("src/Texture/spells/air/chain_lightning.png", "Pow!");
+        th.setDefaultTexture("Texture/effect/arrow2.png");
+        th.addTexture("Texture/dc-dngn/floor/bog_green0.png", "Floor1");
+        th.addTexture("Texture/dc-dngn/floor/cobble_blood1.png", "Floor2");
+        th.addTexture("Texture/dc-mon/deep_elf_mage.png", "Elf");
+        th.addTexture("Texture/spells/air/chain_lightning.png", "Pow!");
 
         Tile t1 = new Tile("Floor1");
         Tile t2 = new Tile("Floor2");

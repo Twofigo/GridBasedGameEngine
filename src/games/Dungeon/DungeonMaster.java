@@ -228,7 +228,7 @@ public class DungeonMaster extends PuppetMaster {
 
     private void loadTextures(){
         TextureHandler th = TextureHandler.getInstance();
-        th.setRootPath("src/");
+        th.setRootPath("");
         // creatures
         th.addTexture("Texture/dc-dngn/gateways/stone_stairs_down.png","stairs");
         th.setDefaultTexture("Texture/dc-misc/error.png");
