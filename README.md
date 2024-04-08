@@ -6,6 +6,10 @@ Using the "engine", we made a quick Sokoban, along with a little dungeon crawler
 # Installation instructions
 Run `src/compile.sh` with Java installed, and a jar file will be created in `src/release/`
 
+# Report
+Here is an unreasonably long report about this project if anyone wants to read it.
+[report](media/Grid_based_java_framework.pdf)
+
 # UML diagram
 ![UML diagram](media/UML_engine5.png)
 
