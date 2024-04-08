@@ -14,7 +14,7 @@ Here is an unreasonably long report about this project if anyone wants to read i
 ![UML diagram](media/UML_engine5.png)
 
 # Sample videos
-![Sample video](media/dungeon_demo.mkv)
+![Sample video](media/dungeon_demo.gif)
 
 # Sample images
 ![sample image 1](media/1.png)
