@@ -1,5 +1,5 @@
 # GridBasedGameEngine
-A small grid game framework made for an OOP class.
+I and a classmate Otto Zell built a small grid game framework for a object-oriented programming course. The course focused heavily on design patterns. 
 
 Using the "engine", we made a quick Sokoban, along with a little dungeon crawler with inventory and some unreasonably persistent enemies that follow you to the ends of the earth using Dijkstra.
 
